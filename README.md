@@ -44,9 +44,68 @@ The development setup includes automatic live reloading:
 
 ## File Structure
 
-- `src/main.js` - Your main JavaScript entry point (currently minimal with dev indicator)
+- `src/main.js` - Your main JavaScript entry point (imports and initializes features)
+- `src/features/` - Feature modules directory
+  - `index.js` - Features registry and initialization
+  - `demo-feature.js` - Example feature (adds black border to body)
 - `vite.config.js` - Configured to output IIFE format for Webflow compatibility
 - `index.html` - Development testing page
+
+## Feature Development
+
+### Creating New Features
+
+1. **Create a new feature file** in `src/features/`:
+
+   ```javascript
+   // src/features/my-feature.js
+   export function initMyFeature() {
+     console.log("🚀 My Feature: Starting...");
+     // Your feature code here
+     console.log("✅ My Feature: Complete");
+   }
+
+   export default initMyFeature;
+   ```
+
+2. **Add to features index** in `src/features/index.js`:
+
+   ```javascript
+   import initMyFeature from "./my-feature.js";
+
+   export const features = {
+     demo: initDemoFeature,
+     myFeature: initMyFeature, // Add your feature here
+   };
+   ```
+
+3. **Enable the feature** in `src/main.js`:
+   ```javascript
+   // Enable specific features
+   initFeatures(["demo", "myFeature"]);
+   ```
+
+### Feature Best Practices
+
+- **Self-contained**: Each feature should work independently
+- **Console logging**: Use clear console messages for debugging
+- **Error handling**: Wrap feature code in try/catch if needed
+- **Conditional loading**: Use feature flags for optional functionality
+
+### Demo Feature
+
+The included `demo-feature.js` adds a **5px black border** around the entire body element. This helps you:
+
+- **Test the injection**: Verify your script is loading in Webflow
+- **See live reload**: Make changes and watch them update immediately
+- **Understand structure**: See how features are organized and initialized
+
+**To disable the demo feature:**
+
+```javascript
+// In src/main.js
+initFeatures([]); // Empty array = no features
+```
 
 ## Building for Production
 
