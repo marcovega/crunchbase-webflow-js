@@ -6,13 +6,15 @@
  */
 
 import initDemoFeature from "./demo-feature.js";
+import logoSlider from "./logo-slider.js";
 
 // Export all features
-export { initDemoFeature };
+export { initDemoFeature, logoSlider };
 
 // Feature registry for easy enable/disable
 export const features = {
   demo: initDemoFeature,
+  logoSlider,
   // Add more features here as you create them
   // myFeature: initMyFeature,
 };

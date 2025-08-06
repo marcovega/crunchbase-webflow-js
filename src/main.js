@@ -5,7 +5,7 @@ import { initFeatures } from "./features/index.js";
 console.log("🚀 Crunchbase Webflow script loaded");
 
 // Initialize features (you can control which ones to load)
-initFeatures(["demo"]); // Enable demo feature
+initFeatures(["logoSlider"]); // Can add "demo" to enable demo feature.
 
 // Development indicator and live reload
 if (import.meta.env.DEV) {
