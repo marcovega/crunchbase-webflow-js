@@ -15,32 +15,32 @@ Doesn't have to be <img>, slides are simply direct children of the slider.
  * @returns {void}
  */
 const init = () => {
-	const logoSlider = document.querySelectorAll(`[data-logo-slider="true"]`);
-	const minItems = 7;
+  const logoSlider = document.querySelectorAll(`[data-logo-slider="true"]`);
+  const minItems = 7;
 
-	if (!logoSlider || logoSlider.length === 0) {
-		return;
-	}
+  if (!logoSlider || logoSlider.length === 0) {
+    return;
+  }
 
-	// If user prefers reduced motion, don't init.
-	if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-		return;
-	}
+  // If user prefers reduced motion, don't init.
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    return;
+  }
 
-	logoSlider.forEach((slider) => {
-		const items = slider.querySelectorAll(":scope > *");
+  logoSlider.forEach((slider) => {
+    const items = slider.querySelectorAll(":scope > *");
 
-		if (items.length === 0 || items.length < minItems) {
-			return;
-		}
+    if (items.length === 0 || items.length < minItems) {
+      return;
+    }
 
-		slider.setAttribute("data-logo-slider-init", "true");
-		slider.style.setProperty("--ls-items", items.length);
+    slider.setAttribute("data-logo-slider-init", "true");
+    slider.style.setProperty("--ls-items", items.length);
 
-		items.forEach((slide, index) => {
-			slide.style.setProperty("--ls-item-index", index + 1);
-		});
-	});
+    items.forEach((slide, index) => {
+      slide.style.setProperty("--ls-item-index", index + 1);
+    });
+  });
 };
 
 export default init;
