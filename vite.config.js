@@ -1,4 +1,5 @@
 import { WebSocketServer } from "ws";
+import react from "@vitejs/plugin-react";
 
 export default {
   server: {
@@ -9,18 +10,30 @@ export default {
   },
   build: {
     lib: {
-      entry: "src/main.js",
+      entry: {
+        main: "src/main.js",
+        "roi-calculator": "src/react/roi-calculator-entry.js",
+      },
       formats: ["iife"],
-      name: "CrunchbaseWebflow",
-      fileName: () => "crunchbase-webflow.js",
+      name: {
+        main: "CrunchbaseWebflow",
+        "roi-calculator": "ROICalculator",
+      },
+      fileName: (format, entryName) => {
+        if (entryName === "main") return "crunchbase-webflow.js";
+        if (entryName === "roi-calculator") return "roi-calculator.js";
+        return `${entryName}.js`;
+      },
     },
     rollupOptions: {
+      external: [],
       output: {
         globals: {},
       },
     },
   },
   plugins: [
+    react(),
     {
       name: "webflow-snippet",
       configureServer(server) {
@@ -50,9 +63,14 @@ export default {
         server.httpServer?.once("listening", () => {
           const address = server.config.server.host || "127.0.0.1";
           const port = server.config.server.port;
-          const script = `<script type="module" src="http://${address}:${port}/src/main.js"></script>`;
+          const mainScript = `<script type="module" src="http://${address}:${port}/src/main.js"></script>`;
+          const roiScript = `<script type="module" src="http://${address}:${port}/src/react/roi-calculator-entry.js"></script>`;
           console.log(
-            "\n👾 paste this in your Webflow embed:\n\n" + script + "\n"
+            "\n👾 Webflow embed scripts:\n\n📦 Vanilla JS Features:\n" +
+              mainScript +
+              "\n\n⚛️  ROI Calculator (React):\n" +
+              roiScript +
+              "\n"
           );
           console.log("🔄 Live reload enabled on ws://127.0.0.1:5174\n");
         });

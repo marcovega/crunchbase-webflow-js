@@ -1,6 +1,6 @@
 # Webflow JavaScript Development Server
 
-A Vite-powered development environment for building and live-testing JavaScript code that can be injected into Webflow sites.
+A Vite-powered development environment for building and live-testing both vanilla JavaScript and React components that can be injected into Webflow sites.
 
 ## Quick Start
 
@@ -17,20 +17,27 @@ A Vite-powered development environment for building and live-testing JavaScript 
    ```
 
 3. **Copy the embed code:**
-   When the server starts, it will display a script tag in the console like:
+   When the server starts, it will display script tags in the console for both vanilla JS and React:
 
    ```html
+   📦 Vanilla JS Features:
    <script type="module" src="http://localhost:5173/src/main.js"></script>
+
+   ⚛️ ROI Calculator (React):
+   <script
+     type="module"
+     src="http://localhost:5173/src/react/roi-calculator-entry.js"
+   ></script>
    ```
 
 4. **Paste in Webflow:**
-   Copy this script tag and paste it into a Webflow embed element on your development site.
+   Copy the appropriate script tag(s) and paste them into Webflow embed elements on your development site.
 
 ## How It Works
 
-- **Development**: The Vite dev server runs on `http://127.0.0.1:5173` with CORS enabled
-- **Live Reloading**: Changes to your JavaScript automatically trigger a full page reload in Webflow via WebSocket connection
-- **Production Build**: Run `npm run build` to generate `crunchbase-webflow.js` for production use
+- **Development**: The Vite dev server runs on `http://127.0.0.1:5173` with CORS enabled for both vanilla JS and React
+- **Live Reloading**: Changes to any JavaScript or React files automatically trigger a full page reload in Webflow via WebSocket connection
+- **Production Build**: Run `npm run build` to generate both `crunchbase-webflow.js` (vanilla JS) and `roi-calculator.js` (React) for production use
 
 ### Live Reload System
 
@@ -44,12 +51,25 @@ The development setup includes automatic live reloading:
 
 ## File Structure
 
+### Vanilla JavaScript
+
 - `src/main.js` - Your main JavaScript entry point (imports and initializes features)
 - `src/features/` - Feature modules directory
   - `index.js` - Features registry and initialization
   - `demo-feature.js` - Example feature (adds black border to body)
-- `vite.config.js` - Configured to output IIFE format for Webflow compatibility
-- `index.html` - Development testing page
+  - `logo-slider.js` - Logo slider feature
+
+### React Components
+
+- `src/react/` - React components directory
+  - `roi-calculator-entry.js` - React entry point for ROI calculator
+  - `components/` - React components
+    - `ROICalculator.jsx` - ROI calculator component
+
+### Configuration
+
+- `vite.config.js` - Configured for multiple entry points and React support
+- `index.html` - Development testing page with both vanilla JS and React demos
 
 ## Feature Development
 
@@ -113,7 +133,12 @@ initFeatures([]); // Empty array = no features
 npm run build
 ```
 
-This creates a `crunchbase-webflow.js` file in the `dist` folder that can be uploaded to Webflow as a hosted file.
+This creates **two separate files** in the `dist` folder:
+
+- `crunchbase-webflow.js` - Vanilla JS features bundle
+- `roi-calculator.js` - React ROI calculator bundle
+
+Both files can be uploaded to Webflow as hosted files and used independently or together.
 
 ## Development Workflow
 
@@ -134,6 +159,30 @@ This creates a `crunchbase-webflow.js` file in the `dist` folder that can be upl
   - 🔄 Reconnecting status (yellow = reconnecting)
   - ❌ Disconnected status (red = error)
 
+## React Development
+
+The setup includes React support for building interactive components that can be injected into Webflow:
+
+- **Separate Build**: React components build to their own injectable JavaScript files
+- **Live Reload**: React development with hot reloading during development
+- **Auto-initialization**: Components can auto-initialize when containers are found
+- **Manual Control**: Use `window.initComponentName()` for custom initialization
+
+### Basic Usage
+
+1. **Add container** to Webflow:
+
+   ```html
+   <div id="roi-calculator"></div>
+   ```
+
+2. **Inject the script**:
+   ```html
+   <script src="https://your-site.com/roi-calculator.js"></script>
+   ```
+
+The included ROI Calculator is a simple placeholder ready for your implementation.
+
 ---
 
-Perfect for developing interactive features, animations, or custom functionality for Webflow sites with modern JavaScript tooling.
+Perfect for developing interactive features, animations, React components, or custom functionality for Webflow sites with modern JavaScript and React tooling.

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -7,11 +7,63 @@
     <title>Crunchbase Webflow Dev</title>
   </head>
   <body>
-    <h1>Crunchbase Webflow Development</h1>
-    <p>
-      This page is for development testing. Copy the script tag from your
-      terminal and paste it into Webflow.
-    </p>
+    <div
+      style="
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+        font-family:
+          -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;
+      "
+    >
+      <h1 style="text-align: center; color: #1f2937; margin-bottom: 1rem">
+        Crunchbase Webflow Development
+      </h1>
+      <p style="text-align: center; color: #6b7280; margin-bottom: 3rem">
+        This page is for development testing. Copy the script tags from your
+        terminal and paste them into Webflow.
+      </p>
+
+      <div style="display: grid; gap: 3rem">
+        <!-- Vanilla JS Features Section -->
+        <section>
+          <h2 style="color: #1f2937; margin-bottom: 1rem">
+            📦 Vanilla JS Features
+          </h2>
+          <p style="color: #6b7280; margin-bottom: 1rem">
+            Features loaded from the main.js bundle (currently: logoSlider)
+          </p>
+          <div
+            style="
+              padding: 1rem;
+              background: #f8fafc;
+              border-radius: 8px;
+              border: 1px solid #e2e8f0;
+            "
+          >
+            <p>
+              Features will initialize automatically. Check console for status.
+            </p>
+          </div>
+        </section>
+
+        <!-- React ROI Calculator Section -->
+        <section>
+          <h2 style="color: #1f2937; margin-bottom: 1rem">
+            ⚛️ React ROI Calculator
+          </h2>
+          <p style="color: #6b7280; margin-bottom: 1rem">
+            React component loaded from the roi-calculator-entry.js bundle
+          </p>
+          <div id="roi-calculator">
+            <!-- ROI Calculator will be rendered here -->
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- Load both scripts -->
     <script type="module" src="/src/main.js"></script>
+    <script type="module" src="/src/react/roi-calculator-entry.js"></script>
   </body>
 </html>
