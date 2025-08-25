@@ -5,6 +5,17 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Crunchbase Webflow Dev</title>
+    <style>
+      :root {
+        --_colors---utility--color: #146aff;
+      }
+
+      /* Comparison Table Active State */
+      .comparison-table-link-active {
+        background: #146aff !important;
+        color: white !important;
+      }
+    </style>
   </head>
   <body>
     <div
@@ -57,6 +68,577 @@
           </p>
           <div id="roi-calculator">
             <!-- ROI Calculator will be rendered here -->
+          </div>
+        </section>
+
+        <!-- Quotes Slider Section -->
+        <section>
+          <h2 style="color: #1f2937; margin-bottom: 1rem">
+            🎯 Quotes Slider with Adaptive Alignment
+          </h2>
+          <p style="color: #6b7280; margin-bottom: 1rem">
+            Testing quotes slider with variable width items and adaptive
+            alignment behavior
+          </p>
+
+          <!-- Test 1: Uniform width items (410px each) -->
+          <div style="margin-bottom: 3rem">
+            <h3 style="color: #374151; margin-bottom: 1rem; font-size: 1.1rem">
+              Test 1: Uniform Width Items (410px each)
+            </h3>
+            <div
+              style="
+                max-width: 1300px;
+                margin: 0 auto;
+                border: 2px dashed #d1d5db;
+                padding: 1rem;
+              "
+            >
+              <div class="quotes-slider-container" style="gap: 40px">
+                <div
+                  class="quote-card"
+                  style="
+                    height: 200px;
+                    background: linear-gradient(
+                      135deg,
+                      #667eea 0%,
+                      #764ba2 100%
+                    );
+                    border-radius: 8px;
+                    flex-shrink: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    font-weight: bold;
+                  "
+                >
+                  Quote 1
+                </div>
+                <div
+                  class="quote-card"
+                  style="
+                    height: 200px;
+                    background: linear-gradient(
+                      135deg,
+                      #f093fb 0%,
+                      #f5576c 100%
+                    );
+                    border-radius: 8px;
+                    flex-shrink: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    font-weight: bold;
+                  "
+                >
+                  Quote 2
+                </div>
+                <div
+                  class="quote-card"
+                  style="
+                    height: 200px;
+                    background: linear-gradient(
+                      135deg,
+                      #4facfe 0%,
+                      #00f2fe 100%
+                    );
+                    border-radius: 8px;
+                    flex-shrink: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    font-weight: bold;
+                  "
+                >
+                  Quote 3
+                </div>
+                <div
+                  class="quote-card"
+                  style="
+                    height: 200px;
+                    background: linear-gradient(
+                      135deg,
+                      #43e97b 0%,
+                      #38f9d7 100%
+                    );
+                    border-radius: 8px;
+                    flex-shrink: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    font-weight: bold;
+                  "
+                >
+                  Quote 4
+                </div>
+                <div
+                  class="quote-card"
+                  style="
+                    height: 200px;
+                    background: linear-gradient(
+                      135deg,
+                      #fa709a 0%,
+                      #fee140 100%
+                    );
+                    border-radius: 8px;
+                    flex-shrink: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    font-weight: bold;
+                  "
+                >
+                  Quote 5
+                </div>
+                <div
+                  class="quote-card"
+                  style="
+                    height: 200px;
+                    background: linear-gradient(
+                      135deg,
+                      #a8edea 0%,
+                      #fed6e3 100%
+                    );
+                    border-radius: 8px;
+                    flex-shrink: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: black;
+                    font-weight: bold;
+                  "
+                >
+                  Quote 6
+                </div>
+                <div
+                  class="quote-card"
+                  style="
+                    height: 200px;
+                    background: linear-gradient(
+                      135deg,
+                      #ff9a9e 0%,
+                      #fecfef 100%
+                    );
+                    border-radius: 8px;
+                    flex-shrink: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: black;
+                    font-weight: bold;
+                  "
+                >
+                  Quote 7
+                </div>
+                <div
+                  class="quote-card"
+                  style="
+                    height: 200px;
+                    background: linear-gradient(
+                      135deg,
+                      #a18cd1 0%,
+                      #fbc2eb 100%
+                    );
+                    border-radius: 8px;
+                    flex-shrink: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: black;
+                    font-weight: bold;
+                  "
+                >
+                  Quote 8
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Test 2: Mixed width items (862px and 410px alternating) -->
+          <div style="margin-bottom: 2rem">
+            <h3 style="color: #374151; margin-bottom: 1rem; font-size: 1.1rem">
+              Test 2: Mixed Width Items (862px + 410px pattern)
+            </h3>
+            <div
+              style="
+                max-width: 1300px;
+                margin: 0 auto;
+                border: 2px dashed #d1d5db;
+                padding: 1rem;
+              "
+            >
+              <div class="quotes-slider-container" style="gap: 40px">
+                <div
+                  class="quote-card-featured"
+                  style="
+                    height: 200px;
+                    background: linear-gradient(
+                      135deg,
+                      #667eea 0%,
+                      #764ba2 100%
+                    );
+                    border-radius: 8px;
+                    flex-shrink: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    font-weight: bold;
+                  "
+                >
+                  Wide Quote 1 (862px)
+                </div>
+                <div
+                  class="quote-card"
+                  style="
+                    height: 200px;
+                    background: linear-gradient(
+                      135deg,
+                      #f093fb 0%,
+                      #f5576c 100%
+                    );
+                    border-radius: 8px;
+                    flex-shrink: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    font-weight: bold;
+                  "
+                >
+                  Quote 2 (410px)
+                </div>
+                <div
+                  class="quote-card-featured"
+                  style="
+                    height: 200px;
+                    background: linear-gradient(
+                      135deg,
+                      #4facfe 0%,
+                      #00f2fe 100%
+                    );
+                    border-radius: 8px;
+                    flex-shrink: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    font-weight: bold;
+                  "
+                >
+                  Wide Quote 3 (862px)
+                </div>
+                <div
+                  class="quote-card"
+                  style="
+                    height: 200px;
+                    background: linear-gradient(
+                      135deg,
+                      #43e97b 0%,
+                      #38f9d7 100%
+                    );
+                    border-radius: 8px;
+                    flex-shrink: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    font-weight: bold;
+                  "
+                >
+                  Quote 4 (410px)
+                </div>
+                <div
+                  class="quote-card-featured"
+                  style="
+                    height: 200px;
+                    background: linear-gradient(
+                      135deg,
+                      #fa709a 0%,
+                      #fee140 100%
+                    );
+                    border-radius: 8px;
+                    flex-shrink: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    font-weight: bold;
+                  "
+                >
+                  Wide Quote 5 (862px)
+                </div>
+                <div
+                  class="quote-card"
+                  style="
+                    height: 200px;
+                    background: linear-gradient(
+                      135deg,
+                      #a8edea 0%,
+                      #fed6e3 100%
+                    );
+                    border-radius: 8px;
+                    flex-shrink: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: black;
+                    font-weight: bold;
+                  "
+                >
+                  Quote 6 (410px)
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Star Rating Section -->
+        <section>
+          <h2 style="color: #1f2937; margin-bottom: 1rem">
+            ⭐ Star Rating System
+          </h2>
+          <p style="color: #6b7280; margin-bottom: 1rem">
+            Elements with rating-value attribute get converted to star ratings
+          </p>
+
+          <div style="display: grid; gap: 1rem; max-width: 600px">
+            <!-- Test different rating values -->
+            <div
+              style="
+                padding: 1rem;
+                background: #f8fafc;
+                border-radius: 8px;
+                border: 1px solid #e2e8f0;
+              "
+            >
+              <strong>Perfect Rating:</strong>
+              <div rating-value="5">5.0 stars</div>
+            </div>
+
+            <div
+              style="
+                padding: 1rem;
+                background: #f8fafc;
+                border-radius: 8px;
+                border: 1px solid #e2e8f0;
+              "
+            >
+              <strong>Half Star:</strong>
+              <div rating-value="4.5">4.5 out of 5</div>
+            </div>
+
+            <div
+              style="
+                padding: 1rem;
+                background: #f8fafc;
+                border-radius: 8px;
+                border: 1px solid #e2e8f0;
+              "
+            >
+              <strong>Precise Rating:</strong>
+              <div rating-value="2.3">2.3 stars (exact)</div>
+            </div>
+
+            <div
+              style="
+                padding: 1rem;
+                background: #f8fafc;
+                border-radius: 8px;
+                border: 1px solid #e2e8f0;
+              "
+            >
+              <strong>Fine Detail:</strong>
+              <div rating-value="3.7">3.7 stars (70% of 4th star)</div>
+            </div>
+
+            <div
+              style="
+                padding: 1rem;
+                background: #f8fafc;
+                border-radius: 8px;
+                border: 1px solid #e2e8f0;
+              "
+            >
+              <strong>Zero Rating:</strong>
+              <div rating-value="0">No rating yet</div>
+            </div>
+
+            <div
+              style="
+                padding: 1rem;
+                background: #f8fafc;
+                border-radius: 8px;
+                border: 1px solid #e2e8f0;
+              "
+            >
+              <strong>Out of Range:</strong>
+              <div rating-value="6.8">6.8 (should clamp to 5.0)</div>
+            </div>
+
+            <div
+              style="
+                padding: 1rem;
+                background: #f8fafc;
+                border-radius: 8px;
+                border: 1px solid #e2e8f0;
+              "
+            >
+              <strong>Decimal Precision:</strong>
+              <div rating-value="4.1">4.1 stars (10% of 5th star)</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Comparison Table Toggler Section -->
+        <section>
+          <h2 style="color: #1f2937; margin-bottom: 1rem">
+            📊 Comparison Table Toggler
+          </h2>
+          <p style="color: #6b7280; margin-bottom: 1rem">
+            Toggle between first column and last column views in comparison
+            tables
+          </p>
+
+          <div
+            class="comparison-table-container"
+            style="
+              max-width: 800px;
+              border: 2px dashed #d1d5db;
+              padding: 2rem;
+              border-radius: 8px;
+            "
+          >
+            <!-- Toggle Buttons -->
+            <div style="margin-bottom: 2rem; display: flex; gap: 1rem">
+              <button
+                data-cmp-table-trigger="first-column"
+                style="
+                  padding: 0.5rem 1rem;
+                  border: 2px solid #146aff;
+                  background: white;
+                  border-radius: 4px;
+                  cursor: pointer;
+                  font-weight: bold;
+                "
+              >
+                First Column View
+              </button>
+              <button
+                data-cmp-table-trigger="last-column"
+                style="
+                  padding: 0.5rem 1rem;
+                  border: 2px solid #146aff;
+                  background: white;
+                  border-radius: 4px;
+                  cursor: pointer;
+                  font-weight: bold;
+                "
+              >
+                Last Column View
+              </button>
+            </div>
+
+            <!-- Table Header -->
+            <div
+              style="
+                margin-bottom: 1rem;
+                font-weight: bold;
+                padding: 0.75rem;
+                background: #f8fafc;
+                border-radius: 4px;
+              "
+            >
+              Comparison Table Header
+            </div>
+
+            <!-- First Column Rows -->
+            <div
+              class="cmp-table-row cmp-table-row-first"
+              style="
+                padding: 0.75rem;
+                margin-bottom: 0.5rem;
+                background: #e3f2fd;
+                border-radius: 4px;
+              "
+            >
+              ✅ First Column Feature A
+            </div>
+            <div
+              class="cmp-table-row cmp-table-row-first"
+              style="
+                padding: 0.75rem;
+                margin-bottom: 0.5rem;
+                background: #e3f2fd;
+                border-radius: 4px;
+              "
+            >
+              ✅ First Column Feature B
+            </div>
+            <div
+              class="cmp-table-row cmp-table-row-first"
+              style="
+                padding: 0.75rem;
+                margin-bottom: 0.5rem;
+                background: #e3f2fd;
+                border-radius: 4px;
+              "
+            >
+              ✅ First Column Feature C
+            </div>
+
+            <!-- Last Column Rows -->
+            <div
+              class="cmp-table-row cmp-table-column-last"
+              style="
+                padding: 0.75rem;
+                margin-bottom: 0.5rem;
+                background: #f3e5f5;
+                border-radius: 4px;
+              "
+            >
+              🔥 Last Column Feature X
+            </div>
+            <div
+              class="cmp-table-row cmp-table-column-last"
+              style="
+                padding: 0.75rem;
+                margin-bottom: 0.5rem;
+                background: #f3e5f5;
+                border-radius: 4px;
+              "
+            >
+              🔥 Last Column Feature Y
+            </div>
+            <div
+              class="cmp-table-row cmp-table-column-last"
+              style="
+                padding: 0.75rem;
+                margin-bottom: 0.5rem;
+                background: #f3e5f5;
+                border-radius: 4px;
+              "
+            >
+              🔥 Last Column Feature Z
+            </div>
+
+            <div
+              style="
+                margin-top: 1rem;
+                padding: 0.5rem;
+                background: #fef3c7;
+                border-radius: 4px;
+                font-size: 0.9rem;
+              "
+            >
+              💡 Note: Click the buttons above to toggle between column views.
+              First column is active by default.
+            </div>
           </div>
         </section>
       </div>
