@@ -7,14 +7,26 @@
 
 import initDemoFeature from "./demo-feature.js";
 import logoSlider from "./logo-slider.js";
+import initQuotesSlider from "./quotes-slider.js";
+import initStarRating from "./star-rating.js";
+import initComparisonTableToggler from "./comparison-table-toggler.js";
 
 // Export all features
-export { initDemoFeature, logoSlider };
+export {
+  initDemoFeature,
+  logoSlider,
+  initQuotesSlider,
+  initStarRating,
+  initComparisonTableToggler,
+};
 
 // Feature registry for easy enable/disable
 export const features = {
   demo: initDemoFeature,
   logoSlider,
+  quotesSlider: initQuotesSlider,
+  starRating: initStarRating,
+  comparisonTableToggler: initComparisonTableToggler,
   // Add more features here as you create them
   // myFeature: initMyFeature,
 };
