@@ -14,7 +14,7 @@ export default {
         main: "src/main.js",
         "roi-calculator": "src/react/roi-calculator-entry.js",
       },
-      formats: ["iife"],
+      formats: ["es"],
       name: {
         main: "CrunchbaseWebflow",
         "roi-calculator": "ROICalculator",

@@ -11,6 +11,9 @@ export function initComparisonTableToggler() {
     }
 
     init() {
+      console.log(
+        `🔀 Comparison Table Toggler: Initialized and listening for clicks`
+      );
       this.bindEvents();
     }
 

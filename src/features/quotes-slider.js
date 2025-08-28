@@ -80,21 +80,32 @@ export function initQuotesSlider() {
       const computedStyle = getComputedStyle(this.container);
       this.gap = parseInt(computedStyle.gap) || 0;
 
+      // Check if we're on tablet or below (991px and below)
+      const isTabletOrBelow = window.matchMedia("(max-width: 991px)").matches;
+
       // Calculate individual quote widths and positions
       let currentPosition = 0;
       this.quoteData = this.quotes.map((quote, index) => {
-        // Determine width based on CSS classes
+        // Determine width based on screen size and CSS classes
         let width;
-        if (quote.classList.contains("quote-card-featured")) {
-          width = 862;
-          quote.style.width = "862px"; // Force the width
-        } else if (quote.classList.contains("quote-card")) {
-          width = 410;
-          quote.style.width = "410px"; // Force the width
+
+        if (isTabletOrBelow) {
+          // On tablet and below, force all cards to be container width
+          width = this.containerWidth;
+          quote.style.width = `${this.containerWidth}px`;
         } else {
-          // Fallback to actual width if no class matches
-          const rect = quote.getBoundingClientRect();
-          width = rect.width;
+          // On desktop, use original logic
+          if (quote.classList.contains("quote-card-featured")) {
+            width = 862;
+            quote.style.width = "862px"; // Force the width
+          } else if (quote.classList.contains("quote-card")) {
+            width = 410;
+            quote.style.width = "410px"; // Force the width
+          } else {
+            // Fallback to actual width if no class matches
+            const rect = quote.getBoundingClientRect();
+            width = rect.width;
+          }
         }
 
         const data = {
@@ -113,6 +124,9 @@ export function initQuotesSlider() {
     }
 
     createNavigation() {
+      // Check if we're on tablet or below (991px and below)
+      const isTabletOrBelow = window.matchMedia("(max-width: 991px)").matches;
+
       // Create navigation container
       this.navContainer = document.createElement("div");
       this.navContainer.className = "quotes-slider-nav";
@@ -121,7 +135,7 @@ export function initQuotesSlider() {
         align-items: center;
         gap: 10px;
         margin-top: 30px;
-        justify-content: flex-start;
+        justify-content: ${isTabletOrBelow ? "center" : "flex-start"};
       `;
 
       // Create previous button
@@ -156,33 +170,40 @@ export function initQuotesSlider() {
       `;
       this.nextBtn.style.cssText = this.prevBtn.style.cssText;
 
-      // Create progress bar container
-      this.progressContainer = document.createElement("div");
-      this.progressContainer.className = "quotes-slider-progress";
-      this.progressContainer.style.cssText = `
-        flex: 1;
-        height: 4px;
-        background: #E4EAEF;
-        border-radius: 1px;
-        overflow: hidden;
-        margin-left: 35px;
-      `;
+      // Create progress bar container (only on desktop)
+      if (!isTabletOrBelow) {
+        this.progressContainer = document.createElement("div");
+        this.progressContainer.className = "quotes-slider-progress";
+        this.progressContainer.style.cssText = `
+          flex: 1;
+          height: 4px;
+          background: #E4EAEF;
+          border-radius: 1px;
+          overflow: hidden;
+          margin-left: 35px;
+        `;
 
-      // Create progress bar fill
-      this.progressFill = document.createElement("div");
-      this.progressFill.className = "quotes-slider-progress-fill";
-      this.progressFill.style.cssText = `
-        height: 100%;
-        background: #146AFF;
-        border-radius: 1px;
-        transition: width ${this.animationDuration} ${this.animationEasing};
-        width: 0%;
-      `;
+        // Create progress bar fill
+        this.progressFill = document.createElement("div");
+        this.progressFill.className = "quotes-slider-progress-fill";
+        this.progressFill.style.cssText = `
+          height: 100%;
+          background: #146AFF;
+          border-radius: 1px;
+          transition: width ${this.animationDuration} ${this.animationEasing};
+          width: 0%;
+        `;
 
-      this.progressContainer.appendChild(this.progressFill);
+        this.progressContainer.appendChild(this.progressFill);
+      }
+
       this.navContainer.appendChild(this.prevBtn);
       this.navContainer.appendChild(this.nextBtn);
-      this.navContainer.appendChild(this.progressContainer);
+
+      // Only add progress container on desktop
+      if (!isTabletOrBelow && this.progressContainer) {
+        this.navContainer.appendChild(this.progressContainer);
+      }
 
       // Insert navigation after the container
       this.container.parentNode.insertBefore(
@@ -222,7 +243,23 @@ export function initQuotesSlider() {
     }
 
     handleResize() {
+      // Check if screen size category changed (desktop vs tablet)
+      const wasTabletOrBelow =
+        this.navContainer.style.justifyContent === "center";
+      const isTabletOrBelow = window.matchMedia("(max-width: 991px)").matches;
+
       this.calculateDimensions();
+
+      // If screen size category changed, recreate navigation
+      if (wasTabletOrBelow !== isTabletOrBelow) {
+        // Remove existing navigation
+        if (this.navContainer && this.navContainer.parentNode) {
+          this.navContainer.parentNode.removeChild(this.navContainer);
+        }
+        // Recreate navigation with new responsive settings
+        this.createNavigation();
+      }
+
       this.updateNavigationState();
       this.updateProgress();
     }
@@ -471,6 +508,9 @@ export function initQuotesSlider() {
     }
 
     updateProgress() {
+      // Only update progress if progress bar exists (desktop only)
+      if (!this.progressFill) return;
+
       // Calculate progress based on current quote index vs total quotes
       // This gives more predictable and smooth progress indication
       const progress =
@@ -502,6 +542,8 @@ export function initQuotesSlider() {
   // Find all quote slider containers and initialize them
   const containers = document.querySelectorAll(".quotes-slider-container");
   const sliders = [];
+
+  console.log(`📊 Quotes Slider: Found ${containers.length} containers`);
 
   containers.forEach((container) => {
     const slider = new QuotesSlider(container);
