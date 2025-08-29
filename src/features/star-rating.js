@@ -17,6 +17,8 @@ export function initStarRating() {
     processRatingElements() {
       const ratingElements = document.querySelectorAll("[rating-value]");
 
+      console.log(`⭐ Star Rating: Found ${ratingElements.length} elements`);
+
       ratingElements.forEach((element, index) => {
         const rawValue = element.getAttribute("rating-value");
         const rating = this.snapToNearestTenth(parseFloat(rawValue) || 0);
