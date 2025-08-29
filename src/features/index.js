@@ -10,6 +10,8 @@ import logoSlider from "./logo-slider.js";
 import initQuotesSlider from "./quotes-slider.js";
 import initStarRating from "./star-rating.js";
 import initComparisonTableToggler from "./comparison-table-toggler.js";
+import initTabsSelect from "./tabs-select.js";
+import initTabbedCards from "./tabbed-cards.js";
 
 // Export all features
 export {
@@ -18,6 +20,8 @@ export {
   initQuotesSlider,
   initStarRating,
   initComparisonTableToggler,
+  initTabsSelect,
+  initTabbedCards,
 };
 
 // Feature registry for easy enable/disable
@@ -27,6 +31,8 @@ export const features = {
   quotesSlider: initQuotesSlider,
   starRating: initStarRating,
   comparisonTableToggler: initComparisonTableToggler,
+  tabsSelect: initTabsSelect,
+  tabbedCards: initTabbedCards,
   // Add more features here as you create them
   // myFeature: initMyFeature,
 };

@@ -10,6 +10,8 @@ initFeatures([
   "quotesSlider",
   "starRating",
   "comparisonTableToggler",
+  "tabsSelect",
+  "tabbedCards", // RE-ENABLED with safer implementation
 ]); // Can add "demo" to enable demo feature.
 
 // Development indicator and live reload
