@@ -14,6 +14,9 @@ export default {
     origin: "http://127.0.0.1:5173",
     strictPort: true,
   },
+  define: {
+    "process.env.NODE_ENV": '"production"',
+  },
   build: {
     lib: {
       entry: {
