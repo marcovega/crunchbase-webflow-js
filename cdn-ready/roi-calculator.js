@@ -1903,7 +1903,7 @@ function an(e = "#roi-calculator") {
       );
       return;
     }
-    return console.log(`✅ ROI Calculator: Found container "${e}"`), En(ka(), t), console.log("✅ ROI Calculator: Component rendered successfully"), t;
+    return console.log(`✅ ROI Calculator: Found container "${e}"`), En(D(ka), t), console.log("✅ ROI Calculator: Component rendered successfully"), t;
   } catch (t) {
     console.error("❌ ROI Calculator: Error during initialization:", t);
   }

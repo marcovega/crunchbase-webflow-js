@@ -1,4 +1,4 @@
-import { render } from "preact";
+import { render, h } from "preact";
 import ROICalculator from "./components/ROICalculator.jsx";
 
 // Live reload functionality for development
@@ -87,7 +87,7 @@ function initROICalculator(targetSelector = "#roi-calculator") {
     console.log(`✅ ROI Calculator: Found container "${targetSelector}"`);
 
     // Render the Preact component
-    render(ROICalculator(), container);
+    render(h(ROICalculator), container);
 
     console.log("✅ ROI Calculator: Component rendered successfully");
 
