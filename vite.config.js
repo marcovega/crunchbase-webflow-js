@@ -2,6 +2,12 @@ import { WebSocketServer } from "ws";
 import react from "@vitejs/plugin-react";
 
 export default {
+  resolve: {
+    alias: {
+      react: "preact/compat",
+      "react-dom": "preact/compat",
+    },
+  },
   server: {
     host: "127.0.0.1",
     cors: true,

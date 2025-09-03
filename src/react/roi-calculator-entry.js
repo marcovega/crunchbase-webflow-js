@@ -1,5 +1,4 @@
-import React from "react";
-import { createRoot } from "react-dom/client";
+import { render } from "preact";
 import ROICalculator from "./components/ROICalculator.jsx";
 
 // Live reload functionality for development
@@ -87,13 +86,12 @@ function initROICalculator(targetSelector = "#roi-calculator") {
 
     console.log(`✅ ROI Calculator: Found container "${targetSelector}"`);
 
-    // Create React root and render the component
-    const root = createRoot(container);
-    root.render(React.createElement(ROICalculator));
+    // Render the Preact component
+    render(ROICalculator(), container);
 
     console.log("✅ ROI Calculator: Component rendered successfully");
 
-    return root;
+    return container;
   } catch (error) {
     console.error("❌ ROI Calculator: Error during initialization:", error);
   }

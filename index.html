@@ -5,53 +5,47 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Crunchbase Webflow Dev</title>
-    <style>
-      :root {
-        --_colors---utility--color: #146aff;
-      }
-
-      /* Comparison Table Active State */
-      .comparison-table-link-active {
-        background: #146aff !important;
-        color: white !important;
-      }
-    </style>
+    <link rel="stylesheet" href="/test-styles.css" />
   </head>
   <body>
-    <div
-      style="
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 2rem;
-        font-family:
-          -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;
-      "
-    >
-      <h1 style="text-align: center; color: #1f2937; margin-bottom: 1rem">
-        Crunchbase Webflow Development
-      </h1>
-      <p style="text-align: center; color: #6b7280; margin-bottom: 3rem">
+    <div class="test-page-container">
+      <h1 class="test-page-header">Crunchbase Webflow Development</h1>
+      <p class="test-page-description">
         This page is for development testing. Copy the script tags from your
         terminal and paste them into Webflow.
       </p>
 
-      <div style="display: grid; gap: 3rem">
+      <!-- Webflow Styles Input Section -->
+      <div class="webflow-styles-loader">
+        <h2 class="webflow-styles-title">🎨 Webflow Styles Loader</h2>
+        <p class="webflow-styles-description">
+          Paste your Webflow CSS URI below to apply real styles and check for
+          conflicts
+        </p>
+
+        <div class="webflow-styles-controls">
+          <input
+            type="url"
+            id="webflow-css-uri"
+            placeholder="https://assets-global.website-files.com/your-site-id/your-css-file.css"
+          />
+
+          <button id="load-webflow-styles">Load Styles</button>
+
+          <button id="clear-webflow-styles">Clear Styles</button>
+        </div>
+
+        <div id="webflow-status">Ready to load Webflow styles</div>
+      </div>
+
+      <div class="test-sections-grid">
         <!-- Vanilla JS Features Section -->
         <section>
-          <h2 style="color: #1f2937; margin-bottom: 1rem">
-            📦 Vanilla JS Features
-          </h2>
-          <p style="color: #6b7280; margin-bottom: 1rem">
+          <h2 class="section-title">📦 Vanilla JS Features</h2>
+          <p class="section-description">
             Features loaded from the main.js bundle (currently: logoSlider)
           </p>
-          <div
-            style="
-              padding: 1rem;
-              background: #f8fafc;
-              border-radius: 8px;
-              border: 1px solid #e2e8f0;
-            "
-          >
+          <div class="feature-card">
             <p>
               Features will initialize automatically. Check console for status.
             </p>
@@ -60,30 +54,102 @@
 
         <!-- React ROI Calculator Section -->
         <section>
-          <h2 style="color: #1f2937; margin-bottom: 1rem">
-            ⚛️ React ROI Calculator
-          </h2>
-          <p style="color: #6b7280; margin-bottom: 1rem">
+          <h2 class="section-title">⚛️ React ROI Calculator</h2>
+          <p class="section-description">
             React component loaded from the roi-calculator-entry.js bundle
           </p>
-          <div id="roi-calculator">
-            <!-- ROI Calculator will be rendered here -->
+          <div class="roi">
+            <div class="roi-wrapper">
+              <div id="roi-calculator" class="roi-card">
+                <div class="roi-form">
+                  <div class="roi-field">
+                    <div class="roi-field-title">Opportunity win rate</div>
+                    <div class="roi-field-skeleton"></div>
+                  </div>
+                  <div class="roi-field">
+                    <div class="roi-field-title">Average deal size</div>
+                    <div class="roi-field-skeleton"></div>
+                  </div>
+                  <div class="roi-field">
+                    <div class="roi-field-title">
+                      What company sizes do you sell to?
+                    </div>
+                    <div class="roi-field-skeleton"></div>
+                  </div>
+                  <div class="roi-field">
+                    <div class="roi-field-title">
+                      What territories do you sell to?
+                    </div>
+                    <div class="roi-field-skeleton"></div>
+                  </div>
+                  <div class="roi-field">
+                    <div class="roi-field-title">
+                      What industries do you sell to?
+                    </div>
+                    <div class="roi-field-skeleton"></div>
+                  </div>
+                  <div class="roi-field">
+                    <a href="#" class="roi-submit w-button">Calculate</a>
+                  </div>
+                </div>
+                <div class="roi-results">
+                  <div class="roi-stats">
+                    <div class="roi-stats-number">—</div>
+                    <div class="roi-stats-title">
+                      Total accounts in your market in Crunchbase
+                    </div>
+                  </div>
+                  <div class="roi-stats-group">
+                    <div class="roi-stats-group-item">
+                      <div class="roi-item-title">
+                        Accounts with funding in the last 6 months
+                      </div>
+                      <div class="roi-item-value">—</div>
+                    </div>
+                    <div class="roi-stats-group-item">
+                      <div class="roi-item-title">
+                        Accounts with funding in the last 6 months
+                      </div>
+                      <div class="roi-item-value">—</div>
+                    </div>
+                  </div>
+                  <div class="roi-stats">
+                    <div class="roi-stats-number">—</div>
+                    <div class="roi-stats-title">
+                      Potential additional revenue
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="roi-disclaimer">
+                <div class="text-block-5">
+                  The figures generated by the ROI Calculator are estimates
+                  based on the most current data available and are subject to
+                  change at any time. Crunchbase cannot and does not represent
+                  or warrant the accuracy of the ROI Calculator, the Service
+                  and/or Content in general and cannot and does not guarantee
+                  any results or outcome based on use of the ROI Calculator, the
+                  Service and/or Content in general. All use of the Service
+                  and/or Content is subject to our Terms of Service.
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
         <!-- Quotes Slider Section -->
         <section>
-          <h2 style="color: #1f2937; margin-bottom: 1rem">
+          <h2 class="section-title">
             🎯 Quotes Slider with Adaptive Alignment
           </h2>
-          <p style="color: #6b7280; margin-bottom: 1rem">
+          <p class="section-description">
             Testing quotes slider with variable width items and adaptive
             alignment behavior
           </p>
 
           <!-- Test 1: Uniform width items (410px each) -->
-          <div style="margin-bottom: 3rem">
-            <h3 style="color: #374151; margin-bottom: 1rem; font-size: 1.1rem">
+          <div class="test-subsection">
+            <h3 class="test-subsection-title">
               Test 1: Uniform Width Items (410px each)
             </h3>
             <div
@@ -260,8 +326,8 @@
           </div>
 
           <!-- Test 2: Mixed width items (862px and 410px alternating) -->
-          <div style="margin-bottom: 2rem">
-            <h3 style="color: #374151; margin-bottom: 1rem; font-size: 1.1rem">
+          <div class="test-subsection">
+            <h3 class="test-subsection-title">
               Test 2: Mixed Width Items (862px + 410px pattern)
             </h3>
             <div
@@ -400,14 +466,12 @@
 
         <!-- Star Rating Section -->
         <section>
-          <h2 style="color: #1f2937; margin-bottom: 1rem">
-            ⭐ Star Rating System
-          </h2>
-          <p style="color: #6b7280; margin-bottom: 1rem">
+          <h2 class="section-title">⭐ Star Rating System</h2>
+          <p class="section-description">
             Elements with rating-value attribute get converted to star ratings
           </p>
 
-          <div style="display: grid; gap: 1rem; max-width: 600px">
+          <div class="rating-test-grid">
             <!-- Test different rating values -->
             <div
               style="
@@ -497,10 +561,8 @@
 
         <!-- Comparison Table Toggler Section -->
         <section>
-          <h2 style="color: #1f2937; margin-bottom: 1rem">
-            📊 Comparison Table Toggler
-          </h2>
-          <p style="color: #6b7280; margin-bottom: 1rem">
+          <h2 class="section-title">📊 Comparison Table Toggler</h2>
+          <p class="section-description">
             Toggle between first column and last column views in comparison
             tables
           </p>
@@ -643,6 +705,92 @@
         </section>
       </div>
     </div>
+
+    <!-- Webflow Styles Loader Script -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const cssUriInput = document.getElementById("webflow-css-uri");
+        const loadButton = document.getElementById("load-webflow-styles");
+        const clearButton = document.getElementById("clear-webflow-styles");
+        const statusDiv = document.getElementById("webflow-status");
+
+        let currentWebflowLink = null;
+
+        function updateStatus(message, type = "info") {
+          const colors = {
+            success: "#10b981",
+            error: "#ef4444",
+            info: "rgba(255,255,255,0.9)",
+            warning: "#f59e0b",
+          };
+          statusDiv.textContent = message;
+          statusDiv.style.color = colors[type] || colors.info;
+        }
+
+        loadButton.addEventListener("click", function () {
+          const cssUri = cssUriInput.value.trim();
+
+          if (!cssUri) {
+            updateStatus("Please enter a CSS URI", "error");
+            return;
+          }
+
+          // Remove existing Webflow link if present
+          if (currentWebflowLink) {
+            currentWebflowLink.remove();
+          }
+
+          try {
+            // Create new link element
+            const link = document.createElement("link");
+            link.rel = "stylesheet";
+            link.href = cssUri;
+            link.id = "webflow-dynamic-styles";
+
+            // Add to head
+            document.head.appendChild(link);
+            currentWebflowLink = link;
+
+            updateStatus("✅ Webflow styles loaded successfully!", "success");
+            console.log("🎨 Webflow styles loaded:", cssUri);
+          } catch (error) {
+            updateStatus("❌ Failed to load styles: " + error.message, "error");
+            console.error("Failed to load Webflow styles:", error);
+          }
+        });
+
+        clearButton.addEventListener("click", function () {
+          if (currentWebflowLink) {
+            currentWebflowLink.remove();
+            currentWebflowLink = null;
+            cssUriInput.value = "";
+            updateStatus("🧹 Webflow styles cleared", "info");
+            console.log("🧹 Webflow styles cleared");
+          } else {
+            updateStatus("No styles to clear", "warning");
+          }
+        });
+
+        // Allow loading on Enter key press
+        cssUriInput.addEventListener("keypress", function (e) {
+          if (e.key === "Enter") {
+            loadButton.click();
+          }
+        });
+
+        // Auto-save URI to localStorage
+        cssUriInput.addEventListener("input", function () {
+          localStorage.setItem("webflow-css-uri", this.value);
+        });
+
+        // Load saved URI on page load
+        const savedUri = localStorage.getItem("webflow-css-uri");
+        if (savedUri) {
+          cssUriInput.value = savedUri;
+          updateStatus("💾 Loaded saved CSS URI from previous session", "info");
+        }
+      });
+    </script>
 
     <!-- Load both scripts -->
     <script type="module" src="/src/main.js"></script>
