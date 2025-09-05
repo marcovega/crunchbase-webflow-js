@@ -1,17 +1,17 @@
-function y() {
+function v() {
   console.log("🎨 Demo Feature: Adding black border to body"), document.body.style.border = "5px solid navy", document.body.style.margin = "0", document.body.style.boxSizing = "border-box", console.log("✅ Demo Feature: Black border applied");
 }
-const v = () => {
-  const r = document.querySelectorAll('[data-logo-slider="true"]'), o = 7;
-  !r || r.length === 0 || window.matchMedia("(prefers-reduced-motion: reduce)").matches || r.forEach((e) => {
+const x = () => {
+  const o = document.querySelectorAll('[data-logo-slider="true"]'), r = 7;
+  !o || o.length === 0 || window.matchMedia("(prefers-reduced-motion: reduce)").matches || o.forEach((e) => {
     const i = e.querySelectorAll(":scope > *");
-    i.length === 0 || i.length < o || (e.setAttribute("data-logo-slider-init", "true"), e.style.setProperty("--ls-items", i.length), i.forEach((t, s) => {
+    i.length === 0 || i.length < r || (e.setAttribute("data-logo-slider-init", "true"), e.style.setProperty("--ls-items", i.length), i.forEach((t, s) => {
       t.style.setProperty("--ls-item-index", s + 1);
     }));
   });
 };
-function x() {
-  class r {
+function S() {
+  class o {
     constructor(t) {
       this.container = t, this.currentIndex = 0, this.quotes = [], this.totalQuotes = 0, this.containerWidth = 0, this.isAnimating = !1, this.resizeTimeout = null, this.animationDuration = this.getCSSVariable(
         "--quotes-slider-duration",
@@ -237,14 +237,14 @@ function x() {
       this.navContainer.style.display = "flex", this.container.style.overflowX = "auto";
     }
   }
-  const o = document.querySelectorAll(".quotes-slider-container"), e = [];
-  return console.log(`📊 Quotes Slider: Found ${o.length} containers`), o.forEach((i) => {
-    const t = new r(i);
+  const r = document.querySelectorAll(".quotes-slider-container"), e = [];
+  return console.log(`📊 Quotes Slider: Found ${r.length} containers`), r.forEach((i) => {
+    const t = new o(i);
     t.shouldEnable() || t.disable(), e.push(t);
   }), window.quotesSliders = e, e;
 }
-function S() {
-  class r {
+function A() {
+  class o {
     constructor() {
       this.init();
     }
@@ -335,10 +335,10 @@ function S() {
       }
     }
   }
-  new r();
+  new o();
 }
-function A() {
-  class r {
+function C() {
+  class o {
     constructor() {
       this.init();
     }
@@ -394,13 +394,13 @@ function A() {
       });
     }
   }
-  new r();
+  new o();
 }
-function C() {
-  const r = document.querySelectorAll(".tabs.w-tabs");
-  r.length !== 0 && (console.log(`📱 Tabs Select: Found ${r.length} tab containers`), r.forEach((o) => {
-    const e = o.querySelectorAll(".tab-link");
-    if (e.length === 0 || o.querySelector(".tabs-select"))
+function E() {
+  const o = document.querySelectorAll(".tabs.w-tabs");
+  o.length !== 0 && (console.log(`📱 Tabs Select: Found ${o.length} tab containers`), o.forEach((r) => {
+    const e = r.querySelectorAll(".tab-link");
+    if (e.length === 0 || r.querySelector(".tabs-select"))
       return;
     const i = document.createElement("select");
     i.className = "tabs-select";
@@ -411,13 +411,13 @@ function C() {
     }), i.addEventListener("change", function() {
       const s = parseInt(this.value);
       !isNaN(s) && e[s] && e[s].click();
-    }), o.insertBefore(i, o.firstChild);
-  }), E(), console.log("✅ Tabs Select: Mobile tab selectors initialized"));
+    }), r.insertBefore(i, r.firstChild);
+  }), k(), console.log("✅ Tabs Select: Mobile tab selectors initialized"));
 }
-function E() {
+function k() {
   if (document.getElementById("tabs-select-styles")) return;
-  const r = document.createElement("style");
-  r.id = "tabs-select-styles", r.textContent = `
+  const o = document.createElement("style");
+  o.id = "tabs-select-styles", o.textContent = `
     .tabs-select {
       width: 100%;
       padding: 12px 16px;
@@ -461,39 +461,39 @@ function E() {
         display: block !important;
       }
     }
-  `, document.head.appendChild(r);
+  `, document.head.appendChild(o);
 }
-function k() {
+function T() {
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", b) : b();
 }
 function b() {
-  const r = document.querySelectorAll(".tabbed-cards");
-  r.length !== 0 && (console.log(
-    `🎴 Tabbed Cards: Found ${r.length} containers`
-  ), r.forEach((o) => {
-    T(o);
+  const o = document.querySelectorAll(".tabbed-cards");
+  o.length !== 0 && (console.log(
+    `🎴 Tabbed Cards: Found ${o.length} containers`
+  ), o.forEach((r) => {
+    q(r);
   }), console.log("✅ Tabbed Cards: All containers initialized"));
 }
-function T(r) {
-  const o = r.querySelector(".tabbed-cards-image"), e = r.querySelectorAll(".tabbed-card.w-dropdown");
-  !o || e.length === 0 || (q(e), F(e, o), e.forEach((i, t) => {
-    L(i, t, r, o);
-  }), B(e, o), I());
+function q(o) {
+  const r = o.querySelector(".tabbed-cards-image"), e = o.querySelectorAll(".tabbed-card.w-dropdown");
+  !r || e.length === 0 || (F(e), L(e, r), e.forEach((i, t) => {
+    I(i, t, o, r);
+  }), N(e, r), B());
 }
-function q(r) {
-  r.forEach((o, e) => {
-    const t = o.querySelector(".tabbed-card-image-wrapper")?.querySelector("img");
+function F(o) {
+  o.forEach((r, e) => {
+    const t = r.querySelector(".tabbed-card-image-wrapper")?.querySelector("img");
     if (!t) return;
     const s = document.createElement("div");
     s.className = "tabbed-card-mobile-image", s.dataset.cardIndex = e;
     const n = t.cloneNode(!0);
-    s.appendChild(n), o.parentNode.insertBefore(s, o.nextSibling);
+    s.appendChild(n), r.parentNode.insertBefore(s, r.nextSibling);
   });
 }
-function F(r, o) {
-  o.innerHTML = "";
+function L(o, r) {
+  r.innerHTML = "";
   const e = document.createElement("img");
-  e.style.width = "100%", e.style.height = "auto", e.style.display = "block", e.style.transition = "opacity 0.2s ease", e.className = "tabbed-card-main-image", o.appendChild(e), r.forEach((i) => {
+  e.style.width = "100%", e.style.height = "auto", e.style.display = "block", e.style.transition = "opacity 0.2s ease", e.className = "tabbed-card-main-image", r.appendChild(e), o.forEach((i) => {
     const t = i.querySelector(".tabbed-card-image-wrapper img");
     if (t?.src) {
       const s = new Image();
@@ -501,25 +501,25 @@ function F(r, o) {
     }
   });
 }
-function L(r, o, e, i) {
-  const t = r.querySelector(".tabbed-card-toggler");
+function I(o, r, e, i) {
+  const t = o.querySelector(".tabbed-card-toggler");
   if (!t) return;
   t.addEventListener("click", () => {
-    t.getAttribute("aria-expanded") === "true" || (M(r, e), setTimeout(() => {
-      m(o, i), p(o, e);
+    t.getAttribute("aria-expanded") === "true" || (M(o, e), setTimeout(() => {
+      m(r, i), p(r, e);
     }, 100));
   }), new MutationObserver((n) => {
     n.forEach((a) => {
-      a.attributeName === "aria-expanded" && t.getAttribute("aria-expanded") === "true" && (m(o, i), p(o, e));
+      a.attributeName === "aria-expanded" && t.getAttribute("aria-expanded") === "true" && (m(r, i), p(r, e));
     });
   }).observe(t, {
     attributes: !0,
     attributeFilter: ["aria-expanded"]
   });
 }
-function M(r, o) {
-  o.querySelectorAll(".tabbed-card.w-dropdown").forEach((i) => {
-    if (i !== r) {
+function M(o, r) {
+  r.querySelectorAll(".tabbed-card.w-dropdown").forEach((i) => {
+    if (i !== o) {
       const t = i.querySelector(".tabbed-card-toggler");
       t && t.getAttribute("aria-expanded") === "true" && (t.click(), setTimeout(() => {
         if (t.getAttribute("aria-expanded") === "true") {
@@ -531,31 +531,31 @@ function M(r, o) {
     }
   });
 }
-function m(r, o) {
-  const e = o.querySelector(".tabbed-card-main-image");
+function m(o, r) {
+  const e = r.querySelector(".tabbed-card-main-image");
   if (!e) return;
-  const t = o.closest(".tabbed-cards").querySelectorAll(".tabbed-card.w-dropdown")[r];
+  const t = r.closest(".tabbed-cards").querySelectorAll(".tabbed-card.w-dropdown")[o];
   if (!t) return;
   const s = t.querySelector(".tabbed-card-image-wrapper img");
   s && e.src !== s.src && (e.style.opacity = "0.5", e.src = s.src, e.alt = s.alt || "", e.onload = () => {
     e.style.opacity = "1";
   });
 }
-function p(r, o) {
-  o.querySelectorAll(
+function p(o, r) {
+  r.querySelectorAll(
     ".tabbed-card-mobile-image"
   ).forEach((t) => {
     t.style.display = "none";
   });
-  const i = o.querySelector(
-    `[data-card-index="${r}"]`
+  const i = r.querySelector(
+    `[data-card-index="${o}"]`
   );
   i && (i.style.display = "block");
 }
-function I() {
+function B() {
   if (document.getElementById("tabbed-cards-mobile-styles")) return;
-  const r = document.createElement("style");
-  r.id = "tabbed-cards-mobile-styles", r.textContent = `
+  const o = document.createElement("style");
+  o.id = "tabbed-cards-mobile-styles", o.textContent = `
     /* Desktop: Show original images in content, hide mobile siblings */
     @media (min-width: 992px) {
       .tabbed-card-image-wrapper {
@@ -582,12 +582,12 @@ function I() {
         border-radius: 8px;
       }
     }
-  `, document.head.appendChild(r);
+  `, document.head.appendChild(o);
 }
-function B(r, o) {
-  if (r.length === 0) return;
-  const e = r[0], i = e.querySelector(".tabbed-card-toggler");
-  i && (r.forEach((t, s) => {
+function N(o, r) {
+  if (o.length === 0) return;
+  const e = o[0], i = e.querySelector(".tabbed-card-toggler");
+  i && (o.forEach((t, s) => {
     if (s !== 0) {
       const n = t.querySelector(".tabbed-card-toggler");
       n?.getAttribute("aria-expanded") === "true" && n.click();
@@ -599,7 +599,7 @@ function B(r, o) {
         const s = e.querySelector(".w-dropdown"), n = e.querySelector(".w-dropdown-list"), a = e.querySelector(".w-dropdown-toggle");
         s?.classList.add("w--open"), n?.classList.add("w--open"), a?.classList.add("w--open");
       }
-    }, 100)), m(0, o), p(0, e.closest(".tabbed-cards"));
+    }, 100)), m(0, r), p(0, e.closest(".tabbed-cards"));
   }, 200));
 }
 const u = {
@@ -612,78 +612,89 @@ let d = {
   css: !1,
   js: !1
 };
-function N() {
-  return new Promise((r) => {
-    if (d.css || document.querySelector(`link[href="${u.cssUrl}"]`)) {
-      d.css = !0, r();
-      return;
-    }
-    const o = document.createElement("link");
-    o.rel = "stylesheet", o.href = u.cssUrl, o.onload = () => {
-      d.css = !0, console.log("✅ Marketo CSS loaded"), r();
-    }, o.onerror = () => {
-      console.error("❌ Failed to load Marketo CSS"), r();
-    }, document.head.appendChild(o);
-  });
-}
 function Q() {
-  return new Promise((r) => {
-    if (d.js || window.MktoForms2) {
-      d.js = !0, r();
+  return new Promise((o) => {
+    if (d.css || document.querySelector(`link[href="${u.cssUrl}"]`)) {
+      d.css = !0, o();
       return;
     }
-    const o = document.createElement("script");
-    o.src = u.jsUrl, o.onload = () => {
-      d.js = !0, console.log("✅ Marketo JS loaded"), r();
-    }, o.onerror = () => {
-      console.error("❌ Failed to load Marketo JS"), r();
-    }, document.head.appendChild(o);
+    const r = document.createElement("link");
+    r.rel = "stylesheet", r.href = u.cssUrl, r.onload = () => {
+      d.css = !0, console.log("✅ Marketo CSS loaded"), o();
+    }, r.onerror = () => {
+      console.error("❌ Failed to load Marketo CSS"), o();
+    }, document.head.appendChild(r);
   });
 }
-function R(r) {
+function $() {
+  return new Promise((o) => {
+    if (d.js || window.MktoForms2) {
+      d.js = !0, o();
+      return;
+    }
+    const r = document.createElement("script");
+    r.src = u.jsUrl, r.onload = () => {
+      d.js = !0, console.log("✅ Marketo JS loaded"), o();
+    }, r.onerror = () => {
+      console.error("❌ Failed to load Marketo JS"), o();
+    }, document.head.appendChild(r);
+  });
+}
+function R(o) {
   try {
-    const o = r.getFormElem()[0], e = Array.from(
-      o.querySelectorAll(".mktoFormRow")
+    const r = o.getFormElem()[0], e = Array.from(
+      r.querySelectorAll(".mktoFormRow")
     ).filter((i) => !i.querySelector('input[type="hidden"]'));
-    o.querySelectorAll(".is-odd-last").forEach((i) => i.classList.remove("is-odd-last")), e.length % 2 === 1 && e[e.length - 1].classList.add("is-odd-last"), console.log(
+    r.querySelectorAll(".is-odd-last").forEach((i) => i.classList.remove("is-odd-last")), e.length % 2 === 1 && e[e.length - 1].classList.add("is-odd-last"), console.log(
       `✅ Layout applied to form with ${e.length} visible rows`
     );
-  } catch (o) {
-    console.error("❌ Error applying layout:", o);
+  } catch (r) {
+    console.error("❌ Error applying layout:", r);
   }
 }
-function g(r, o) {
+let w = 0;
+function g(o, r) {
   try {
-    let e = r.querySelector("form");
-    e || (e = document.createElement("form"), e.id = `mktoForm_${o}`, r.appendChild(e)), console.log(
-      `🎯 Initializing Marketo form ${o} in container:`,
-      r
+    if (o.hasAttribute("data-marketo-initialized")) {
+      console.log(
+        `ℹ️ Marketo form ${r} already initialized in this container`
+      );
+      return;
+    }
+    w++;
+    const e = `mktoForm_${r}_${w}`;
+    o.innerHTML = "";
+    const i = document.createElement("form");
+    i.id = e, o.appendChild(i), o.setAttribute("data-marketo-initialized", "true"), o.setAttribute("data-marketo-unique-id", e), console.log(
+      `🎯 Initializing Marketo form ${r} with unique ID: ${e}`
     ), window.MktoForms2.loadForm(
       u.baseUrl,
       u.munchkinId,
-      parseInt(o),
-      function(i) {
-        console.log(`✅ Marketo form ${o} loaded successfully`), setTimeout(() => R(i), 100);
-        const t = new CustomEvent("marketoFormLoaded", {
-          detail: { form: i, formId: o, container: r }
+      parseInt(r),
+      function(t) {
+        console.log(`✅ Marketo form ${r} loaded successfully`);
+        const s = t.getFormElem()[0];
+        s && (i.parentNode.replaceChild(s, i), s.id = e, console.log(`🎯 Form rendered in container with ID: ${e}`)), setTimeout(() => R(t), 100);
+        const n = new CustomEvent("marketoFormLoaded", {
+          detail: { form: t, formId: r, container: o, uniqueId: e }
         });
-        r.dispatchEvent(t);
+        o.dispatchEvent(n);
       }
     );
   } catch (e) {
-    console.error(`❌ Error initializing Marketo form ${o}:`, e);
+    console.error(`❌ Error initializing Marketo form ${r}:`, e);
   }
 }
-function $() {
-  const r = document.querySelectorAll("[data-marketo-id]");
-  if (r.length === 0) {
+function z() {
+  const o = document.querySelectorAll("[data-marketo-id]");
+  if (o.length === 0) {
     console.log(
       "ℹ️ No Marketo form containers found (looking for [data-marketo-id])"
     );
     return;
   }
-  console.log(`🎯 Found ${r.length} Marketo form container(s)`), r.forEach((o, e) => {
-    const i = o.getAttribute("data-marketo-id");
+  console.log(`🎯 Found ${o.length} Marketo form container(s)`), o.forEach((r, e) => {
+    const i = r.getAttribute("data-marketo-id");
     if (!i) {
       console.warn(
         `⚠️ Container ${e + 1} has data-marketo-id but no value`
@@ -691,15 +702,15 @@ function $() {
       return;
     }
     setTimeout(() => {
-      g(o, i);
+      g(r, i);
     }, e * 100);
   });
 }
 function W() {
-  console.log("🚀 Marketo Forms: Starting initialization..."), Promise.all([N(), Q()]).then(() => {
+  console.log("🚀 Marketo Forms: Starting initialization..."), Promise.all([Q(), $()]).then(() => {
     setTimeout(() => {
-      window.MktoForms2 ? ($(), new MutationObserver((o) => {
-        o.forEach((e) => {
+      window.MktoForms2 ? (z(), new MutationObserver((r) => {
+        r.forEach((e) => {
           e.addedNodes.forEach((i) => {
             if (i.nodeType === 1) {
               if (i.hasAttribute && i.hasAttribute("data-marketo-id")) {
@@ -723,36 +734,36 @@ function W() {
         "✅ Marketo Forms: Initialization complete with dynamic form detection"
       )) : console.error("❌ MktoForms2 not available after loading resources");
     }, 500);
-  }).catch((r) => {
-    console.error("❌ Error loading Marketo resources:", r);
+  }).catch((o) => {
+    console.error("❌ Error loading Marketo resources:", o);
   });
 }
-const w = {
-  demo: y,
-  logoSlider: v,
-  quotesSlider: x,
-  starRating: S,
-  comparisonTableToggler: A,
-  tabsSelect: C,
-  tabbedCards: k,
+const y = {
+  demo: v,
+  logoSlider: x,
+  quotesSlider: S,
+  starRating: A,
+  comparisonTableToggler: C,
+  tabsSelect: E,
+  tabbedCards: T,
   marketoForms: W
   // Add more features here as you create them
   // myFeature: initMyFeature,
 };
-function z(r = ["demo"]) {
-  console.log("🎯 Initializing features:", r), r.forEach((o) => {
-    if (w[o])
+function D(o = ["demo"]) {
+  console.log("🎯 Initializing features:", o), o.forEach((r) => {
+    if (y[r])
       try {
-        w[o]();
+        y[r]();
       } catch (e) {
-        console.error(`❌ Error initializing feature '${o}':`, e);
+        console.error(`❌ Error initializing feature '${r}':`, e);
       }
     else
-      console.warn(`⚠️ Feature '${o}' not found`);
+      console.warn(`⚠️ Feature '${r}' not found`);
   });
 }
 console.log("🚀 Crunchbase Webflow script loaded");
-z([
+D([
   "logoSlider",
   "quotesSlider",
   "starRating",
