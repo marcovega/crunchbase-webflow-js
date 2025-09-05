@@ -559,6 +559,98 @@
           </div>
         </section>
 
+        <!-- Marketo Forms Section -->
+        <section>
+          <h2 class="section-title">📝 Marketo Forms</h2>
+          <p class="section-description">
+            Dynamic Marketo form initialization using data-marketo-id attributes
+          </p>
+
+          <div
+            style="
+              max-width: 800px;
+              border: 2px dashed #d1d5db;
+              padding: 2rem;
+              border-radius: 8px;
+              margin-bottom: 2rem;
+            "
+          >
+            <h3 style="margin-bottom: 1rem; color: #374151">
+              Test Form (ID: 1753)
+            </h3>
+            <p style="margin-bottom: 1.5rem; color: #6b7280; font-size: 0.9rem">
+              This div will automatically be converted to a Marketo form:
+            </p>
+
+            <!-- Marketo Form Container -->
+            <div
+              data-marketo-id="1753"
+              class="cta-slot mkto-form-container"
+              style="
+                min-height: 200px;
+                background: #f8fafc;
+                border: 1px solid #e2e8f0;
+                border-radius: 8px;
+                padding: 1rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #6b7280;
+              "
+            >
+              Loading Marketo form...
+            </div>
+
+            <div
+              style="
+                margin-top: 1rem;
+                padding: 0.75rem;
+                background: #fef3c7;
+                border-radius: 4px;
+                font-size: 0.9rem;
+              "
+            >
+              💡 Note: The form should load automatically. Check console for
+              status messages.
+            </div>
+          </div>
+
+          <!-- Second Test Form -->
+          <div
+            style="
+              max-width: 800px;
+              border: 2px dashed #d1d5db;
+              padding: 2rem;
+              border-radius: 8px;
+            "
+          >
+            <h3 style="margin-bottom: 1rem; color: #374151">
+              Dynamic Form Test
+            </h3>
+            <p style="margin-bottom: 1.5rem; color: #6b7280; font-size: 0.9rem">
+              Click the button below to dynamically add another Marketo form:
+            </p>
+
+            <button
+              id="add-marketo-form"
+              style="
+                padding: 0.75rem 1.5rem;
+                background: #146aff;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-weight: bold;
+                margin-bottom: 1rem;
+              "
+            >
+              Add Dynamic Form
+            </button>
+
+            <div id="dynamic-form-container"></div>
+          </div>
+        </section>
+
         <!-- Comparison Table Toggler Section -->
         <section>
           <h2 class="section-title">📊 Comparison Table Toggler</h2>
@@ -788,6 +880,38 @@
         if (savedUri) {
           cssUriInput.value = savedUri;
           updateStatus("💾 Loaded saved CSS URI from previous session", "info");
+        }
+
+        // Marketo Dynamic Form Test
+        const addFormButton = document.getElementById("add-marketo-form");
+        const dynamicContainer = document.getElementById(
+          "dynamic-form-container"
+        );
+        let formCounter = 0;
+
+        if (addFormButton && dynamicContainer) {
+          addFormButton.addEventListener("click", function () {
+            formCounter++;
+            const formDiv = document.createElement("div");
+            formDiv.setAttribute("data-marketo-id", "1753");
+            formDiv.className = "cta-slot mkto-form-container";
+            formDiv.style.cssText = `
+              min-height: 200px;
+              background: #f0f9ff;
+              border: 1px solid #0ea5e9;
+              border-radius: 8px;
+              padding: 1rem;
+              margin-top: 1rem;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              color: #0369a1;
+            `;
+            formDiv.textContent = `Loading dynamic form ${formCounter}...`;
+
+            dynamicContainer.appendChild(formDiv);
+            console.log(`🎯 Added dynamic Marketo form ${formCounter}`);
+          });
         }
       });
     </script>

@@ -12,6 +12,7 @@ import initStarRating from "./star-rating.js";
 import initComparisonTableToggler from "./comparison-table-toggler.js";
 import initTabsSelect from "./tabs-select.js";
 import initTabbedCards from "./tabbed-cards.js";
+import initMarketoForms from "./marketo-forms.js";
 
 // Export all features
 export {
@@ -22,6 +23,7 @@ export {
   initComparisonTableToggler,
   initTabsSelect,
   initTabbedCards,
+  initMarketoForms,
 };
 
 // Feature registry for easy enable/disable
@@ -33,6 +35,7 @@ export const features = {
   comparisonTableToggler: initComparisonTableToggler,
   tabsSelect: initTabsSelect,
   tabbedCards: initTabbedCards,
+  marketoForms: initMarketoForms,
   // Add more features here as you create them
   // myFeature: initMyFeature,
 };

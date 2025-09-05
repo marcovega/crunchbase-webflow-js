@@ -12,6 +12,7 @@ initFeatures([
   "comparisonTableToggler",
   "tabsSelect",
   "tabbedCards", // RE-ENABLED with safer implementation
+  "marketoForms", // Marketo forms integration
 ]); // Can add "demo" to enable demo feature.
 
 // Development indicator and live reload
