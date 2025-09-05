@@ -13,6 +13,7 @@ initFeatures([
   "tabsSelect",
   "tabbedCards", // RE-ENABLED with safer implementation
   "marketoForms", // Marketo forms integration
+  "pricingCardToggler", // Pricing card annual/monthly toggler
 ]); // Can add "demo" to enable demo feature.
 
 // Development indicator and live reload

@@ -1,7 +1,7 @@
-function v() {
+function k() {
   console.log("🎨 Demo Feature: Adding black border to body"), document.body.style.border = "5px solid navy", document.body.style.margin = "0", document.body.style.boxSizing = "border-box", console.log("✅ Demo Feature: Black border applied");
 }
-const x = () => {
+const q = () => {
   const o = document.querySelectorAll('[data-logo-slider="true"]'), r = 7;
   !o || o.length === 0 || window.matchMedia("(prefers-reduced-motion: reduce)").matches || o.forEach((e) => {
     const i = e.querySelectorAll(":scope > *");
@@ -10,7 +10,7 @@ const x = () => {
     }));
   });
 };
-function S() {
+function F() {
   class o {
     constructor(t) {
       this.container = t, this.currentIndex = 0, this.quotes = [], this.totalQuotes = 0, this.containerWidth = 0, this.isAnimating = !1, this.resizeTimeout = null, this.animationDuration = this.getCSSVariable(
@@ -54,13 +54,13 @@ function S() {
       this.quoteData = this.quotes.map((a, l) => {
         let c;
         s ? (c = this.containerWidth, a.style.width = `${this.containerWidth}px`) : a.classList.contains("quote-card-featured") ? (c = 862, a.style.width = "862px") : a.classList.contains("quote-card") ? (c = 410, a.style.width = "410px") : c = a.getBoundingClientRect().width;
-        const h = {
+        const d = {
           element: a,
           width: c,
           offsetLeft: n,
           index: l
         };
-        return n += c + (l < this.totalQuotes - 1 ? this.gap : 0), h;
+        return n += c + (l < this.totalQuotes - 1 ? this.gap : 0), d;
       });
     }
     createNavigation() {
@@ -194,8 +194,8 @@ function S() {
         return;
       const t = this.container.scrollLeft;
       for (let s = 0; s < this.totalQuotes; s++) {
-        const n = this.quoteData[s], a = n.offsetLeft, l = n.offsetLeft + n.width, c = t + this.containerWidth, h = Math.max(a, t), f = Math.min(l, c);
-        if (Math.max(0, f - h) / n.width >= 0.3 || a >= t && a < c) {
+        const n = this.quoteData[s], a = n.offsetLeft, l = n.offsetLeft + n.width, c = t + this.containerWidth, d = Math.max(a, t), h = Math.min(l, c);
+        if (Math.max(0, h - d) / n.width >= 0.3 || a >= t && a < c) {
           this.currentIndex !== s && (this.currentIndex = s, this.updateNavigationState(), this.updateProgress());
           break;
         }
@@ -243,7 +243,7 @@ function S() {
     t.shouldEnable() || t.disable(), e.push(t);
   }), window.quotesSliders = e, e;
 }
-function A() {
+function I() {
   class o {
     constructor() {
       this.init();
@@ -337,7 +337,7 @@ function A() {
   }
   new o();
 }
-function C() {
+function M() {
   class o {
     constructor() {
       this.init();
@@ -396,7 +396,7 @@ function C() {
   }
   new o();
 }
-function E() {
+function L() {
   const o = document.querySelectorAll(".tabs.w-tabs");
   o.length !== 0 && (console.log(`📱 Tabs Select: Found ${o.length} tab containers`), o.forEach((r) => {
     const e = r.querySelectorAll(".tab-link");
@@ -412,9 +412,9 @@ function E() {
       const s = parseInt(this.value);
       !isNaN(s) && e[s] && e[s].click();
     }), r.insertBefore(i, r.firstChild);
-  }), k(), console.log("✅ Tabs Select: Mobile tab selectors initialized"));
+  }), T(), console.log("✅ Tabs Select: Mobile tab selectors initialized"));
 }
-function k() {
+function T() {
   if (document.getElementById("tabs-select-styles")) return;
   const o = document.createElement("style");
   o.id = "tabs-select-styles", o.textContent = `
@@ -463,24 +463,24 @@ function k() {
     }
   `, document.head.appendChild(o);
 }
-function T() {
-  document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", b) : b();
+function N() {
+  document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", v) : v();
 }
-function b() {
+function v() {
   const o = document.querySelectorAll(".tabbed-cards");
   o.length !== 0 && (console.log(
     `🎴 Tabbed Cards: Found ${o.length} containers`
   ), o.forEach((r) => {
-    q(r);
+    B(r);
   }), console.log("✅ Tabbed Cards: All containers initialized"));
 }
-function q(o) {
+function B(o) {
   const r = o.querySelector(".tabbed-cards-image"), e = o.querySelectorAll(".tabbed-card.w-dropdown");
-  !r || e.length === 0 || (F(e), L(e, r), e.forEach((i, t) => {
-    I(i, t, o, r);
-  }), N(e, r), B());
+  !r || e.length === 0 || ($(e), P(e, r), e.forEach((i, t) => {
+    Q(i, t, o, r);
+  }), z(e, r), R());
 }
-function F(o) {
+function $(o) {
   o.forEach((r, e) => {
     const t = r.querySelector(".tabbed-card-image-wrapper")?.querySelector("img");
     if (!t) return;
@@ -490,7 +490,7 @@ function F(o) {
     s.appendChild(n), r.parentNode.insertBefore(s, r.nextSibling);
   });
 }
-function L(o, r) {
+function P(o, r) {
   r.innerHTML = "";
   const e = document.createElement("img");
   e.style.width = "100%", e.style.height = "auto", e.style.display = "block", e.style.transition = "opacity 0.2s ease", e.className = "tabbed-card-main-image", r.appendChild(e), o.forEach((i) => {
@@ -501,23 +501,23 @@ function L(o, r) {
     }
   });
 }
-function I(o, r, e, i) {
+function Q(o, r, e, i) {
   const t = o.querySelector(".tabbed-card-toggler");
   if (!t) return;
   t.addEventListener("click", () => {
-    t.getAttribute("aria-expanded") === "true" || (M(o, e), setTimeout(() => {
-      m(r, i), p(r, e);
+    t.getAttribute("aria-expanded") === "true" || (D(o, e), setTimeout(() => {
+      m(r, i), f(r, e);
     }, 100));
   }), new MutationObserver((n) => {
     n.forEach((a) => {
-      a.attributeName === "aria-expanded" && t.getAttribute("aria-expanded") === "true" && (m(r, i), p(r, e));
+      a.attributeName === "aria-expanded" && t.getAttribute("aria-expanded") === "true" && (m(r, i), f(r, e));
     });
   }).observe(t, {
     attributes: !0,
     attributeFilter: ["aria-expanded"]
   });
 }
-function M(o, r) {
+function D(o, r) {
   r.querySelectorAll(".tabbed-card.w-dropdown").forEach((i) => {
     if (i !== o) {
       const t = i.querySelector(".tabbed-card-toggler");
@@ -541,7 +541,7 @@ function m(o, r) {
     e.style.opacity = "1";
   });
 }
-function p(o, r) {
+function f(o, r) {
   r.querySelectorAll(
     ".tabbed-card-mobile-image"
   ).forEach((t) => {
@@ -552,7 +552,7 @@ function p(o, r) {
   );
   i && (i.style.display = "block");
 }
-function B() {
+function R() {
   if (document.getElementById("tabbed-cards-mobile-styles")) return;
   const o = document.createElement("style");
   o.id = "tabbed-cards-mobile-styles", o.textContent = `
@@ -584,7 +584,7 @@ function B() {
     }
   `, document.head.appendChild(o);
 }
-function N(o, r) {
+function z(o, r) {
   if (o.length === 0) return;
   const e = o[0], i = e.querySelector(".tabbed-card-toggler");
   i && (o.forEach((t, s) => {
@@ -599,48 +599,48 @@ function N(o, r) {
         const s = e.querySelector(".w-dropdown"), n = e.querySelector(".w-dropdown-list"), a = e.querySelector(".w-dropdown-toggle");
         s?.classList.add("w--open"), n?.classList.add("w--open"), a?.classList.add("w--open");
       }
-    }, 100)), m(0, r), p(0, e.closest(".tabbed-cards"));
+    }, 100)), m(0, r), f(0, e.closest(".tabbed-cards"));
   }, 200));
 }
-const u = {
+const g = {
   baseUrl: "https://pages.crunchbase.com",
   munchkinId: "976-JJA-800",
   cssUrl: "https://app-sj22.marketo.com/js/forms2/css/forms2.css",
   jsUrl: "https://pages.crunchbase.com/js/forms2/js/forms2.min.js"
 };
-let d = {
+let p = {
   css: !1,
   js: !1
 };
-function Q() {
+function W() {
   return new Promise((o) => {
-    if (d.css || document.querySelector(`link[href="${u.cssUrl}"]`)) {
-      d.css = !0, o();
+    if (p.css || document.querySelector(`link[href="${g.cssUrl}"]`)) {
+      p.css = !0, o();
       return;
     }
     const r = document.createElement("link");
-    r.rel = "stylesheet", r.href = u.cssUrl, r.onload = () => {
-      d.css = !0, console.log("✅ Marketo CSS loaded"), o();
+    r.rel = "stylesheet", r.href = g.cssUrl, r.onload = () => {
+      p.css = !0, console.log("✅ Marketo CSS loaded"), o();
     }, r.onerror = () => {
       console.error("❌ Failed to load Marketo CSS"), o();
     }, document.head.appendChild(r);
   });
 }
-function $() {
+function j() {
   return new Promise((o) => {
-    if (d.js || window.MktoForms2) {
-      d.js = !0, o();
+    if (p.js || window.MktoForms2) {
+      p.js = !0, o();
       return;
     }
     const r = document.createElement("script");
-    r.src = u.jsUrl, r.onload = () => {
-      d.js = !0, console.log("✅ Marketo JS loaded"), o();
+    r.src = g.jsUrl, r.onload = () => {
+      p.js = !0, console.log("✅ Marketo JS loaded"), o();
     }, r.onerror = () => {
       console.error("❌ Failed to load Marketo JS"), o();
     }, document.head.appendChild(r);
   });
 }
-function R(o) {
+function U(o) {
   try {
     const r = o.getFormElem()[0], e = Array.from(
       r.querySelectorAll(".mktoFormRow")
@@ -652,8 +652,8 @@ function R(o) {
     console.error("❌ Error applying layout:", r);
   }
 }
-let w = 0;
-function g(o, r) {
+let x = 0;
+function b(o, r) {
   try {
     if (o.hasAttribute("data-marketo-initialized")) {
       console.log(
@@ -661,20 +661,20 @@ function g(o, r) {
       );
       return;
     }
-    w++;
-    const e = `mktoForm_${r}_${w}`;
+    x++;
+    const e = `mktoForm_${r}_${x}`;
     o.innerHTML = "";
     const i = document.createElement("form");
     i.id = e, o.appendChild(i), o.setAttribute("data-marketo-initialized", "true"), o.setAttribute("data-marketo-unique-id", e), console.log(
       `🎯 Initializing Marketo form ${r} with unique ID: ${e}`
     ), window.MktoForms2.loadForm(
-      u.baseUrl,
-      u.munchkinId,
+      g.baseUrl,
+      g.munchkinId,
       parseInt(r),
       function(t) {
         console.log(`✅ Marketo form ${r} loaded successfully`);
         const s = t.getFormElem()[0];
-        s && (i.parentNode.replaceChild(s, i), s.id = e, console.log(`🎯 Form rendered in container with ID: ${e}`)), setTimeout(() => R(t), 100);
+        s && (i.parentNode.replaceChild(s, i), s.id = e, console.log(`🎯 Form rendered in container with ID: ${e}`)), setTimeout(() => U(t), 100);
         const n = new CustomEvent("marketoFormLoaded", {
           detail: { form: t, formId: r, container: o, uniqueId: e }
         });
@@ -685,7 +685,7 @@ function g(o, r) {
     console.error(`❌ Error initializing Marketo form ${r}:`, e);
   }
 }
-function z() {
+function V() {
   const o = document.querySelectorAll("[data-marketo-id]");
   if (o.length === 0) {
     console.log(
@@ -702,25 +702,25 @@ function z() {
       return;
     }
     setTimeout(() => {
-      g(r, i);
+      b(r, i);
     }, e * 100);
   });
 }
-function W() {
-  console.log("🚀 Marketo Forms: Starting initialization..."), Promise.all([Q(), $()]).then(() => {
+function H() {
+  console.log("🚀 Marketo Forms: Starting initialization..."), Promise.all([W(), j()]).then(() => {
     setTimeout(() => {
-      window.MktoForms2 ? (z(), new MutationObserver((r) => {
+      window.MktoForms2 ? (V(), new MutationObserver((r) => {
         r.forEach((e) => {
           e.addedNodes.forEach((i) => {
             if (i.nodeType === 1) {
               if (i.hasAttribute && i.hasAttribute("data-marketo-id")) {
                 const s = i.getAttribute("data-marketo-id");
-                setTimeout(() => g(i, s), 100);
+                setTimeout(() => b(i, s), 100);
               }
               (i.querySelectorAll ? i.querySelectorAll("[data-marketo-id]") : []).forEach((s, n) => {
                 const a = s.getAttribute("data-marketo-id");
                 a && setTimeout(
-                  () => g(s, a),
+                  () => b(s, a),
                   (n + 1) * 100
                 );
               });
@@ -738,23 +738,219 @@ function W() {
     console.error("❌ Error loading Marketo resources:", o);
   });
 }
-const y = {
-  demo: v,
-  logoSlider: x,
-  quotesSlider: S,
-  starRating: A,
-  comparisonTableToggler: C,
-  tabsSelect: E,
-  tabbedCards: T,
-  marketoForms: W
+function _() {
+  console.log("🚀 Pricing Card Toggler: Starting...");
+  const o = document.querySelectorAll(".pricing-card-details");
+  if (o.length === 0) {
+    console.log("ℹ️ Pricing Card Toggler: No pricing card details found");
+    return;
+  }
+  console.log(
+    `📊 Pricing Card Toggler: Found ${o.length} pricing card(s)`
+  ), o.forEach((r, e) => {
+    J(r, e);
+  }), console.log("✅ Pricing Card Toggler: Complete");
+}
+function J(o, r) {
+  const e = o.querySelector(".pricing-card-toggle"), i = o.querySelector(".pricing-card-toggle-dark"), t = o.querySelector(".pricing-card-toggle-light"), s = o.querySelector(
+    ".pricing-card-toggle-dark-text"
+  ), n = o.querySelector(
+    ".pricing-card-toggle-light-text"
+  ), a = o.querySelectorAll(".pricing-card-option"), l = a[0], c = a[1];
+  if (!e || !i || !t || !s || !n) {
+    console.warn(
+      `⚠️ Pricing Card Toggler: Missing toggle elements in card ${r + 1}`
+    );
+    return;
+  }
+  const d = `pricing-card-${r}`, h = `${d}-toggle`, w = `${d}-annual`, y = `${d}-monthly`, C = `${d}-annual-option`, E = `${d}-monthly-option`;
+  G(
+    e,
+    i,
+    t,
+    s,
+    n,
+    l,
+    c,
+    h,
+    w,
+    y,
+    C,
+    E
+  ), u(
+    i,
+    t,
+    s,
+    n,
+    l,
+    c,
+    "annual"
+  ), X(
+    s,
+    n,
+    i,
+    t,
+    l,
+    c
+  );
+}
+function G(o, r, e, i, t, s, n, a, l, c, d, h) {
+  o.setAttribute("role", "tablist"), o.setAttribute("aria-label", "Pricing period selection"), o.id = a, r.setAttribute("role", "tab"), r.id = l, r.setAttribute("aria-selected", "true"), r.setAttribute("aria-controls", d), r.setAttribute("tabindex", "0"), e.setAttribute("role", "tab"), e.id = c, e.setAttribute("aria-selected", "false"), e.setAttribute("aria-controls", h), e.setAttribute("tabindex", "-1"), i.setAttribute("tabindex", "-1"), t.setAttribute("tabindex", "-1"), i.setAttribute("aria-hidden", "true"), t.setAttribute("aria-hidden", "true"), s && (s.setAttribute("role", "tabpanel"), s.id = d, s.setAttribute("aria-labelledby", l), s.setAttribute("aria-hidden", "false")), n && (n.setAttribute("role", "tabpanel"), n.id = h, n.setAttribute("aria-labelledby", c), n.setAttribute("aria-hidden", "true"));
+}
+function X(o, r, e, i, t, s) {
+  e.addEventListener("click", (n) => {
+    n.preventDefault(), u(
+      e,
+      i,
+      o,
+      r,
+      t,
+      s,
+      "annual"
+    );
+  }), i.addEventListener("click", (n) => {
+    n.preventDefault(), u(
+      e,
+      i,
+      o,
+      r,
+      t,
+      s,
+      "monthly"
+    );
+  }), e.addEventListener("keydown", (n) => {
+    A(
+      n,
+      e,
+      i,
+      o,
+      r,
+      t,
+      s
+    );
+  }), i.addEventListener("keydown", (n) => {
+    A(
+      n,
+      e,
+      i,
+      o,
+      r,
+      t,
+      s
+    );
+  }), o.addEventListener("click", (n) => n.preventDefault()), r.addEventListener("click", (n) => n.preventDefault());
+}
+function A(o, r, e, i, t, s, n) {
+  const { key: a, target: l } = o;
+  switch (a) {
+    case "ArrowLeft":
+    case "ArrowUp":
+      o.preventDefault(), l === e && (r.focus(), u(
+        r,
+        e,
+        i,
+        t,
+        s,
+        n,
+        "annual"
+      ));
+      break;
+    case "ArrowRight":
+    case "ArrowDown":
+      o.preventDefault(), l === r && (e.focus(), u(
+        r,
+        e,
+        i,
+        t,
+        s,
+        n,
+        "monthly"
+      ));
+      break;
+    case "Enter":
+    case " ":
+      o.preventDefault(), l === r ? u(
+        r,
+        e,
+        i,
+        t,
+        s,
+        n,
+        "annual"
+      ) : l === e && u(
+        r,
+        e,
+        i,
+        t,
+        s,
+        n,
+        "monthly"
+      );
+      break;
+    case "Home":
+      o.preventDefault(), r.focus(), u(
+        r,
+        e,
+        i,
+        t,
+        s,
+        n,
+        "annual"
+      );
+      break;
+    case "End":
+      o.preventDefault(), e.focus(), u(
+        r,
+        e,
+        i,
+        t,
+        s,
+        n,
+        "monthly"
+      );
+      break;
+  }
+}
+function u(o, r, e, i, t, s, n) {
+  const a = n === "annual";
+  o.setAttribute("aria-selected", a ? "true" : "false"), r.setAttribute("aria-selected", a ? "false" : "true"), o.setAttribute("tabindex", a ? "0" : "-1"), r.setAttribute("tabindex", a ? "-1" : "0"), a ? (o.classList.contains("pricing-card-toggle-dark") || (o.className = o.className.replace(
+    "pricing-card-toggle-light",
+    "pricing-card-toggle-dark"
+  )), r.classList.contains("pricing-card-toggle-light") || (r.className = r.className.replace(
+    "pricing-card-toggle-dark",
+    "pricing-card-toggle-light"
+  ))) : (r.classList.contains("pricing-card-toggle-dark") || (r.className = r.className.replace(
+    "pricing-card-toggle-light",
+    "pricing-card-toggle-dark"
+  )), o.classList.contains("pricing-card-toggle-light") || (o.className = o.className.replace(
+    "pricing-card-toggle-dark",
+    "pricing-card-toggle-light"
+  ))), a ? (e.style.color = "white", i.style.color = "var(--_colors---primary--dark-blue)") : (i.style.color = "white", e.style.color = "var(--_colors---primary--dark-blue)"), t && (t.setAttribute("aria-hidden", a ? "false" : "true"), t.style.display = a ? "flex" : "none"), s && (s.setAttribute("aria-hidden", a ? "true" : "false"), s.style.display = a ? "none" : "flex"), K(`${a ? "Annual" : "Monthly"} pricing selected`);
+}
+function K(o) {
+  const r = document.createElement("div");
+  r.setAttribute("aria-live", "polite"), r.setAttribute("aria-atomic", "true"), r.style.position = "absolute", r.style.left = "-10000px", r.style.width = "1px", r.style.height = "1px", r.style.overflow = "hidden", document.body.appendChild(r), r.textContent = o, setTimeout(() => {
+    document.body.removeChild(r);
+  }, 1e3);
+}
+const S = {
+  demo: k,
+  logoSlider: q,
+  quotesSlider: F,
+  starRating: I,
+  comparisonTableToggler: M,
+  tabsSelect: L,
+  tabbedCards: N,
+  marketoForms: H,
+  pricingCardToggler: _
   // Add more features here as you create them
   // myFeature: initMyFeature,
 };
-function D(o = ["demo"]) {
+function Z(o = ["demo"]) {
   console.log("🎯 Initializing features:", o), o.forEach((r) => {
-    if (y[r])
+    if (S[r])
       try {
-        y[r]();
+        S[r]();
       } catch (e) {
         console.error(`❌ Error initializing feature '${r}':`, e);
       }
@@ -763,7 +959,7 @@ function D(o = ["demo"]) {
   });
 }
 console.log("🚀 Crunchbase Webflow script loaded");
-D([
+Z([
   "logoSlider",
   "quotesSlider",
   "starRating",
@@ -771,6 +967,8 @@ D([
   "tabsSelect",
   "tabbedCards",
   // RE-ENABLED with safer implementation
-  "marketoForms"
+  "marketoForms",
   // Marketo forms integration
+  "pricingCardToggler"
+  // Pricing card annual/monthly toggler
 ]);
