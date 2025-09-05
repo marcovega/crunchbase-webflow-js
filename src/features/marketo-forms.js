@@ -113,25 +113,41 @@ function applyLayout(form) {
   }
 }
 
+// Counter to ensure unique form IDs
+let formInstanceCounter = 0;
+
 /**
  * Initialize a single Marketo form
  */
 function initializeMarketoForm(container, formId) {
   try {
-    // Create form element if it doesn't exist
-    let formElement = container.querySelector("form");
-    if (!formElement) {
-      formElement = document.createElement("form");
-      formElement.id = `mktoForm_${formId}`;
-      container.appendChild(formElement);
+    // Check if this container already has a form initialized
+    if (container.hasAttribute("data-marketo-initialized")) {
+      console.log(
+        `ℹ️ Marketo form ${formId} already initialized in this container`
+      );
+      return;
     }
 
+    // Create unique form ID to avoid conflicts
+    formInstanceCounter++;
+    const uniqueFormId = `mktoForm_${formId}_${formInstanceCounter}`;
+
+    // Clear container and create form element with unique ID
+    container.innerHTML = "";
+    const formElement = document.createElement("form");
+    formElement.id = uniqueFormId;
+    container.appendChild(formElement);
+
+    // Mark container as initialized
+    container.setAttribute("data-marketo-initialized", "true");
+    container.setAttribute("data-marketo-unique-id", uniqueFormId);
+
     console.log(
-      `🎯 Initializing Marketo form ${formId} in container:`,
-      container
+      `🎯 Initializing Marketo form ${formId} with unique ID: ${uniqueFormId}`
     );
 
-    // Load the form using Marketo API
+    // Load form and render it in the specific form element
     window.MktoForms2.loadForm(
       MARKETO_CONFIG.baseUrl,
       MARKETO_CONFIG.munchkinId,
@@ -139,12 +155,25 @@ function initializeMarketoForm(container, formId) {
       function (form) {
         console.log(`✅ Marketo form ${formId} loaded successfully`);
 
+        // Get the actual form element that Marketo created
+        const marketoForm = form.getFormElem()[0];
+
+        if (marketoForm) {
+          // Replace our placeholder form with the actual Marketo form
+          formElement.parentNode.replaceChild(marketoForm, formElement);
+
+          // Update the ID to our unique ID to maintain uniqueness
+          marketoForm.id = uniqueFormId;
+
+          console.log(`🎯 Form rendered in container with ID: ${uniqueFormId}`);
+        }
+
         // Apply layout after a short delay to ensure form is rendered
         setTimeout(() => applyLayout(form), 100);
 
         // Add custom event for additional customization if needed
         const event = new CustomEvent("marketoFormLoaded", {
-          detail: { form, formId, container },
+          detail: { form, formId, container, uniqueId: uniqueFormId },
         });
         container.dispatchEvent(event);
       }
