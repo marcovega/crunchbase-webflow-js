@@ -1,17 +1,17 @@
-function k() {
+function v() {
   console.log("🎨 Demo Feature: Adding black border to body"), document.body.style.border = "5px solid navy", document.body.style.margin = "0", document.body.style.boxSizing = "border-box", console.log("✅ Demo Feature: Black border applied");
 }
-const q = () => {
-  const o = document.querySelectorAll('[data-logo-slider="true"]'), r = 7;
-  !o || o.length === 0 || window.matchMedia("(prefers-reduced-motion: reduce)").matches || o.forEach((e) => {
+const x = () => {
+  const n = document.querySelectorAll('[data-logo-slider="true"]'), s = 7;
+  !n || n.length === 0 || window.matchMedia("(prefers-reduced-motion: reduce)").matches || n.forEach((e) => {
     const i = e.querySelectorAll(":scope > *");
-    i.length === 0 || i.length < r || (e.setAttribute("data-logo-slider-init", "true"), e.style.setProperty("--ls-items", i.length), i.forEach((t, s) => {
-      t.style.setProperty("--ls-item-index", s + 1);
+    i.length === 0 || i.length < s || (e.setAttribute("data-logo-slider-init", "true"), e.style.setProperty("--ls-items", i.length), i.forEach((t, o) => {
+      t.style.setProperty("--ls-item-index", o + 1);
     }));
   });
 };
-function F() {
-  class o {
+function A() {
+  class n {
     constructor(t) {
       this.container = t, this.currentIndex = 0, this.quotes = [], this.totalQuotes = 0, this.containerWidth = 0, this.isAnimating = !1, this.resizeTimeout = null, this.animationDuration = this.getCSSVariable(
         "--quotes-slider-duration",
@@ -21,10 +21,10 @@ function F() {
         "ease-out"
       ), this.init();
     }
-    getCSSVariable(t, s) {
+    getCSSVariable(t, o) {
       return getComputedStyle(document.documentElement).getPropertyValue(
         t
-      ).trim() || s;
+      ).trim() || o;
     }
     init() {
       this.setupContainer(), this.calculateDimensions(), this.createNavigation(), this.bindEvents(), this.updateCurrentIndexFromScroll(), this.updateNavigationState();
@@ -49,18 +49,18 @@ function F() {
       this.containerWidth = this.container.offsetWidth, this.quotes = Array.from(this.container.children), this.totalQuotes = this.quotes.length;
       const t = getComputedStyle(this.container);
       this.gap = parseInt(t.gap) || 0;
-      const s = window.matchMedia("(max-width: 991px)").matches;
-      let n = 0;
+      const o = window.matchMedia("(max-width: 991px)").matches;
+      let r = 0;
       this.quoteData = this.quotes.map((a, l) => {
         let c;
-        s ? (c = this.containerWidth, a.style.width = `${this.containerWidth}px`) : a.classList.contains("quote-card-featured") ? (c = 862, a.style.width = "862px") : a.classList.contains("quote-card") ? (c = 410, a.style.width = "410px") : c = a.getBoundingClientRect().width;
-        const d = {
+        o ? (c = this.containerWidth, a.style.width = `${this.containerWidth}px`) : a.classList.contains("quote-card-featured") ? (c = 862, a.style.width = "862px") : a.classList.contains("quote-card") ? (c = 410, a.style.width = "410px") : c = a.getBoundingClientRect().width;
+        const h = {
           element: a,
           width: c,
-          offsetLeft: n,
+          offsetLeft: r,
           index: l
         };
-        return n += c + (l < this.totalQuotes - 1 ? this.gap : 0), d;
+        return r += c + (l < this.totalQuotes - 1 ? this.gap : 0), h;
       });
     }
     createNavigation() {
@@ -123,8 +123,8 @@ function F() {
       });
     }
     handleResize() {
-      const t = this.navContainer.style.justifyContent === "center", s = window.matchMedia("(max-width: 991px)").matches;
-      this.calculateDimensions(), t !== s && (this.navContainer && this.navContainer.parentNode && this.navContainer.parentNode.removeChild(this.navContainer), this.createNavigation()), this.updateNavigationState(), this.updateProgress();
+      const t = this.navContainer.style.justifyContent === "center", o = window.matchMedia("(max-width: 991px)").matches;
+      this.calculateDimensions(), t !== o && (this.navContainer && this.navContainer.parentNode && this.navContainer.parentNode.removeChild(this.navContainer), this.createNavigation()), this.updateNavigationState(), this.updateProgress();
     }
     goToNext() {
       if (this.isAnimating || this.currentIndex === this.totalQuotes - 1 && this.isAtScrollEnd())
@@ -139,8 +139,8 @@ function F() {
       if (!(this.isAnimating || this.currentIndex <= 0)) {
         if (this.isAnimating = !0, this.isAdaptiveAligning = !1, this.currentIndex === this.totalQuotes - 1)
           if (this.isAtScrollEnd()) {
-            const s = Math.max(0, this.currentIndex - 2);
-            this.currentIndex = s, this.scrollToQuote(this.currentIndex);
+            const o = Math.max(0, this.currentIndex - 2);
+            this.currentIndex = o, this.scrollToQuote(this.currentIndex);
           } else
             this.currentIndex--, this.scrollToQuote(this.currentIndex);
         else
@@ -151,26 +151,26 @@ function F() {
       }
     }
     shouldUseAdaptiveAlignment(t) {
-      let s = 0;
+      let o = 0;
       for (let l = t; l < this.totalQuotes; l++)
-        s += this.quoteData[l].width, l < this.totalQuotes - 1 && (s += this.gap);
-      return s <= this.containerWidth + 40;
+        o += this.quoteData[l].width, l < this.totalQuotes - 1 && (o += this.gap);
+      return o <= this.containerWidth + 40;
     }
     scrollToQuote(t) {
       if (t < 0 || t >= this.totalQuotes) return;
       this.currentIndex = t;
-      const n = this.quoteData[t].offsetLeft;
+      const r = this.quoteData[t].offsetLeft;
       this.container.scrollTo({
-        left: n,
+        left: r,
         behavior: "smooth"
       }), this.updateNavigationState(), setTimeout(() => {
         this.updateProgress();
       }, 50);
     }
     scrollToRightAlignment() {
-      const t = this.quoteData[this.totalQuotes - 1], n = t.offsetLeft + t.width - this.containerWidth;
+      const t = this.quoteData[this.totalQuotes - 1], r = t.offsetLeft + t.width - this.containerWidth;
       this.currentIndex = this.totalQuotes - 1, this.isAdaptiveAligning = !0, this.container.scrollTo({
-        left: Math.max(0, n),
+        left: Math.max(0, r),
         behavior: "smooth"
       }), this.updateNavigationState(), setTimeout(() => {
         this.updateProgress(), setTimeout(() => {
@@ -184,19 +184,19 @@ function F() {
       return -1;
     }
     findLastVisibleQuoteIndex(t) {
-      for (let s = this.totalQuotes - 1; s >= 0; s--)
-        if (this.quoteData[s].offsetLeft <= t + 10)
-          return s;
+      for (let o = this.totalQuotes - 1; o >= 0; o--)
+        if (this.quoteData[o].offsetLeft <= t + 10)
+          return o;
       return this.totalQuotes - 1;
     }
     updateCurrentIndexFromScroll() {
       if (this.isAdaptiveAligning)
         return;
       const t = this.container.scrollLeft;
-      for (let s = 0; s < this.totalQuotes; s++) {
-        const n = this.quoteData[s], a = n.offsetLeft, l = n.offsetLeft + n.width, c = t + this.containerWidth, d = Math.max(a, t), h = Math.min(l, c);
-        if (Math.max(0, h - d) / n.width >= 0.3 || a >= t && a < c) {
-          this.currentIndex !== s && (this.currentIndex = s, this.updateNavigationState(), this.updateProgress());
+      for (let o = 0; o < this.totalQuotes; o++) {
+        const r = this.quoteData[o], a = r.offsetLeft, l = r.offsetLeft + r.width, c = t + this.containerWidth, h = Math.max(a, t), b = Math.min(l, c);
+        if (Math.max(0, b - h) / r.width >= 0.3 || a >= t && a < c) {
+          this.currentIndex !== o && (this.currentIndex = o, this.updateNavigationState(), this.updateProgress());
           break;
         }
       }
@@ -212,12 +212,12 @@ function F() {
       this.nextBtn.disabled = t, this.updateButtonStyle(this.nextBtn);
     }
     updateButtonStyle(t) {
-      const s = t.querySelector("path");
-      t.disabled ? (t.style.background = "transparent", t.style.cursor = "not-allowed", t.style.opacity = "0.5", s && s.setAttribute("stroke", "#146AFF")) : (t.style.background = "#146AFF", t.style.cursor = "pointer", t.style.opacity = "1", s && s.setAttribute("stroke", "white"));
+      const o = t.querySelector("path");
+      t.disabled ? (t.style.background = "transparent", t.style.cursor = "not-allowed", t.style.opacity = "0.5", o && o.setAttribute("stroke", "#146AFF")) : (t.style.background = "#146AFF", t.style.cursor = "pointer", t.style.opacity = "1", o && o.setAttribute("stroke", "white"));
     }
     isAtScrollEnd() {
-      const t = this.container.scrollLeft, s = this.container.scrollWidth - this.container.clientWidth;
-      return Math.abs(t - s) < 5;
+      const t = this.container.scrollLeft, o = this.container.scrollWidth - this.container.clientWidth;
+      return Math.abs(t - o) < 5;
     }
     updateProgress() {
       if (!this.progressFill) return;
@@ -237,14 +237,14 @@ function F() {
       this.navContainer.style.display = "flex", this.container.style.overflowX = "auto";
     }
   }
-  const r = document.querySelectorAll(".quotes-slider-container"), e = [];
-  return console.log(`📊 Quotes Slider: Found ${r.length} containers`), r.forEach((i) => {
-    const t = new o(i);
+  const s = document.querySelectorAll(".quotes-slider-container"), e = [];
+  return console.log(`📊 Quotes Slider: Found ${s.length} containers`), s.forEach((i) => {
+    const t = new n(i);
     t.shouldEnable() || t.disable(), e.push(t);
   }), window.quotesSliders = e, e;
 }
-function I() {
-  class o {
+function S() {
+  class n {
     constructor() {
       this.init();
     }
@@ -254,10 +254,10 @@ function I() {
     processRatingElements() {
       const e = document.querySelectorAll("[rating-value]");
       console.log(`⭐ Star Rating: Found ${e.length} elements`), e.forEach((i, t) => {
-        const s = i.getAttribute("rating-value"), n = this.snapToNearestTenth(parseFloat(s) || 0);
+        const o = i.getAttribute("rating-value"), r = this.snapToNearestTenth(parseFloat(o) || 0);
         i.innerHTML = "";
-        const a = this.createStarContainer(n);
-        i.appendChild(a), i.setAttribute("rating-value", n.toString());
+        const a = this.createStarContainer(r);
+        i.appendChild(a), i.setAttribute("rating-value", r.toString());
       });
     }
     snapToNearestTenth(e) {
@@ -272,8 +272,8 @@ function I() {
         align-items: center;
       `;
       for (let t = 1; t <= 5; t++) {
-        const s = this.createStar(t, e);
-        i.appendChild(s);
+        const o = this.createStar(t, e);
+        i.appendChild(o);
       }
       return i;
     }
@@ -285,8 +285,8 @@ function I() {
         position: relative;
         display: inline-block;
       `;
-      const s = this.getStarFillState(e, i), n = this.createStarSvg(s);
-      return t.appendChild(n), t;
+      const o = this.getStarFillState(e, i), r = this.createStarSvg(o);
+      return t.appendChild(r), t;
     }
     getStarFillState(e, i) {
       const t = e - 1;
@@ -307,21 +307,21 @@ function I() {
       else if (e === "empty")
         t.setAttribute("fill", "#dcdfe1");
       else if (e.type === "partial") {
-        const s = `partial-fill-${e.percentage}`;
-        t.setAttribute("fill", `url(#${s})`), this.ensurePartialFillGradient(i, e.percentage, s);
+        const o = `partial-fill-${e.percentage}`;
+        t.setAttribute("fill", `url(#${o})`), this.ensurePartialFillGradient(i, e.percentage, o);
       }
       return i.appendChild(t), i;
     }
     ensurePartialFillGradient(e, i, t) {
       if (!document.getElementById(t)) {
-        const s = document.createElementNS(
+        const o = document.createElementNS(
           "http://www.w3.org/2000/svg",
           "defs"
-        ), n = document.createElementNS(
+        ), r = document.createElementNS(
           "http://www.w3.org/2000/svg",
           "linearGradient"
         );
-        n.setAttribute("id", t), n.setAttribute("gradientUnits", "objectBoundingBox"), n.setAttribute("x1", "0%"), n.setAttribute("y1", "0%"), n.setAttribute("x2", "100%"), n.setAttribute("y2", "0%");
+        r.setAttribute("id", t), r.setAttribute("gradientUnits", "objectBoundingBox"), r.setAttribute("x1", "0%"), r.setAttribute("y1", "0%"), r.setAttribute("x2", "100%"), r.setAttribute("y2", "0%");
         const a = document.createElementNS(
           "http://www.w3.org/2000/svg",
           "stop"
@@ -331,14 +331,14 @@ function I() {
           "http://www.w3.org/2000/svg",
           "stop"
         );
-        l.setAttribute("offset", `${i}%`), l.setAttribute("stop-color", "#dcdfe1"), n.appendChild(a), n.appendChild(l), s.appendChild(n), e.appendChild(s);
+        l.setAttribute("offset", `${i}%`), l.setAttribute("stop-color", "#dcdfe1"), r.appendChild(a), r.appendChild(l), o.appendChild(r), e.appendChild(o);
       }
     }
   }
-  new o();
+  new n();
 }
-function M() {
-  class o {
+function C() {
+  class n {
     constructor() {
       this.init();
     }
@@ -351,8 +351,8 @@ function M() {
       document.addEventListener("click", (e) => {
         const i = e.target.closest("[data-cmp-table-trigger]");
         if (!i) return;
-        const t = i.getAttribute("data-cmp-table-trigger"), s = i.closest(".comparison-table-container");
-        s && (t === "first-column" ? this.activateFirstColumn(s) : t === "last-column" && this.activateLastColumn(s));
+        const t = i.getAttribute("data-cmp-table-trigger"), o = i.closest(".comparison-table-container");
+        o && (t === "first-column" ? this.activateFirstColumn(o) : t === "last-column" && this.activateLastColumn(o));
       });
     }
     activateFirstColumn(e) {
@@ -374,50 +374,50 @@ function M() {
     showFirstColumn(e) {
       e.querySelectorAll(
         ".cmp-table-row.cmp-table-row-first"
-      ).forEach((s) => {
-        s.style.display = "flex";
+      ).forEach((o) => {
+        o.style.display = "flex";
       }), e.querySelectorAll(
         ".cmp-table-row.cmp-table-column-last"
-      ).forEach((s) => {
-        s.style.display = "none";
+      ).forEach((o) => {
+        o.style.display = "none";
       });
     }
     showLastColumn(e) {
       e.querySelectorAll(
         ".cmp-table-row.cmp-table-column-last"
-      ).forEach((s) => {
-        s.style.display = "flex";
+      ).forEach((o) => {
+        o.style.display = "flex";
       }), e.querySelectorAll(
         ".cmp-table-row.cmp-table-row-first"
-      ).forEach((s) => {
-        s.style.display = "none";
+      ).forEach((o) => {
+        o.style.display = "none";
       });
     }
   }
-  new o();
+  new n();
 }
-function L() {
-  const o = document.querySelectorAll(".tabs.w-tabs");
-  o.length !== 0 && (console.log(`📱 Tabs Select: Found ${o.length} tab containers`), o.forEach((r) => {
-    const e = r.querySelectorAll(".tab-link");
-    if (e.length === 0 || r.querySelector(".tabs-select"))
+function k() {
+  const n = document.querySelectorAll(".tabs.w-tabs");
+  n.length !== 0 && (console.log(`📱 Tabs Select: Found ${n.length} tab containers`), n.forEach((s) => {
+    const e = s.querySelectorAll(".tab-link");
+    if (e.length === 0 || s.querySelector(".tabs-select"))
       return;
     const i = document.createElement("select");
     i.className = "tabs-select";
     const t = document.createElement("option");
-    t.value = "", t.textContent = "Select a tab...", t.disabled = !0, i.appendChild(t), e.forEach((s, n) => {
+    t.value = "", t.textContent = "Select a tab...", t.disabled = !0, i.appendChild(t), e.forEach((o, r) => {
       const a = document.createElement("option");
-      a.value = n, a.textContent = s.textContent.trim() || `Tab ${n + 1}`, s.classList.contains("w--current") && (a.selected = !0, t.disabled = !1, t.selected = !1), i.appendChild(a);
+      a.value = r, a.textContent = o.textContent.trim() || `Tab ${r + 1}`, o.classList.contains("w--current") && (a.selected = !0, t.disabled = !1, t.selected = !1), i.appendChild(a);
     }), i.addEventListener("change", function() {
-      const s = parseInt(this.value);
-      !isNaN(s) && e[s] && e[s].click();
-    }), r.insertBefore(i, r.firstChild);
+      const o = parseInt(this.value);
+      !isNaN(o) && e[o] && e[o].click();
+    }), s.insertBefore(i, s.firstChild);
   }), T(), console.log("✅ Tabs Select: Mobile tab selectors initialized"));
 }
 function T() {
   if (document.getElementById("tabs-select-styles")) return;
-  const o = document.createElement("style");
-  o.id = "tabs-select-styles", o.textContent = `
+  const n = document.createElement("style");
+  n.id = "tabs-select-styles", n.textContent = `
     .tabs-select {
       width: 100%;
       padding: 12px 16px;
@@ -461,101 +461,101 @@ function T() {
         display: block !important;
       }
     }
-  `, document.head.appendChild(o);
+  `, document.head.appendChild(n);
 }
-function N() {
-  document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", v) : v();
+function E() {
+  document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", f) : f();
 }
-function v() {
-  const o = document.querySelectorAll(".tabbed-cards");
-  o.length !== 0 && (console.log(
-    `🎴 Tabbed Cards: Found ${o.length} containers`
-  ), o.forEach((r) => {
-    B(r);
+function f() {
+  const n = document.querySelectorAll(".tabbed-cards");
+  n.length !== 0 && (console.log(
+    `🎴 Tabbed Cards: Found ${n.length} containers`
+  ), n.forEach((s) => {
+    L(s);
   }), console.log("✅ Tabbed Cards: All containers initialized"));
 }
-function B(o) {
-  const r = o.querySelector(".tabbed-cards-image"), e = o.querySelectorAll(".tabbed-card.w-dropdown");
-  !r || e.length === 0 || ($(e), P(e, r), e.forEach((i, t) => {
-    Q(i, t, o, r);
-  }), z(e, r), R());
+function L(n) {
+  const s = n.querySelector(".tabbed-cards-image"), e = n.querySelectorAll(".tabbed-card.w-dropdown");
+  !s || e.length === 0 || (q(e), F(e, s), e.forEach((i, t) => {
+    I(i, t, n, s);
+  }), N(e, s), B());
 }
-function $(o) {
-  o.forEach((r, e) => {
-    const t = r.querySelector(".tabbed-card-image-wrapper")?.querySelector("img");
+function q(n) {
+  n.forEach((s, e) => {
+    const t = s.querySelector(".tabbed-card-image-wrapper")?.querySelector("img");
     if (!t) return;
-    const s = document.createElement("div");
-    s.className = "tabbed-card-mobile-image", s.dataset.cardIndex = e;
-    const n = t.cloneNode(!0);
-    s.appendChild(n), r.parentNode.insertBefore(s, r.nextSibling);
+    const o = document.createElement("div");
+    o.className = "tabbed-card-mobile-image", o.dataset.cardIndex = e;
+    const r = t.cloneNode(!0);
+    o.appendChild(r), s.parentNode.insertBefore(o, s.nextSibling);
   });
 }
-function P(o, r) {
-  r.innerHTML = "";
+function F(n, s) {
+  s.innerHTML = "";
   const e = document.createElement("img");
-  e.style.width = "100%", e.style.height = "auto", e.style.display = "block", e.style.transition = "opacity 0.2s ease", e.className = "tabbed-card-main-image", r.appendChild(e), o.forEach((i) => {
+  e.style.width = "100%", e.style.height = "auto", e.style.display = "block", e.style.transition = "opacity 0.2s ease", e.className = "tabbed-card-main-image", s.appendChild(e), n.forEach((i) => {
     const t = i.querySelector(".tabbed-card-image-wrapper img");
     if (t?.src) {
-      const s = new Image();
-      s.src = t.src;
+      const o = new Image();
+      o.src = t.src;
     }
   });
 }
-function Q(o, r, e, i) {
-  const t = o.querySelector(".tabbed-card-toggler");
+function I(n, s, e, i) {
+  const t = n.querySelector(".tabbed-card-toggler");
   if (!t) return;
   t.addEventListener("click", () => {
-    t.getAttribute("aria-expanded") === "true" || (D(o, e), setTimeout(() => {
-      m(r, i), f(r, e);
+    t.getAttribute("aria-expanded") === "true" || (M(n, e), setTimeout(() => {
+      g(s, i), p(s, e);
     }, 100));
-  }), new MutationObserver((n) => {
-    n.forEach((a) => {
-      a.attributeName === "aria-expanded" && t.getAttribute("aria-expanded") === "true" && (m(r, i), f(r, e));
+  }), new MutationObserver((r) => {
+    r.forEach((a) => {
+      a.attributeName === "aria-expanded" && t.getAttribute("aria-expanded") === "true" && (g(s, i), p(s, e));
     });
   }).observe(t, {
     attributes: !0,
     attributeFilter: ["aria-expanded"]
   });
 }
-function D(o, r) {
-  r.querySelectorAll(".tabbed-card.w-dropdown").forEach((i) => {
-    if (i !== o) {
+function M(n, s) {
+  s.querySelectorAll(".tabbed-card.w-dropdown").forEach((i) => {
+    if (i !== n) {
       const t = i.querySelector(".tabbed-card-toggler");
       t && t.getAttribute("aria-expanded") === "true" && (t.click(), setTimeout(() => {
         if (t.getAttribute("aria-expanded") === "true") {
           t.setAttribute("aria-expanded", "false");
-          const s = i.querySelector(".w-dropdown"), n = i.querySelector(".w-dropdown-list"), a = i.querySelector(".w-dropdown-toggle");
-          s?.classList.remove("w--open"), n?.classList.remove("w--open"), a?.classList.remove("w--open");
+          const o = i.querySelector(".w-dropdown"), r = i.querySelector(".w-dropdown-list"), a = i.querySelector(".w-dropdown-toggle");
+          o?.classList.remove("w--open"), r?.classList.remove("w--open"), a?.classList.remove("w--open");
         }
       }, 50));
     }
   });
 }
-function m(o, r) {
-  const e = r.querySelector(".tabbed-card-main-image");
+function g(n, s) {
+  const e = s.querySelector(".tabbed-card-main-image");
   if (!e) return;
-  const t = r.closest(".tabbed-cards").querySelectorAll(".tabbed-card.w-dropdown")[o];
+  const t = s.closest(".tabbed-cards").querySelectorAll(".tabbed-card.w-dropdown")[n];
   if (!t) return;
-  const s = t.querySelector(".tabbed-card-image-wrapper img");
-  s && e.src !== s.src && (e.style.opacity = "0.5", e.src = s.src, e.alt = s.alt || "", e.onload = () => {
+  const o = t.querySelector(".tabbed-card-image-wrapper img");
+  o && e.src !== o.src && (e.style.opacity = "0.5", e.src = o.src, e.alt = o.alt || "", e.onload = () => {
     e.style.opacity = "1";
   });
 }
-function f(o, r) {
-  r.querySelectorAll(
+function p(n, s) {
+  s.querySelectorAll(
     ".tabbed-card-mobile-image"
   ).forEach((t) => {
     t.style.display = "none";
   });
-  const i = r.querySelector(
-    `[data-card-index="${o}"]`
+  const i = s.querySelector(
+    `[data-card-index="${n}"]`
   );
   i && (i.style.display = "block");
 }
-function R() {
+function B() {
   if (document.getElementById("tabbed-cards-mobile-styles")) return;
-  const o = document.createElement("style");
-  o.id = "tabbed-cards-mobile-styles", o.textContent = `
+  const n = document.createElement("style");
+  n.id = "tabbed-cards-mobile-styles", n.textContent = `
     /* Desktop: Show original images in content, hide mobile siblings */
     @media (min-width: 992px) {
       .tabbed-card-image-wrapper {
@@ -582,119 +582,119 @@ function R() {
         border-radius: 8px;
       }
     }
-  `, document.head.appendChild(o);
+  `, document.head.appendChild(n);
 }
-function z(o, r) {
-  if (o.length === 0) return;
-  const e = o[0], i = e.querySelector(".tabbed-card-toggler");
-  i && (o.forEach((t, s) => {
-    if (s !== 0) {
-      const n = t.querySelector(".tabbed-card-toggler");
-      n?.getAttribute("aria-expanded") === "true" && n.click();
+function N(n, s) {
+  if (n.length === 0) return;
+  const e = n[0], i = e.querySelector(".tabbed-card-toggler");
+  i && (n.forEach((t, o) => {
+    if (o !== 0) {
+      const r = t.querySelector(".tabbed-card-toggler");
+      r?.getAttribute("aria-expanded") === "true" && r.click();
     }
   }), setTimeout(() => {
     i.getAttribute("aria-expanded") === "true" || (i.click(), setTimeout(() => {
       if (i.getAttribute("aria-expanded") !== "true") {
         i.setAttribute("aria-expanded", "true");
-        const s = e.querySelector(".w-dropdown"), n = e.querySelector(".w-dropdown-list"), a = e.querySelector(".w-dropdown-toggle");
-        s?.classList.add("w--open"), n?.classList.add("w--open"), a?.classList.add("w--open");
+        const o = e.querySelector(".w-dropdown"), r = e.querySelector(".w-dropdown-list"), a = e.querySelector(".w-dropdown-toggle");
+        o?.classList.add("w--open"), r?.classList.add("w--open"), a?.classList.add("w--open");
       }
-    }, 100)), m(0, r), f(0, e.closest(".tabbed-cards"));
+    }, 100)), g(0, s), p(0, e.closest(".tabbed-cards"));
   }, 200));
 }
-const g = {
+const u = {
   baseUrl: "https://pages.crunchbase.com",
   munchkinId: "976-JJA-800",
   cssUrl: "https://app-sj22.marketo.com/js/forms2/css/forms2.css",
   jsUrl: "https://pages.crunchbase.com/js/forms2/js/forms2.min.js"
 };
-let p = {
+let d = {
   css: !1,
   js: !1
 };
-function W() {
-  return new Promise((o) => {
-    if (p.css || document.querySelector(`link[href="${g.cssUrl}"]`)) {
-      p.css = !0, o();
+function D() {
+  return new Promise((n) => {
+    if (d.css || document.querySelector(`link[href="${u.cssUrl}"]`)) {
+      d.css = !0, n();
       return;
     }
-    const r = document.createElement("link");
-    r.rel = "stylesheet", r.href = g.cssUrl, r.onload = () => {
-      p.css = !0, console.log("✅ Marketo CSS loaded"), o();
-    }, r.onerror = () => {
-      console.error("❌ Failed to load Marketo CSS"), o();
-    }, document.head.appendChild(r);
+    const s = document.createElement("link");
+    s.rel = "stylesheet", s.href = u.cssUrl, s.onload = () => {
+      d.css = !0, console.log("✅ Marketo CSS loaded"), n();
+    }, s.onerror = () => {
+      console.error("❌ Failed to load Marketo CSS"), n();
+    }, document.head.appendChild(s);
   });
 }
-function j() {
-  return new Promise((o) => {
-    if (p.js || window.MktoForms2) {
-      p.js = !0, o();
+function $() {
+  return new Promise((n) => {
+    if (d.js || window.MktoForms2) {
+      d.js = !0, n();
       return;
     }
-    const r = document.createElement("script");
-    r.src = g.jsUrl, r.onload = () => {
-      p.js = !0, console.log("✅ Marketo JS loaded"), o();
-    }, r.onerror = () => {
-      console.error("❌ Failed to load Marketo JS"), o();
-    }, document.head.appendChild(r);
+    const s = document.createElement("script");
+    s.src = u.jsUrl, s.onload = () => {
+      d.js = !0, console.log("✅ Marketo JS loaded"), n();
+    }, s.onerror = () => {
+      console.error("❌ Failed to load Marketo JS"), n();
+    }, document.head.appendChild(s);
   });
 }
-function U(o) {
+function O(n) {
   try {
-    const r = o.getFormElem()[0], e = Array.from(
-      r.querySelectorAll(".mktoFormRow")
+    const s = n.getFormElem()[0], e = Array.from(
+      s.querySelectorAll(".mktoFormRow")
     ).filter((i) => !i.querySelector('input[type="hidden"]'));
-    r.querySelectorAll(".is-odd-last").forEach((i) => i.classList.remove("is-odd-last")), e.length % 2 === 1 && e[e.length - 1].classList.add("is-odd-last"), console.log(
+    s.querySelectorAll(".is-odd-last").forEach((i) => i.classList.remove("is-odd-last")), e.length % 2 === 1 && e[e.length - 1].classList.add("is-odd-last"), console.log(
       `✅ Layout applied to form with ${e.length} visible rows`
     );
-  } catch (r) {
-    console.error("❌ Error applying layout:", r);
+  } catch (s) {
+    console.error("❌ Error applying layout:", s);
   }
 }
-let x = 0;
-function b(o, r) {
+let y = 0;
+function m(n, s) {
   try {
-    if (o.hasAttribute("data-marketo-initialized")) {
+    if (n.hasAttribute("data-marketo-initialized")) {
       console.log(
-        `ℹ️ Marketo form ${r} already initialized in this container`
+        `ℹ️ Marketo form ${s} already initialized in this container`
       );
       return;
     }
-    x++;
-    const e = `mktoForm_${r}_${x}`;
-    o.innerHTML = "";
+    y++;
+    const e = `mktoForm_${s}_${y}`;
+    n.innerHTML = "";
     const i = document.createElement("form");
-    i.id = e, o.appendChild(i), o.setAttribute("data-marketo-initialized", "true"), o.setAttribute("data-marketo-unique-id", e), console.log(
-      `🎯 Initializing Marketo form ${r} with unique ID: ${e}`
+    i.id = e, n.appendChild(i), n.setAttribute("data-marketo-initialized", "true"), n.setAttribute("data-marketo-unique-id", e), console.log(
+      `🎯 Initializing Marketo form ${s} with unique ID: ${e}`
     ), window.MktoForms2.loadForm(
-      g.baseUrl,
-      g.munchkinId,
-      parseInt(r),
+      u.baseUrl,
+      u.munchkinId,
+      parseInt(s),
       function(t) {
-        console.log(`✅ Marketo form ${r} loaded successfully`);
-        const s = t.getFormElem()[0];
-        s && (i.parentNode.replaceChild(s, i), s.id = e, console.log(`🎯 Form rendered in container with ID: ${e}`)), setTimeout(() => U(t), 100);
-        const n = new CustomEvent("marketoFormLoaded", {
-          detail: { form: t, formId: r, container: o, uniqueId: e }
+        console.log(`✅ Marketo form ${s} loaded successfully`);
+        const o = t.getFormElem()[0];
+        o && (i.parentNode.replaceChild(o, i), o.id = e, console.log(`🎯 Form rendered in container with ID: ${e}`)), setTimeout(() => O(t), 100);
+        const r = new CustomEvent("marketoFormLoaded", {
+          detail: { form: t, formId: s, container: n, uniqueId: e }
         });
-        o.dispatchEvent(n);
+        n.dispatchEvent(r);
       }
     );
   } catch (e) {
-    console.error(`❌ Error initializing Marketo form ${r}:`, e);
+    console.error(`❌ Error initializing Marketo form ${s}:`, e);
   }
 }
-function V() {
-  const o = document.querySelectorAll("[data-marketo-id]");
-  if (o.length === 0) {
+function P() {
+  const n = document.querySelectorAll("[data-marketo-id]");
+  if (n.length === 0) {
     console.log(
       "ℹ️ No Marketo form containers found (looking for [data-marketo-id])"
     );
     return;
   }
-  console.log(`🎯 Found ${o.length} Marketo form container(s)`), o.forEach((r, e) => {
-    const i = r.getAttribute("data-marketo-id");
+  console.log(`🎯 Found ${n.length} Marketo form container(s)`), n.forEach((s, e) => {
+    const i = s.getAttribute("data-marketo-id");
     if (!i) {
       console.warn(
         `⚠️ Container ${e + 1} has data-marketo-id but no value`
@@ -702,26 +702,26 @@ function V() {
       return;
     }
     setTimeout(() => {
-      b(r, i);
+      m(s, i);
     }, e * 100);
   });
 }
-function H() {
-  console.log("🚀 Marketo Forms: Starting initialization..."), Promise.all([W(), j()]).then(() => {
+function Q() {
+  console.log("🚀 Marketo Forms: Starting initialization..."), Promise.all([D(), $()]).then(() => {
     setTimeout(() => {
-      window.MktoForms2 ? (V(), new MutationObserver((r) => {
-        r.forEach((e) => {
+      window.MktoForms2 ? (P(), new MutationObserver((s) => {
+        s.forEach((e) => {
           e.addedNodes.forEach((i) => {
             if (i.nodeType === 1) {
               if (i.hasAttribute && i.hasAttribute("data-marketo-id")) {
-                const s = i.getAttribute("data-marketo-id");
-                setTimeout(() => b(i, s), 100);
+                const o = i.getAttribute("data-marketo-id");
+                setTimeout(() => m(i, o), 100);
               }
-              (i.querySelectorAll ? i.querySelectorAll("[data-marketo-id]") : []).forEach((s, n) => {
-                const a = s.getAttribute("data-marketo-id");
+              (i.querySelectorAll ? i.querySelectorAll("[data-marketo-id]") : []).forEach((o, r) => {
+                const a = o.getAttribute("data-marketo-id");
                 a && setTimeout(
-                  () => b(s, a),
-                  (n + 1) * 100
+                  () => m(o, a),
+                  (r + 1) * 100
                 );
               });
             }
@@ -734,232 +734,165 @@ function H() {
         "✅ Marketo Forms: Initialization complete with dynamic form detection"
       )) : console.error("❌ MktoForms2 not available after loading resources");
     }, 500);
-  }).catch((o) => {
-    console.error("❌ Error loading Marketo resources:", o);
+  }).catch((n) => {
+    console.error("❌ Error loading Marketo resources:", n);
   });
 }
-function _() {
+function R() {
   console.log("🚀 Pricing Card Toggler: Starting...");
-  const o = document.querySelectorAll(".pricing-card-details");
-  if (o.length === 0) {
+  const n = document.querySelectorAll(".pricing-card-details");
+  if (n.length === 0) {
     console.log("ℹ️ Pricing Card Toggler: No pricing card details found");
     return;
   }
   console.log(
-    `📊 Pricing Card Toggler: Found ${o.length} pricing card(s)`
-  ), o.forEach((r, e) => {
-    J(r, e);
+    `📊 Pricing Card Toggler: Found ${n.length} pricing card(s)`
+  ), n.forEach((s, e) => {
+    new z(s, e);
   }), console.log("✅ Pricing Card Toggler: Complete");
 }
-function J(o, r) {
-  const e = o.querySelector(".pricing-card-toggle"), i = o.querySelector(".pricing-card-toggle-dark"), t = o.querySelector(".pricing-card-toggle-light"), s = o.querySelector(
-    ".pricing-card-toggle-dark-text"
-  ), n = o.querySelector(
-    ".pricing-card-toggle-light-text"
-  ), a = o.querySelectorAll(".pricing-card-option"), l = a[0], c = a[1];
-  if (!e || !i || !t || !s || !n) {
-    console.warn(
-      `⚠️ Pricing Card Toggler: Missing toggle elements in card ${r + 1}`
-    );
-    return;
+class z {
+  constructor(s, e) {
+    this.cardDetails = s, this.index = e, this.cardId = `pricing-card-${e}`, this.elements = this.getElements(), this.elements && (this.setupAccessibility(), this.setupEventListeners(), this.setActiveState("annual"));
   }
-  const d = `pricing-card-${r}`, h = `${d}-toggle`, w = `${d}-annual`, y = `${d}-monthly`, C = `${d}-annual-option`, E = `${d}-monthly-option`;
-  G(
-    e,
-    i,
-    t,
-    s,
-    n,
-    l,
-    c,
-    h,
-    w,
-    y,
-    C,
-    E
-  ), u(
-    i,
-    t,
-    s,
-    n,
-    l,
-    c,
-    "annual"
-  ), X(
-    s,
-    n,
-    i,
-    t,
-    l,
-    c
-  );
-}
-function G(o, r, e, i, t, s, n, a, l, c, d, h) {
-  o.setAttribute("role", "tablist"), o.setAttribute("aria-label", "Pricing period selection"), o.id = a, r.setAttribute("role", "tab"), r.id = l, r.setAttribute("aria-selected", "true"), r.setAttribute("aria-controls", d), r.setAttribute("tabindex", "0"), e.setAttribute("role", "tab"), e.id = c, e.setAttribute("aria-selected", "false"), e.setAttribute("aria-controls", h), e.setAttribute("tabindex", "-1"), i.setAttribute("tabindex", "-1"), t.setAttribute("tabindex", "-1"), i.setAttribute("aria-hidden", "true"), t.setAttribute("aria-hidden", "true"), s && (s.setAttribute("role", "tabpanel"), s.id = d, s.setAttribute("aria-labelledby", l), s.setAttribute("aria-hidden", "false")), n && (n.setAttribute("role", "tabpanel"), n.id = h, n.setAttribute("aria-labelledby", c), n.setAttribute("aria-hidden", "true"));
-}
-function X(o, r, e, i, t, s) {
-  e.addEventListener("click", (n) => {
-    n.preventDefault(), u(
-      e,
-      i,
-      o,
-      r,
-      t,
-      s,
-      "annual"
+  getElements() {
+    const s = {
+      toggle: this.cardDetails.querySelector(".pricing-card-toggle"),
+      annualToggle: this.cardDetails.querySelector(".pricing-card-toggle-dark"),
+      monthlyToggle: this.cardDetails.querySelector(
+        ".pricing-card-toggle-light"
+      ),
+      annualLink: this.cardDetails.querySelector(
+        ".pricing-card-toggle-dark-text"
+      ),
+      monthlyLink: this.cardDetails.querySelector(
+        ".pricing-card-toggle-light-text"
+      ),
+      pricingOptions: this.cardDetails.querySelectorAll(".pricing-card-option")
+    };
+    s.annualOption = s.pricingOptions[0], s.monthlyOption = s.pricingOptions[1];
+    const i = [
+      "toggle",
+      "annualToggle",
+      "monthlyToggle",
+      "annualLink",
+      "monthlyLink"
+    ].filter((t) => !s[t]);
+    return i.length > 0 ? (console.warn(
+      `⚠️ Pricing Card Toggler: Missing elements in card ${this.index + 1}:`,
+      i
+    ), null) : s;
+  }
+  setupAccessibility() {
+    const {
+      toggle: s,
+      annualToggle: e,
+      monthlyToggle: i,
+      annualLink: t,
+      monthlyLink: o,
+      annualOption: r,
+      monthlyOption: a
+    } = this.elements, l = this.generateIds();
+    s.setAttribute("role", "tablist"), s.setAttribute("aria-label", "Pricing period selection"), s.id = l.toggle, e.setAttribute("role", "tab"), e.id = l.annual, e.setAttribute("aria-selected", "true"), e.setAttribute("aria-controls", l.annualOption), e.setAttribute("tabindex", "0"), i.setAttribute("role", "tab"), i.id = l.monthly, i.setAttribute("aria-selected", "false"), i.setAttribute("aria-controls", l.monthlyOption), i.setAttribute("tabindex", "-1"), t.setAttribute("tabindex", "-1"), o.setAttribute("tabindex", "-1"), t.setAttribute("aria-hidden", "true"), o.setAttribute("aria-hidden", "true"), r && (r.setAttribute("role", "tabpanel"), r.id = l.annualOption, r.setAttribute("aria-labelledby", l.annual), r.setAttribute("aria-hidden", "false")), a && (a.setAttribute("role", "tabpanel"), a.id = l.monthlyOption, a.setAttribute("aria-labelledby", l.monthly), a.setAttribute("aria-hidden", "true"));
+  }
+  generateIds() {
+    return {
+      toggle: `${this.cardId}-toggle`,
+      annual: `${this.cardId}-annual`,
+      monthly: `${this.cardId}-monthly`,
+      annualOption: `${this.cardId}-annual-option`,
+      monthlyOption: `${this.cardId}-monthly-option`
+    };
+  }
+  setupEventListeners() {
+    const { annualLink: s, monthlyLink: e, annualToggle: i, monthlyToggle: t } = this.elements;
+    i.addEventListener("click", (r) => {
+      r.preventDefault(), this.setActiveState("annual");
+    }), t.addEventListener("click", (r) => {
+      r.preventDefault(), this.setActiveState("monthly");
+    });
+    const o = (r) => this.handleKeyNavigation(r);
+    i.addEventListener("keydown", o), t.addEventListener("keydown", o), s.addEventListener("click", (r) => r.preventDefault()), e.addEventListener("click", (r) => r.preventDefault());
+  }
+  handleKeyNavigation(s) {
+    const { key: e, target: i } = s, { annualToggle: t, monthlyToggle: o } = this.elements;
+    switch (e) {
+      case "ArrowLeft":
+      case "ArrowUp":
+        s.preventDefault(), i === o && (t.focus(), this.setActiveState("annual"));
+        break;
+      case "ArrowRight":
+      case "ArrowDown":
+        s.preventDefault(), i === t && (o.focus(), this.setActiveState("monthly"));
+        break;
+      case "Enter":
+      case " ":
+        s.preventDefault();
+        {
+          const r = i === t;
+          this.setActiveState(r ? "annual" : "monthly");
+        }
+        break;
+      case "Home":
+        s.preventDefault(), t.focus(), this.setActiveState("annual");
+        break;
+      case "End":
+        s.preventDefault(), o.focus(), this.setActiveState("monthly");
+        break;
+    }
+  }
+  setActiveState(s) {
+    const e = s === "annual", { annualToggle: i, monthlyToggle: t } = this.elements;
+    i.setAttribute("aria-selected", e.toString()), t.setAttribute("aria-selected", (!e).toString()), i.setAttribute("tabindex", e ? "0" : "-1"), t.setAttribute("tabindex", e ? "-1" : "0"), this.updateToggleClasses(e), this.updateTextColors(e), this.updateOptionVisibility(e), W(
+      `${e ? "Annual" : "Monthly"} pricing selected`
     );
-  }), i.addEventListener("click", (n) => {
-    n.preventDefault(), u(
-      e,
-      i,
-      o,
-      r,
-      t,
-      s,
-      "monthly"
-    );
-  }), e.addEventListener("keydown", (n) => {
-    A(
-      n,
-      e,
-      i,
-      o,
-      r,
-      t,
-      s
-    );
-  }), i.addEventListener("keydown", (n) => {
-    A(
-      n,
-      e,
-      i,
-      o,
-      r,
-      t,
-      s
-    );
-  }), o.addEventListener("click", (n) => n.preventDefault()), r.addEventListener("click", (n) => n.preventDefault());
-}
-function A(o, r, e, i, t, s, n) {
-  const { key: a, target: l } = o;
-  switch (a) {
-    case "ArrowLeft":
-    case "ArrowUp":
-      o.preventDefault(), l === e && (r.focus(), u(
-        r,
-        e,
-        i,
-        t,
-        s,
-        n,
-        "annual"
-      ));
-      break;
-    case "ArrowRight":
-    case "ArrowDown":
-      o.preventDefault(), l === r && (e.focus(), u(
-        r,
-        e,
-        i,
-        t,
-        s,
-        n,
-        "monthly"
-      ));
-      break;
-    case "Enter":
-    case " ":
-      o.preventDefault(), l === r ? u(
-        r,
-        e,
-        i,
-        t,
-        s,
-        n,
-        "annual"
-      ) : l === e && u(
-        r,
-        e,
-        i,
-        t,
-        s,
-        n,
-        "monthly"
-      );
-      break;
-    case "Home":
-      o.preventDefault(), r.focus(), u(
-        r,
-        e,
-        i,
-        t,
-        s,
-        n,
-        "annual"
-      );
-      break;
-    case "End":
-      o.preventDefault(), e.focus(), u(
-        r,
-        e,
-        i,
-        t,
-        s,
-        n,
-        "monthly"
-      );
-      break;
+  }
+  updateToggleClasses(s) {
+    const { annualToggle: e, monthlyToggle: i } = this.elements;
+    e.classList.toggle("pricing-card-toggle-dark", s), e.classList.toggle("pricing-card-toggle-light", !s), i.classList.toggle("pricing-card-toggle-dark", !s), i.classList.toggle("pricing-card-toggle-light", s);
+  }
+  updateTextColors(s) {
+    const { annualLink: e, monthlyLink: i } = this.elements, t = "white", o = "var(--_colors---primary--dark-blue)";
+    e.style.color = s ? t : o, i.style.color = s ? o : t;
+  }
+  updateOptionVisibility(s) {
+    const { annualOption: e, monthlyOption: i } = this.elements;
+    e && (e.setAttribute("aria-hidden", (!s).toString()), e.style.display = s ? "flex" : "none"), i && (i.setAttribute("aria-hidden", s.toString()), i.style.display = s ? "none" : "flex");
   }
 }
-function u(o, r, e, i, t, s, n) {
-  const a = n === "annual";
-  o.setAttribute("aria-selected", a ? "true" : "false"), r.setAttribute("aria-selected", a ? "false" : "true"), o.setAttribute("tabindex", a ? "0" : "-1"), r.setAttribute("tabindex", a ? "-1" : "0"), a ? (o.classList.contains("pricing-card-toggle-dark") || (o.className = o.className.replace(
-    "pricing-card-toggle-light",
-    "pricing-card-toggle-dark"
-  )), r.classList.contains("pricing-card-toggle-light") || (r.className = r.className.replace(
-    "pricing-card-toggle-dark",
-    "pricing-card-toggle-light"
-  ))) : (r.classList.contains("pricing-card-toggle-dark") || (r.className = r.className.replace(
-    "pricing-card-toggle-light",
-    "pricing-card-toggle-dark"
-  )), o.classList.contains("pricing-card-toggle-light") || (o.className = o.className.replace(
-    "pricing-card-toggle-dark",
-    "pricing-card-toggle-light"
-  ))), a ? (e.style.color = "white", i.style.color = "var(--_colors---primary--dark-blue)") : (i.style.color = "white", e.style.color = "var(--_colors---primary--dark-blue)"), t && (t.setAttribute("aria-hidden", a ? "false" : "true"), t.style.display = a ? "flex" : "none"), s && (s.setAttribute("aria-hidden", a ? "true" : "false"), s.style.display = a ? "none" : "flex"), K(`${a ? "Annual" : "Monthly"} pricing selected`);
-}
-function K(o) {
-  const r = document.createElement("div");
-  r.setAttribute("aria-live", "polite"), r.setAttribute("aria-atomic", "true"), r.style.position = "absolute", r.style.left = "-10000px", r.style.width = "1px", r.style.height = "1px", r.style.overflow = "hidden", document.body.appendChild(r), r.textContent = o, setTimeout(() => {
-    document.body.removeChild(r);
+function W(n) {
+  const s = document.createElement("div");
+  s.setAttribute("aria-live", "polite"), s.setAttribute("aria-atomic", "true"), s.style.position = "absolute", s.style.left = "-10000px", s.style.width = "1px", s.style.height = "1px", s.style.overflow = "hidden", document.body.appendChild(s), s.textContent = n, setTimeout(() => {
+    document.body.removeChild(s);
   }, 1e3);
 }
-const S = {
-  demo: k,
-  logoSlider: q,
-  quotesSlider: F,
-  starRating: I,
-  comparisonTableToggler: M,
-  tabsSelect: L,
-  tabbedCards: N,
-  marketoForms: H,
-  pricingCardToggler: _
+const w = {
+  demo: v,
+  logoSlider: x,
+  quotesSlider: A,
+  starRating: S,
+  comparisonTableToggler: C,
+  tabsSelect: k,
+  tabbedCards: E,
+  marketoForms: Q,
+  pricingCardToggler: R
   // Add more features here as you create them
   // myFeature: initMyFeature,
 };
-function Z(o = ["demo"]) {
-  console.log("🎯 Initializing features:", o), o.forEach((r) => {
-    if (S[r])
+function j(n = ["demo"]) {
+  console.log("🎯 Initializing features:", n), n.forEach((s) => {
+    if (w[s])
       try {
-        S[r]();
+        w[s]();
       } catch (e) {
-        console.error(`❌ Error initializing feature '${r}':`, e);
+        console.error(`❌ Error initializing feature '${s}':`, e);
       }
     else
-      console.warn(`⚠️ Feature '${r}' not found`);
+      console.warn(`⚠️ Feature '${s}' not found`);
   });
 }
 console.log("🚀 Crunchbase Webflow script loaded");
-Z([
+j([
   "logoSlider",
   "quotesSlider",
   "starRating",
