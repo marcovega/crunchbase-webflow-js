@@ -74,8 +74,11 @@ export default {
           const port = server.config.server.port;
           const mainScript = `<script type="module" src="http://${address}:${port}/src/main.js"></script>`;
           const roiScript = `<script type="module" src="http://${address}:${port}/src/react/roi-calculator-entry.js"></script>`;
+          const cssLink = `<link rel="stylesheet" href="http://${address}:${port}/src/styles/main.css">`;
           console.log(
-            "\n👾 Webflow embed scripts:\n\n📦 Vanilla JS Features:\n" +
+            "\n👾 Webflow embed scripts:\n\n🎨 Styles:\n" +
+              cssLink +
+              "\n\n📦 Vanilla JS Features:\n" +
               mainScript +
               "\n\n⚛️  ROI Calculator (React):\n" +
               roiScript +
