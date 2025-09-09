@@ -1,5 +1,7 @@
 import { WebSocketServer } from "ws";
 import react from "@vitejs/plugin-react";
+import fs from 'fs';
+import path from 'path';
 
 export default {
   resolve: {
@@ -43,6 +45,39 @@ export default {
   },
   plugins: [
     react(),
+    {
+      name: "production-wrapper",
+      generateBundle(options, bundle) {
+        // Only apply to main entry point
+        const mainBundle = bundle['crunchbase-webflow.js'];
+        if (!mainBundle) return;
+
+        // Read the wrapper and config files
+        const wrapperPath = path.resolve(__dirname, 'src/prod-wrapper.js');
+        const configPath = path.resolve(__dirname, 'src/config.js');
+        
+        let wrapperCode = '';
+        let configCode = '';
+        
+        try {
+          // Read and inline the config
+          const configContent = fs.readFileSync(configPath, 'utf-8');
+          configCode = configContent.replace('export const config =', 'const config =');
+          
+          // Read the wrapper and remove the import
+          const wrapperContent = fs.readFileSync(wrapperPath, 'utf-8');
+          wrapperCode = wrapperContent.replace("import { config } from './config.js';", '');
+          
+          // Combine: config + wrapper + original code
+          const originalCode = mainBundle.code;
+          mainBundle.code = `${configCode}\n\n${wrapperCode}\n\n// Original production code below:\n${originalCode}`;
+          
+          console.log('✅ Production wrapper added to bundle');
+        } catch (error) {
+          console.warn('⚠️ Failed to add production wrapper:', error);
+        }
+      }
+    },
     {
       name: "webflow-snippet",
       configureServer(server) {

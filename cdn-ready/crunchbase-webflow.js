@@ -1,17 +1,121 @@
-function v() {
+/**
+ * Configuration for Crunchbase Webflow JavaScript
+ */
+
+const config = {
+  // Domains where development server detection should be enabled
+  devDomains: [
+    'about-crunchbase-com.webflow.io'
+  ],
+  
+  // Development server configuration
+  devServer: {
+    url: 'http://127.0.0.1:5173/src/main.js',
+    timeout: 2000 // 2 seconds timeout for dev server check
+  }
+};
+
+/**
+ * Production Wrapper with Development Server Detection
+ * 
+ * This wrapper is prepended to the production build and handles
+ * conditional loading based on domain and dev server availability.
+ */
+
+
+
+(async function() {
+  const currentDomain = window.location.hostname;
+  const isDevelopmentDomain = config.devDomains.includes(currentDomain);
+  
+  console.log(`🌐 Crunchbase Webflow: Running on ${currentDomain}`);
+  
+  if (!isDevelopmentDomain) {
+    console.log('📦 Production domain detected, running production code...');
+    // Production code will be appended after this wrapper
+    return;
+  }
+  
+  console.log('🔧 Development domain detected, checking for local dev server...');
+  
+  /**
+   * Check if the development server is available
+   */
+  async function checkDevServer() {
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), config.devServer.timeout);
+      
+      const response = await fetch(config.devServer.url, {
+        method: 'HEAD',
+        signal: controller.signal,
+        mode: 'cors'
+      });
+      
+      clearTimeout(timeoutId);
+      return response.ok;
+    } catch (error) {
+      return false;
+    }
+  }
+  
+  /**
+   * Load development script
+   */
+  function loadDevScript() {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.type = 'module';
+      script.src = config.devServer.url;
+      script.onload = resolve;
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+  }
+  
+  // Check for development server
+  const isDevAvailable = await checkDevServer();
+  
+  if (isDevAvailable) {
+    console.log('🚀 Development server found! Loading dev version instead of production...');
+    try {
+      await loadDevScript();
+      console.log('✅ Development version loaded successfully');
+      // Exit early - don't run production code
+      return;
+    } catch (error) {
+      console.warn('⚠️ Failed to load development version, falling back to production:', error);
+    }
+  } else {
+    console.log('📦 Development server not available, running production version...');
+  }
+  
+  // If we reach here, run the production code
+  // The actual production code will be appended after this wrapper during build
+})().then(() => {
+  // Mark that we should continue with production code
+  window.__CRUNCHBASE_SHOULD_RUN_PROD__ = true;
+}).catch((error) => {
+  console.error('❌ Error in production wrapper:', error);
+  // Still run production code on wrapper error
+  window.__CRUNCHBASE_SHOULD_RUN_PROD__ = true;
+});
+
+// Original production code below:
+function S() {
   console.log("🎨 Demo Feature: Adding black border to body"), document.body.style.border = "5px solid navy", document.body.style.margin = "0", document.body.style.boxSizing = "border-box", console.log("✅ Demo Feature: Black border applied");
 }
 const x = () => {
-  const n = document.querySelectorAll('[data-logo-slider="true"]'), s = 7;
-  !n || n.length === 0 || window.matchMedia("(prefers-reduced-motion: reduce)").matches || n.forEach((e) => {
+  const o = document.querySelectorAll('[data-logo-slider="true"]'), s = 7;
+  !o || o.length === 0 || window.matchMedia("(prefers-reduced-motion: reduce)").matches || o.forEach((e) => {
     const i = e.querySelectorAll(":scope > *");
-    i.length === 0 || i.length < s || (e.setAttribute("data-logo-slider-init", "true"), e.style.setProperty("--ls-items", i.length), i.forEach((t, o) => {
-      t.style.setProperty("--ls-item-index", o + 1);
+    i.length === 0 || i.length < s || (e.setAttribute("data-logo-slider-init", "true"), e.style.setProperty("--ls-items", i.length), i.forEach((t, n) => {
+      t.style.setProperty("--ls-item-index", n + 1);
     }));
   });
 };
 function A() {
-  class n {
+  class o {
     constructor(t) {
       this.container = t, this.currentIndex = 0, this.quotes = [], this.totalQuotes = 0, this.containerWidth = 0, this.isAnimating = !1, this.resizeTimeout = null, this.animationDuration = this.getCSSVariable(
         "--quotes-slider-duration",
@@ -21,10 +125,10 @@ function A() {
         "ease-out"
       ), this.init();
     }
-    getCSSVariable(t, o) {
+    getCSSVariable(t, n) {
       return getComputedStyle(document.documentElement).getPropertyValue(
         t
-      ).trim() || o;
+      ).trim() || n;
     }
     init() {
       this.setupContainer(), this.calculateDimensions(), this.createNavigation(), this.bindEvents(), this.updateCurrentIndexFromScroll(), this.updateNavigationState();
@@ -49,11 +153,11 @@ function A() {
       this.containerWidth = this.container.offsetWidth, this.quotes = Array.from(this.container.children), this.totalQuotes = this.quotes.length;
       const t = getComputedStyle(this.container);
       this.gap = parseInt(t.gap) || 0;
-      const o = window.matchMedia("(max-width: 991px)").matches;
+      const n = window.matchMedia("(max-width: 991px)").matches;
       let r = 0;
       this.quoteData = this.quotes.map((a, l) => {
         let c;
-        o ? (c = this.containerWidth, a.style.width = `${this.containerWidth}px`) : a.classList.contains("quote-card-featured") ? (c = 862, a.style.width = "862px") : a.classList.contains("quote-card") ? (c = 410, a.style.width = "410px") : c = a.getBoundingClientRect().width;
+        n ? (c = this.containerWidth, a.style.width = `${this.containerWidth}px`) : a.classList.contains("quote-card-featured") ? (c = 862, a.style.width = "862px") : a.classList.contains("quote-card") ? (c = 410, a.style.width = "410px") : c = a.getBoundingClientRect().width;
         const h = {
           element: a,
           width: c,
@@ -123,8 +227,8 @@ function A() {
       });
     }
     handleResize() {
-      const t = this.navContainer.style.justifyContent === "center", o = window.matchMedia("(max-width: 991px)").matches;
-      this.calculateDimensions(), t !== o && (this.navContainer && this.navContainer.parentNode && this.navContainer.parentNode.removeChild(this.navContainer), this.createNavigation()), this.updateNavigationState(), this.updateProgress();
+      const t = this.navContainer.style.justifyContent === "center", n = window.matchMedia("(max-width: 991px)").matches;
+      this.calculateDimensions(), t !== n && (this.navContainer && this.navContainer.parentNode && this.navContainer.parentNode.removeChild(this.navContainer), this.createNavigation()), this.updateNavigationState(), this.updateProgress();
     }
     goToNext() {
       if (this.isAnimating || this.currentIndex === this.totalQuotes - 1 && this.isAtScrollEnd())
@@ -139,8 +243,8 @@ function A() {
       if (!(this.isAnimating || this.currentIndex <= 0)) {
         if (this.isAnimating = !0, this.isAdaptiveAligning = !1, this.currentIndex === this.totalQuotes - 1)
           if (this.isAtScrollEnd()) {
-            const o = Math.max(0, this.currentIndex - 2);
-            this.currentIndex = o, this.scrollToQuote(this.currentIndex);
+            const n = Math.max(0, this.currentIndex - 2);
+            this.currentIndex = n, this.scrollToQuote(this.currentIndex);
           } else
             this.currentIndex--, this.scrollToQuote(this.currentIndex);
         else
@@ -151,10 +255,10 @@ function A() {
       }
     }
     shouldUseAdaptiveAlignment(t) {
-      let o = 0;
+      let n = 0;
       for (let l = t; l < this.totalQuotes; l++)
-        o += this.quoteData[l].width, l < this.totalQuotes - 1 && (o += this.gap);
-      return o <= this.containerWidth + 40;
+        n += this.quoteData[l].width, l < this.totalQuotes - 1 && (n += this.gap);
+      return n <= this.containerWidth + 40;
     }
     scrollToQuote(t) {
       if (t < 0 || t >= this.totalQuotes) return;
@@ -184,19 +288,19 @@ function A() {
       return -1;
     }
     findLastVisibleQuoteIndex(t) {
-      for (let o = this.totalQuotes - 1; o >= 0; o--)
-        if (this.quoteData[o].offsetLeft <= t + 10)
-          return o;
+      for (let n = this.totalQuotes - 1; n >= 0; n--)
+        if (this.quoteData[n].offsetLeft <= t + 10)
+          return n;
       return this.totalQuotes - 1;
     }
     updateCurrentIndexFromScroll() {
       if (this.isAdaptiveAligning)
         return;
       const t = this.container.scrollLeft;
-      for (let o = 0; o < this.totalQuotes; o++) {
-        const r = this.quoteData[o], a = r.offsetLeft, l = r.offsetLeft + r.width, c = t + this.containerWidth, h = Math.max(a, t), b = Math.min(l, c);
-        if (Math.max(0, b - h) / r.width >= 0.3 || a >= t && a < c) {
-          this.currentIndex !== o && (this.currentIndex = o, this.updateNavigationState(), this.updateProgress());
+      for (let n = 0; n < this.totalQuotes; n++) {
+        const r = this.quoteData[n], a = r.offsetLeft, l = r.offsetLeft + r.width, c = t + this.containerWidth, h = Math.max(a, t), f = Math.min(l, c);
+        if (Math.max(0, f - h) / r.width >= 0.3 || a >= t && a < c) {
+          this.currentIndex !== n && (this.currentIndex = n, this.updateNavigationState(), this.updateProgress());
           break;
         }
       }
@@ -212,12 +316,12 @@ function A() {
       this.nextBtn.disabled = t, this.updateButtonStyle(this.nextBtn);
     }
     updateButtonStyle(t) {
-      const o = t.querySelector("path");
-      t.disabled ? (t.style.background = "transparent", t.style.cursor = "not-allowed", t.style.opacity = "0.5", o && o.setAttribute("stroke", "#146AFF")) : (t.style.background = "#146AFF", t.style.cursor = "pointer", t.style.opacity = "1", o && o.setAttribute("stroke", "white"));
+      const n = t.querySelector("path");
+      t.disabled ? (t.style.background = "transparent", t.style.cursor = "not-allowed", t.style.opacity = "0.5", n && n.setAttribute("stroke", "#146AFF")) : (t.style.background = "#146AFF", t.style.cursor = "pointer", t.style.opacity = "1", n && n.setAttribute("stroke", "white"));
     }
     isAtScrollEnd() {
-      const t = this.container.scrollLeft, o = this.container.scrollWidth - this.container.clientWidth;
-      return Math.abs(t - o) < 5;
+      const t = this.container.scrollLeft, n = this.container.scrollWidth - this.container.clientWidth;
+      return Math.abs(t - n) < 5;
     }
     updateProgress() {
       if (!this.progressFill) return;
@@ -239,12 +343,12 @@ function A() {
   }
   const s = document.querySelectorAll(".quotes-slider-container"), e = [];
   return console.log(`📊 Quotes Slider: Found ${s.length} containers`), s.forEach((i) => {
-    const t = new n(i);
+    const t = new o(i);
     t.shouldEnable() || t.disable(), e.push(t);
   }), window.quotesSliders = e, e;
 }
-function S() {
-  class n {
+function C() {
+  class o {
     constructor() {
       this.init();
     }
@@ -254,7 +358,7 @@ function S() {
     processRatingElements() {
       const e = document.querySelectorAll("[rating-value]");
       console.log(`⭐ Star Rating: Found ${e.length} elements`), e.forEach((i, t) => {
-        const o = i.getAttribute("rating-value"), r = this.snapToNearestTenth(parseFloat(o) || 0);
+        const n = i.getAttribute("rating-value"), r = this.snapToNearestTenth(parseFloat(n) || 0);
         i.innerHTML = "";
         const a = this.createStarContainer(r);
         i.appendChild(a), i.setAttribute("rating-value", r.toString());
@@ -272,8 +376,8 @@ function S() {
         align-items: center;
       `;
       for (let t = 1; t <= 5; t++) {
-        const o = this.createStar(t, e);
-        i.appendChild(o);
+        const n = this.createStar(t, e);
+        i.appendChild(n);
       }
       return i;
     }
@@ -285,7 +389,7 @@ function S() {
         position: relative;
         display: inline-block;
       `;
-      const o = this.getStarFillState(e, i), r = this.createStarSvg(o);
+      const n = this.getStarFillState(e, i), r = this.createStarSvg(n);
       return t.appendChild(r), t;
     }
     getStarFillState(e, i) {
@@ -307,14 +411,14 @@ function S() {
       else if (e === "empty")
         t.setAttribute("fill", "#dcdfe1");
       else if (e.type === "partial") {
-        const o = `partial-fill-${e.percentage}`;
-        t.setAttribute("fill", `url(#${o})`), this.ensurePartialFillGradient(i, e.percentage, o);
+        const n = `partial-fill-${e.percentage}`;
+        t.setAttribute("fill", `url(#${n})`), this.ensurePartialFillGradient(i, e.percentage, n);
       }
       return i.appendChild(t), i;
     }
     ensurePartialFillGradient(e, i, t) {
       if (!document.getElementById(t)) {
-        const o = document.createElementNS(
+        const n = document.createElementNS(
           "http://www.w3.org/2000/svg",
           "defs"
         ), r = document.createElementNS(
@@ -331,14 +435,14 @@ function S() {
           "http://www.w3.org/2000/svg",
           "stop"
         );
-        l.setAttribute("offset", `${i}%`), l.setAttribute("stop-color", "#dcdfe1"), r.appendChild(a), r.appendChild(l), o.appendChild(r), e.appendChild(o);
+        l.setAttribute("offset", `${i}%`), l.setAttribute("stop-color", "#dcdfe1"), r.appendChild(a), r.appendChild(l), n.appendChild(r), e.appendChild(n);
       }
     }
   }
-  new n();
+  new o();
 }
-function C() {
-  class n {
+function k() {
+  class o {
     constructor() {
       this.init();
     }
@@ -351,8 +455,8 @@ function C() {
       document.addEventListener("click", (e) => {
         const i = e.target.closest("[data-cmp-table-trigger]");
         if (!i) return;
-        const t = i.getAttribute("data-cmp-table-trigger"), o = i.closest(".comparison-table-container");
-        o && (t === "first-column" ? this.activateFirstColumn(o) : t === "last-column" && this.activateLastColumn(o));
+        const t = i.getAttribute("data-cmp-table-trigger"), n = i.closest(".comparison-table-container");
+        n && (t === "first-column" ? this.activateFirstColumn(n) : t === "last-column" && this.activateLastColumn(n));
       });
     }
     activateFirstColumn(e) {
@@ -374,50 +478,50 @@ function C() {
     showFirstColumn(e) {
       e.querySelectorAll(
         ".cmp-table-row.cmp-table-row-first"
-      ).forEach((o) => {
-        o.style.display = "flex";
+      ).forEach((n) => {
+        n.style.display = "flex";
       }), e.querySelectorAll(
         ".cmp-table-row.cmp-table-column-last"
-      ).forEach((o) => {
-        o.style.display = "none";
+      ).forEach((n) => {
+        n.style.display = "none";
       });
     }
     showLastColumn(e) {
       e.querySelectorAll(
         ".cmp-table-row.cmp-table-column-last"
-      ).forEach((o) => {
-        o.style.display = "flex";
+      ).forEach((n) => {
+        n.style.display = "flex";
       }), e.querySelectorAll(
         ".cmp-table-row.cmp-table-row-first"
-      ).forEach((o) => {
-        o.style.display = "none";
+      ).forEach((n) => {
+        n.style.display = "none";
       });
     }
   }
-  new n();
+  new o();
 }
-function k() {
-  const n = document.querySelectorAll(".tabs.w-tabs");
-  n.length !== 0 && (console.log(`📱 Tabs Select: Found ${n.length} tab containers`), n.forEach((s) => {
+function T() {
+  const o = document.querySelectorAll(".tabs.w-tabs");
+  o.length !== 0 && (console.log(`📱 Tabs Select: Found ${o.length} tab containers`), o.forEach((s) => {
     const e = s.querySelectorAll(".tab-link");
     if (e.length === 0 || s.querySelector(".tabs-select"))
       return;
     const i = document.createElement("select");
     i.className = "tabs-select";
     const t = document.createElement("option");
-    t.value = "", t.textContent = "Select a tab...", t.disabled = !0, i.appendChild(t), e.forEach((o, r) => {
+    t.value = "", t.textContent = "Select a tab...", t.disabled = !0, i.appendChild(t), e.forEach((n, r) => {
       const a = document.createElement("option");
-      a.value = r, a.textContent = o.textContent.trim() || `Tab ${r + 1}`, o.classList.contains("w--current") && (a.selected = !0, t.disabled = !1, t.selected = !1), i.appendChild(a);
+      a.value = r, a.textContent = n.textContent.trim() || `Tab ${r + 1}`, n.classList.contains("w--current") && (a.selected = !0, t.disabled = !1, t.selected = !1), i.appendChild(a);
     }), i.addEventListener("change", function() {
-      const o = parseInt(this.value);
-      !isNaN(o) && e[o] && e[o].click();
+      const n = parseInt(this.value);
+      !isNaN(n) && e[n] && e[n].click();
     }), s.insertBefore(i, s.firstChild);
-  }), T(), console.log("✅ Tabs Select: Mobile tab selectors initialized"));
+  }), E(), console.log("✅ Tabs Select: Mobile tab selectors initialized"));
 }
-function T() {
+function E() {
   if (document.getElementById("tabs-select-styles")) return;
-  const n = document.createElement("style");
-  n.id = "tabs-select-styles", n.textContent = `
+  const o = document.createElement("style");
+  o.id = "tabs-select-styles", o.textContent = `
     .tabs-select {
       width: 100%;
       padding: 12px 16px;
@@ -461,101 +565,101 @@ function T() {
         display: block !important;
       }
     }
-  `, document.head.appendChild(n);
+  `, document.head.appendChild(o);
 }
-function E() {
-  document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", f) : f();
+function L() {
+  document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", y) : y();
 }
-function f() {
-  const n = document.querySelectorAll(".tabbed-cards");
-  n.length !== 0 && (console.log(
-    `🎴 Tabbed Cards: Found ${n.length} containers`
-  ), n.forEach((s) => {
-    L(s);
+function y() {
+  const o = document.querySelectorAll(".tabbed-cards");
+  o.length !== 0 && (console.log(
+    `🎴 Tabbed Cards: Found ${o.length} containers`
+  ), o.forEach((s) => {
+    q(s);
   }), console.log("✅ Tabbed Cards: All containers initialized"));
 }
-function L(n) {
-  const s = n.querySelector(".tabbed-cards-image"), e = n.querySelectorAll(".tabbed-card.w-dropdown");
-  !s || e.length === 0 || (q(e), F(e, s), e.forEach((i, t) => {
-    I(i, t, n, s);
-  }), N(e, s), B());
+function q(o) {
+  const s = o.querySelector(".tabbed-cards-image"), e = o.querySelectorAll(".tabbed-card.w-dropdown");
+  !s || e.length === 0 || (F(e), I(e, s), e.forEach((i, t) => {
+    M(i, t, o, s);
+  }), D(e, s), N());
 }
-function q(n) {
-  n.forEach((s, e) => {
+function F(o) {
+  o.forEach((s, e) => {
     const t = s.querySelector(".tabbed-card-image-wrapper")?.querySelector("img");
     if (!t) return;
-    const o = document.createElement("div");
-    o.className = "tabbed-card-mobile-image", o.dataset.cardIndex = e;
+    const n = document.createElement("div");
+    n.className = "tabbed-card-mobile-image", n.dataset.cardIndex = e;
     const r = t.cloneNode(!0);
-    o.appendChild(r), s.parentNode.insertBefore(o, s.nextSibling);
+    n.appendChild(r), s.parentNode.insertBefore(n, s.nextSibling);
   });
 }
-function F(n, s) {
+function I(o, s) {
   s.innerHTML = "";
   const e = document.createElement("img");
-  e.style.width = "100%", e.style.height = "auto", e.style.display = "block", e.style.transition = "opacity 0.2s ease", e.className = "tabbed-card-main-image", s.appendChild(e), n.forEach((i) => {
+  e.style.width = "100%", e.style.height = "auto", e.style.display = "block", e.style.transition = "opacity 0.2s ease", e.className = "tabbed-card-main-image", s.appendChild(e), o.forEach((i) => {
     const t = i.querySelector(".tabbed-card-image-wrapper img");
     if (t?.src) {
-      const o = new Image();
-      o.src = t.src;
+      const n = new Image();
+      n.src = t.src;
     }
   });
 }
-function I(n, s, e, i) {
-  const t = n.querySelector(".tabbed-card-toggler");
+function M(o, s, e, i) {
+  const t = o.querySelector(".tabbed-card-toggler");
   if (!t) return;
   t.addEventListener("click", () => {
-    t.getAttribute("aria-expanded") === "true" || (M(n, e), setTimeout(() => {
-      g(s, i), p(s, e);
+    t.getAttribute("aria-expanded") === "true" || (B(o, e), setTimeout(() => {
+      p(s, i), m(s, e);
     }, 100));
   }), new MutationObserver((r) => {
     r.forEach((a) => {
-      a.attributeName === "aria-expanded" && t.getAttribute("aria-expanded") === "true" && (g(s, i), p(s, e));
+      a.attributeName === "aria-expanded" && t.getAttribute("aria-expanded") === "true" && (p(s, i), m(s, e));
     });
   }).observe(t, {
     attributes: !0,
     attributeFilter: ["aria-expanded"]
   });
 }
-function M(n, s) {
+function B(o, s) {
   s.querySelectorAll(".tabbed-card.w-dropdown").forEach((i) => {
-    if (i !== n) {
+    if (i !== o) {
       const t = i.querySelector(".tabbed-card-toggler");
       t && t.getAttribute("aria-expanded") === "true" && (t.click(), setTimeout(() => {
         if (t.getAttribute("aria-expanded") === "true") {
           t.setAttribute("aria-expanded", "false");
-          const o = i.querySelector(".w-dropdown"), r = i.querySelector(".w-dropdown-list"), a = i.querySelector(".w-dropdown-toggle");
-          o?.classList.remove("w--open"), r?.classList.remove("w--open"), a?.classList.remove("w--open");
+          const n = i.querySelector(".w-dropdown"), r = i.querySelector(".w-dropdown-list"), a = i.querySelector(".w-dropdown-toggle");
+          n?.classList.remove("w--open"), r?.classList.remove("w--open"), a?.classList.remove("w--open");
         }
       }, 50));
     }
   });
 }
-function g(n, s) {
+function p(o, s) {
   const e = s.querySelector(".tabbed-card-main-image");
   if (!e) return;
-  const t = s.closest(".tabbed-cards").querySelectorAll(".tabbed-card.w-dropdown")[n];
+  const t = s.closest(".tabbed-cards").querySelectorAll(".tabbed-card.w-dropdown")[o];
   if (!t) return;
-  const o = t.querySelector(".tabbed-card-image-wrapper img");
-  o && e.src !== o.src && (e.style.opacity = "0.5", e.src = o.src, e.alt = o.alt || "", e.onload = () => {
+  const n = t.querySelector(".tabbed-card-image-wrapper img");
+  n && e.src !== n.src && (e.style.opacity = "0.5", e.src = n.src, e.alt = n.alt || "", e.onload = () => {
     e.style.opacity = "1";
   });
 }
-function p(n, s) {
+function m(o, s) {
   s.querySelectorAll(
     ".tabbed-card-mobile-image"
   ).forEach((t) => {
     t.style.display = "none";
   });
   const i = s.querySelector(
-    `[data-card-index="${n}"]`
+    `[data-card-index="${o}"]`
   );
   i && (i.style.display = "block");
 }
-function B() {
+function N() {
   if (document.getElementById("tabbed-cards-mobile-styles")) return;
-  const n = document.createElement("style");
-  n.id = "tabbed-cards-mobile-styles", n.textContent = `
+  const o = document.createElement("style");
+  o.id = "tabbed-cards-mobile-styles", o.textContent = `
     /* Desktop: Show original images in content, hide mobile siblings */
     @media (min-width: 992px) {
       .tabbed-card-image-wrapper {
@@ -582,13 +686,13 @@ function B() {
         border-radius: 8px;
       }
     }
-  `, document.head.appendChild(n);
+  `, document.head.appendChild(o);
 }
-function N(n, s) {
-  if (n.length === 0) return;
-  const e = n[0], i = e.querySelector(".tabbed-card-toggler");
-  i && (n.forEach((t, o) => {
-    if (o !== 0) {
+function D(o, s) {
+  if (o.length === 0) return;
+  const e = o[0], i = e.querySelector(".tabbed-card-toggler");
+  i && (o.forEach((t, n) => {
+    if (n !== 0) {
       const r = t.querySelector(".tabbed-card-toggler");
       r?.getAttribute("aria-expanded") === "true" && r.click();
     }
@@ -596,10 +700,10 @@ function N(n, s) {
     i.getAttribute("aria-expanded") === "true" || (i.click(), setTimeout(() => {
       if (i.getAttribute("aria-expanded") !== "true") {
         i.setAttribute("aria-expanded", "true");
-        const o = e.querySelector(".w-dropdown"), r = e.querySelector(".w-dropdown-list"), a = e.querySelector(".w-dropdown-toggle");
-        o?.classList.add("w--open"), r?.classList.add("w--open"), a?.classList.add("w--open");
+        const n = e.querySelector(".w-dropdown"), r = e.querySelector(".w-dropdown-list"), a = e.querySelector(".w-dropdown-toggle");
+        n?.classList.add("w--open"), r?.classList.add("w--open"), a?.classList.add("w--open");
       }
-    }, 100)), g(0, s), p(0, e.closest(".tabbed-cards"));
+    }, 100)), p(0, s), m(0, e.closest(".tabbed-cards"));
   }, 200));
 }
 const u = {
@@ -612,37 +716,37 @@ let d = {
   css: !1,
   js: !1
 };
-function D() {
-  return new Promise((n) => {
+function O() {
+  return new Promise((o) => {
     if (d.css || document.querySelector(`link[href="${u.cssUrl}"]`)) {
-      d.css = !0, n();
+      d.css = !0, o();
       return;
     }
     const s = document.createElement("link");
     s.rel = "stylesheet", s.href = u.cssUrl, s.onload = () => {
-      d.css = !0, console.log("✅ Marketo CSS loaded"), n();
+      d.css = !0, console.log("✅ Marketo CSS loaded"), o();
     }, s.onerror = () => {
-      console.error("❌ Failed to load Marketo CSS"), n();
+      console.error("❌ Failed to load Marketo CSS"), o();
     }, document.head.appendChild(s);
   });
 }
 function $() {
-  return new Promise((n) => {
+  return new Promise((o) => {
     if (d.js || window.MktoForms2) {
-      d.js = !0, n();
+      d.js = !0, o();
       return;
     }
     const s = document.createElement("script");
     s.src = u.jsUrl, s.onload = () => {
-      d.js = !0, console.log("✅ Marketo JS loaded"), n();
+      d.js = !0, console.log("✅ Marketo JS loaded"), o();
     }, s.onerror = () => {
-      console.error("❌ Failed to load Marketo JS"), n();
+      console.error("❌ Failed to load Marketo JS"), o();
     }, document.head.appendChild(s);
   });
 }
-function O(n) {
+function R(o) {
   try {
-    const s = n.getFormElem()[0], e = Array.from(
+    const s = o.getFormElem()[0], e = Array.from(
       s.querySelectorAll(".mktoFormRow")
     ).filter((i) => !i.querySelector('input[type="hidden"]'));
     s.querySelectorAll(".is-odd-last").forEach((i) => i.classList.remove("is-odd-last")), e.length % 2 === 1 && e[e.length - 1].classList.add("is-odd-last"), console.log(
@@ -652,20 +756,20 @@ function O(n) {
     console.error("❌ Error applying layout:", s);
   }
 }
-let y = 0;
-function m(n, s) {
+let w = 0;
+function b(o, s) {
   try {
-    if (n.hasAttribute("data-marketo-initialized")) {
+    if (o.hasAttribute("data-marketo-initialized")) {
       console.log(
         `ℹ️ Marketo form ${s} already initialized in this container`
       );
       return;
     }
-    y++;
-    const e = `mktoForm_${s}_${y}`;
-    n.innerHTML = "";
+    w++;
+    const e = `mktoForm_${s}_${w}`;
+    o.innerHTML = "";
     const i = document.createElement("form");
-    i.id = e, n.appendChild(i), n.setAttribute("data-marketo-initialized", "true"), n.setAttribute("data-marketo-unique-id", e), console.log(
+    i.id = e, o.appendChild(i), o.setAttribute("data-marketo-initialized", "true"), o.setAttribute("data-marketo-unique-id", e), console.log(
       `🎯 Initializing Marketo form ${s} with unique ID: ${e}`
     ), window.MktoForms2.loadForm(
       u.baseUrl,
@@ -673,12 +777,12 @@ function m(n, s) {
       parseInt(s),
       function(t) {
         console.log(`✅ Marketo form ${s} loaded successfully`);
-        const o = t.getFormElem()[0];
-        o && (i.parentNode.replaceChild(o, i), o.id = e, console.log(`🎯 Form rendered in container with ID: ${e}`)), setTimeout(() => O(t), 100);
+        const n = t.getFormElem()[0];
+        n && (i.parentNode.replaceChild(n, i), n.id = e, console.log(`🎯 Form rendered in container with ID: ${e}`)), setTimeout(() => R(t), 100);
         const r = new CustomEvent("marketoFormLoaded", {
-          detail: { form: t, formId: s, container: n, uniqueId: e }
+          detail: { form: t, formId: s, container: o, uniqueId: e }
         });
-        n.dispatchEvent(r);
+        o.dispatchEvent(r);
       }
     );
   } catch (e) {
@@ -686,14 +790,14 @@ function m(n, s) {
   }
 }
 function P() {
-  const n = document.querySelectorAll("[data-marketo-id]");
-  if (n.length === 0) {
+  const o = document.querySelectorAll("[data-marketo-id]");
+  if (o.length === 0) {
     console.log(
       "ℹ️ No Marketo form containers found (looking for [data-marketo-id])"
     );
     return;
   }
-  console.log(`🎯 Found ${n.length} Marketo form container(s)`), n.forEach((s, e) => {
+  console.log(`🎯 Found ${o.length} Marketo form container(s)`), o.forEach((s, e) => {
     const i = s.getAttribute("data-marketo-id");
     if (!i) {
       console.warn(
@@ -702,25 +806,25 @@ function P() {
       return;
     }
     setTimeout(() => {
-      m(s, i);
+      b(s, i);
     }, e * 100);
   });
 }
 function Q() {
-  console.log("🚀 Marketo Forms: Starting initialization..."), Promise.all([D(), $()]).then(() => {
+  console.log("🚀 Marketo Forms: Starting initialization..."), Promise.all([O(), $()]).then(() => {
     setTimeout(() => {
       window.MktoForms2 ? (P(), new MutationObserver((s) => {
         s.forEach((e) => {
           e.addedNodes.forEach((i) => {
             if (i.nodeType === 1) {
               if (i.hasAttribute && i.hasAttribute("data-marketo-id")) {
-                const o = i.getAttribute("data-marketo-id");
-                setTimeout(() => m(i, o), 100);
+                const n = i.getAttribute("data-marketo-id");
+                setTimeout(() => b(i, n), 100);
               }
-              (i.querySelectorAll ? i.querySelectorAll("[data-marketo-id]") : []).forEach((o, r) => {
-                const a = o.getAttribute("data-marketo-id");
+              (i.querySelectorAll ? i.querySelectorAll("[data-marketo-id]") : []).forEach((n, r) => {
+                const a = n.getAttribute("data-marketo-id");
                 a && setTimeout(
-                  () => m(o, a),
+                  () => b(n, a),
                   (r + 1) * 100
                 );
               });
@@ -734,20 +838,20 @@ function Q() {
         "✅ Marketo Forms: Initialization complete with dynamic form detection"
       )) : console.error("❌ MktoForms2 not available after loading resources");
     }, 500);
-  }).catch((n) => {
-    console.error("❌ Error loading Marketo resources:", n);
+  }).catch((o) => {
+    console.error("❌ Error loading Marketo resources:", o);
   });
 }
-function R() {
+function _() {
   console.log("🚀 Pricing Card Toggler: Starting...");
-  const n = document.querySelectorAll(".pricing-card-details");
-  if (n.length === 0) {
+  const o = document.querySelectorAll(".pricing-card-details");
+  if (o.length === 0) {
     console.log("ℹ️ Pricing Card Toggler: No pricing card details found");
     return;
   }
   console.log(
-    `📊 Pricing Card Toggler: Found ${n.length} pricing card(s)`
-  ), n.forEach((s, e) => {
+    `📊 Pricing Card Toggler: Found ${o.length} pricing card(s)`
+  ), o.forEach((s, e) => {
     new z(s, e);
   }), console.log("✅ Pricing Card Toggler: Complete");
 }
@@ -789,11 +893,11 @@ class z {
       annualToggle: e,
       monthlyToggle: i,
       annualLink: t,
-      monthlyLink: o,
+      monthlyLink: n,
       annualOption: r,
       monthlyOption: a
     } = this.elements, l = this.generateIds();
-    s.setAttribute("role", "tablist"), s.setAttribute("aria-label", "Pricing period selection"), s.id = l.toggle, e.setAttribute("role", "tab"), e.id = l.annual, e.setAttribute("aria-selected", "true"), e.setAttribute("aria-controls", l.annualOption), e.setAttribute("tabindex", "0"), i.setAttribute("role", "tab"), i.id = l.monthly, i.setAttribute("aria-selected", "false"), i.setAttribute("aria-controls", l.monthlyOption), i.setAttribute("tabindex", "-1"), t.setAttribute("tabindex", "-1"), o.setAttribute("tabindex", "-1"), t.setAttribute("aria-hidden", "true"), o.setAttribute("aria-hidden", "true"), r && (r.setAttribute("role", "tabpanel"), r.id = l.annualOption, r.setAttribute("aria-labelledby", l.annual), r.setAttribute("aria-hidden", "false")), a && (a.setAttribute("role", "tabpanel"), a.id = l.monthlyOption, a.setAttribute("aria-labelledby", l.monthly), a.setAttribute("aria-hidden", "true"));
+    s.setAttribute("role", "tablist"), s.setAttribute("aria-label", "Pricing period selection"), s.id = l.toggle, e.setAttribute("role", "tab"), e.id = l.annual, e.setAttribute("aria-selected", "true"), e.setAttribute("aria-controls", l.annualOption), e.setAttribute("tabindex", "0"), i.setAttribute("role", "tab"), i.id = l.monthly, i.setAttribute("aria-selected", "false"), i.setAttribute("aria-controls", l.monthlyOption), i.setAttribute("tabindex", "-1"), t.setAttribute("tabindex", "-1"), n.setAttribute("tabindex", "-1"), t.setAttribute("aria-hidden", "true"), n.setAttribute("aria-hidden", "true"), r && (r.setAttribute("role", "tabpanel"), r.id = l.annualOption, r.setAttribute("aria-labelledby", l.annual), r.setAttribute("aria-hidden", "false")), a && (a.setAttribute("role", "tabpanel"), a.id = l.monthlyOption, a.setAttribute("aria-labelledby", l.monthly), a.setAttribute("aria-hidden", "true"));
   }
   generateIds() {
     return {
@@ -811,19 +915,19 @@ class z {
     }), t.addEventListener("click", (r) => {
       r.preventDefault(), this.setActiveState("monthly");
     });
-    const o = (r) => this.handleKeyNavigation(r);
-    i.addEventListener("keydown", o), t.addEventListener("keydown", o), s.addEventListener("click", (r) => r.preventDefault()), e.addEventListener("click", (r) => r.preventDefault());
+    const n = (r) => this.handleKeyNavigation(r);
+    i.addEventListener("keydown", n), t.addEventListener("keydown", n), s.addEventListener("click", (r) => r.preventDefault()), e.addEventListener("click", (r) => r.preventDefault());
   }
   handleKeyNavigation(s) {
-    const { key: e, target: i } = s, { annualToggle: t, monthlyToggle: o } = this.elements;
+    const { key: e, target: i } = s, { annualToggle: t, monthlyToggle: n } = this.elements;
     switch (e) {
       case "ArrowLeft":
       case "ArrowUp":
-        s.preventDefault(), i === o && (t.focus(), this.setActiveState("annual"));
+        s.preventDefault(), i === n && (t.focus(), this.setActiveState("annual"));
         break;
       case "ArrowRight":
       case "ArrowDown":
-        s.preventDefault(), i === t && (o.focus(), this.setActiveState("monthly"));
+        s.preventDefault(), i === t && (n.focus(), this.setActiveState("monthly"));
         break;
       case "Enter":
       case " ":
@@ -837,13 +941,13 @@ class z {
         s.preventDefault(), t.focus(), this.setActiveState("annual");
         break;
       case "End":
-        s.preventDefault(), o.focus(), this.setActiveState("monthly");
+        s.preventDefault(), n.focus(), this.setActiveState("monthly");
         break;
     }
   }
   setActiveState(s) {
     const e = s === "annual", { annualToggle: i, monthlyToggle: t } = this.elements;
-    i.setAttribute("aria-selected", e.toString()), t.setAttribute("aria-selected", (!e).toString()), i.setAttribute("tabindex", e ? "0" : "-1"), t.setAttribute("tabindex", e ? "-1" : "0"), this.updateToggleClasses(e), this.updateTextColors(e), this.updateOptionVisibility(e), W(
+    i.setAttribute("aria-selected", e.toString()), t.setAttribute("aria-selected", (!e).toString()), i.setAttribute("tabindex", e ? "0" : "-1"), t.setAttribute("tabindex", e ? "-1" : "0"), this.updateToggleClasses(e), this.updateTextColors(e), this.updateOptionVisibility(e), U(
       `${e ? "Annual" : "Monthly"} pricing selected`
     );
   }
@@ -852,38 +956,38 @@ class z {
     e.classList.toggle("pricing-card-toggle-dark", s), e.classList.toggle("pricing-card-toggle-light", !s), i.classList.toggle("pricing-card-toggle-dark", !s), i.classList.toggle("pricing-card-toggle-light", s);
   }
   updateTextColors(s) {
-    const { annualLink: e, monthlyLink: i } = this.elements, t = "white", o = "var(--_colors---primary--dark-blue)";
-    e.style.color = s ? t : o, i.style.color = s ? o : t;
+    const { annualLink: e, monthlyLink: i } = this.elements, t = "white", n = "var(--_colors---primary--dark-blue)";
+    e.style.color = s ? t : n, i.style.color = s ? n : t;
   }
   updateOptionVisibility(s) {
     const { annualOption: e, monthlyOption: i } = this.elements;
     e && (e.setAttribute("aria-hidden", (!s).toString()), e.style.display = s ? "flex" : "none"), i && (i.setAttribute("aria-hidden", s.toString()), i.style.display = s ? "none" : "flex");
   }
 }
-function W(n) {
+function U(o) {
   const s = document.createElement("div");
-  s.setAttribute("aria-live", "polite"), s.setAttribute("aria-atomic", "true"), s.style.position = "absolute", s.style.left = "-10000px", s.style.width = "1px", s.style.height = "1px", s.style.overflow = "hidden", document.body.appendChild(s), s.textContent = n, setTimeout(() => {
+  s.setAttribute("aria-live", "polite"), s.setAttribute("aria-atomic", "true"), s.style.position = "absolute", s.style.left = "-10000px", s.style.width = "1px", s.style.height = "1px", s.style.overflow = "hidden", document.body.appendChild(s), s.textContent = o, setTimeout(() => {
     document.body.removeChild(s);
   }, 1e3);
 }
-const w = {
-  demo: v,
+const v = {
+  demo: S,
   logoSlider: x,
   quotesSlider: A,
-  starRating: S,
-  comparisonTableToggler: C,
-  tabsSelect: k,
-  tabbedCards: E,
+  starRating: C,
+  comparisonTableToggler: k,
+  tabsSelect: T,
+  tabbedCards: L,
   marketoForms: Q,
-  pricingCardToggler: R
+  pricingCardToggler: _
   // Add more features here as you create them
   // myFeature: initMyFeature,
 };
-function j(n = ["demo"]) {
-  console.log("🎯 Initializing features:", n), n.forEach((s) => {
-    if (w[s])
+function W(o = ["demo"]) {
+  console.log("🎯 Initializing features:", o), o.forEach((s) => {
+    if (v[s])
       try {
-        w[s]();
+        v[s]();
       } catch (e) {
         console.error(`❌ Error initializing feature '${s}':`, e);
       }
@@ -891,17 +995,29 @@ function j(n = ["demo"]) {
       console.warn(`⚠️ Feature '${s}' not found`);
   });
 }
-console.log("🚀 Crunchbase Webflow script loaded");
-j([
-  "logoSlider",
-  "quotesSlider",
-  "starRating",
-  "comparisonTableToggler",
-  "tabsSelect",
-  "tabbedCards",
-  // RE-ENABLED with safer implementation
-  "marketoForms",
-  // Marketo forms integration
-  "pricingCardToggler"
-  // Pricing card annual/monthly toggler
-]);
+if (typeof window < "u" && !window.__CRUNCHBASE_SHOULD_RUN_PROD__) {
+  const o = setInterval(() => {
+    window.__CRUNCHBASE_SHOULD_RUN_PROD__ && (clearInterval(o), g());
+  }, 50);
+  setTimeout(() => {
+    clearInterval(o), window.__CRUNCHBASE_SHOULD_RUN_PROD__ || (console.log(
+      "⏰ Timeout waiting for wrapper, running production code anyway..."
+    ), g());
+  }, 5e3);
+} else
+  g();
+function g() {
+  console.log("🚀 Crunchbase Webflow script loaded"), W([
+    "logoSlider",
+    "quotesSlider",
+    "starRating",
+    "comparisonTableToggler",
+    "tabsSelect",
+    "tabbedCards",
+    // RE-ENABLED with safer implementation
+    "marketoForms",
+    // Marketo forms integration
+    "pricingCardToggler"
+    // Pricing card annual/monthly toggler
+  ]);
+}
