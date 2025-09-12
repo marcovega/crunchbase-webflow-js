@@ -16,6 +16,7 @@ import initMarketoForms from "./marketo-forms.js";
 import initPricingCardToggler from "./pricing-card-toggler.js";
 import initRelatedArticlesSlider from "./related-articles-slider.js";
 import initReadingTimeEstimate from "./reading-time-estimate.js";
+import initTableOfContents from "./table-of-contents.js";
 
 // Export all features
 export {
@@ -30,6 +31,7 @@ export {
   initPricingCardToggler,
   initRelatedArticlesSlider,
   initReadingTimeEstimate,
+  initTableOfContents,
 };
 
 // Feature registry for easy enable/disable
@@ -45,6 +47,7 @@ export const features = {
   pricingCardToggler: initPricingCardToggler,
   relatedArticlesSlider: initRelatedArticlesSlider,
   readingTimeEstimate: initReadingTimeEstimate,
+  tableOfContents: initTableOfContents,
   // Add more features here as you create them
   // myFeature: initMyFeature,
 };

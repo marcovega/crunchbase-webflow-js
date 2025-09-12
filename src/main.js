@@ -46,6 +46,7 @@ function runCrunchbaseCode() {
     "pricingCardToggler", // Pricing card annual/monthly toggler
     "relatedArticlesSlider", // Related articles slider for blog posts
     "readingTimeEstimate", // Reading time estimate for blog posts
+    "tableOfContents", // Table of contents for blog posts
   ]); // Can add "demo" to enable demo feature.
 
   // Development indicator and live reload
