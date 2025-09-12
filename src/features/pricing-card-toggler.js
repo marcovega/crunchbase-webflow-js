@@ -6,12 +6,9 @@
  */
 
 export function initPricingCardToggler() {
-  console.log("🚀 Pricing Card Toggler: Starting...");
-
   const pricingCardDetails = document.querySelectorAll(".pricing-card-details");
 
   if (pricingCardDetails.length === 0) {
-    console.log("ℹ️ Pricing Card Toggler: No pricing card details found");
     return;
   }
 
@@ -22,8 +19,6 @@ export function initPricingCardToggler() {
   pricingCardDetails.forEach((cardDetails, index) => {
     new PricingCard(cardDetails, index);
   });
-
-  console.log("✅ Pricing Card Toggler: Complete");
 }
 
 class PricingCard {

@@ -14,6 +14,8 @@ import initTabsSelect from "./tabs-select.js";
 import initTabbedCards from "./tabbed-cards.js";
 import initMarketoForms from "./marketo-forms.js";
 import initPricingCardToggler from "./pricing-card-toggler.js";
+import initRelatedArticlesSlider from "./related-articles-slider.js";
+import initReadingTimeEstimate from "./reading-time-estimate.js";
 
 // Export all features
 export {
@@ -26,6 +28,8 @@ export {
   initTabbedCards,
   initMarketoForms,
   initPricingCardToggler,
+  initRelatedArticlesSlider,
+  initReadingTimeEstimate,
 };
 
 // Feature registry for easy enable/disable
@@ -39,6 +43,8 @@ export const features = {
   tabbedCards: initTabbedCards,
   marketoForms: initMarketoForms,
   pricingCardToggler: initPricingCardToggler,
+  relatedArticlesSlider: initRelatedArticlesSlider,
+  readingTimeEstimate: initReadingTimeEstimate,
   // Add more features here as you create them
   // myFeature: initMyFeature,
 };
@@ -48,8 +54,6 @@ export const features = {
  * @param {string[]} enabledFeatures - Array of feature names to enable
  */
 export function initFeatures(enabledFeatures = ["demo"]) {
-  console.log("🎯 Initializing features:", enabledFeatures);
-
   enabledFeatures.forEach((featureName) => {
     if (features[featureName]) {
       try {

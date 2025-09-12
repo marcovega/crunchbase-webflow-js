@@ -26,8 +26,6 @@ function initTabbedCardsAfterLoad() {
   tabbedCardsContainers.forEach((container) => {
     initTabbedCardsContainer(container);
   });
-
-  console.log("✅ Tabbed Cards: All containers initialized");
 }
 
 function initTabbedCardsContainer(container) {

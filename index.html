@@ -138,6 +138,417 @@
           </div>
         </section>
 
+        <!-- Related Articles Slider Section -->
+        <section>
+          <h2 class="section-title">📰 Related Articles Slider</h2>
+          <p class="section-description">
+            Responsive slider for blog post related articles - only active on
+            tablet and mobile (≤991px)
+          </p>
+
+          <style>
+            /* Simulate Webflow responsive grid behavior */
+            .related-item-collection-list {
+              display: grid;
+              grid-column-gap: 40px;
+              grid-row-gap: 40px;
+              grid-template-columns: repeat(3, 1fr); /* Desktop: 3 columns */
+            }
+
+            @media (max-width: 991px) {
+              .related-item-collection-list {
+                grid-template-columns: 1fr; /* Single column base */
+                grid-auto-flow: column; /* But flow horizontally */
+                grid-template-rows: auto auto auto; /* Allow multiple rows */
+                /* This creates the side-by-side sliding behavior */
+              }
+            }
+
+            .collection-item {
+              /* Width will be set dynamically by the slider */
+              /* Grid items might have implicit sizing that we need to override */
+            }
+          </style>
+
+          <div class="related-item-collection-list-wrapper w-dyn-list">
+            <div role="list" class="related-item-collection-list w-dyn-items">
+              <div role="listitem" class="collection-item w-dyn-item">
+                <div
+                  class="related-item"
+                  style="
+                    border: 1px solid #e5e7eb;
+                    border-radius: 8px;
+                    overflow: hidden;
+                    background: white;
+                  "
+                >
+                  <a
+                    aria-label="Predictive Intelligence for Investors"
+                    href="#"
+                    class="related-item-image-link w-inline-block"
+                  >
+                    <img
+                      src="https://via.placeholder.com/410x200/667eea/ffffff?text=Article+1"
+                      loading="lazy"
+                      alt="Article 1"
+                      class="related-item-image"
+                      style="width: 100%; height: 200px; object-fit: cover"
+                    />
+                  </a>
+                  <div class="related-item-body" style="padding: 20px">
+                    <div
+                      class="related-item-body-header"
+                      style="
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-bottom: 12px;
+                      "
+                    >
+                      <div class="w-dyn-list">
+                        <div role="list" class="w-dyn-items">
+                          <div role="listitem" class="w-dyn-item">
+                            <a
+                              href="#"
+                              class="related-item-topic"
+                              style="
+                                background: #146aff;
+                                color: white;
+                                padding: 4px 8px;
+                                border-radius: 4px;
+                                text-decoration: none;
+                                font-size: 12px;
+                              "
+                              >Investors</a
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="related-item-time-to-read"
+                        style="color: #6b7280; font-size: 14px"
+                      >
+                        3 min read
+                      </div>
+                    </div>
+                    <a
+                      href="#"
+                      class="related-item-heading-link"
+                      style="
+                        color: #111827;
+                        text-decoration: none;
+                        font-weight: 600;
+                        font-size: 18px;
+                        line-height: 1.4;
+                        display: block;
+                        margin-bottom: 16px;
+                      "
+                      >Predictive Intelligence for Investors: How to Find
+                      Winning Startups</a
+                    >
+                    <div class="related-item-body-footer">
+                      <a
+                        href="#"
+                        class="related-item-author w-inline-block"
+                        style="
+                          color: #6b7280;
+                          text-decoration: none;
+                          font-size: 14px;
+                        "
+                      >
+                        <div>Rebecca Strehlow</div>
+                        <div>Copywriter</div>
+                        <div>at</div>
+                        <div>Crunchbase</div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div role="listitem" class="collection-item w-dyn-item">
+                <div
+                  class="related-item"
+                  style="
+                    border: 1px solid #e5e7eb;
+                    border-radius: 8px;
+                    overflow: hidden;
+                    background: white;
+                  "
+                >
+                  <a
+                    aria-label="AI and SaaS Funding Trends"
+                    href="#"
+                    class="related-item-image-link w-inline-block"
+                  >
+                    <img
+                      src="https://via.placeholder.com/410x200/f093fb/ffffff?text=Article+2"
+                      loading="lazy"
+                      alt="Article 2"
+                      class="related-item-image"
+                      style="width: 100%; height: 200px; object-fit: cover"
+                    />
+                  </a>
+                  <div class="related-item-body" style="padding: 20px">
+                    <div
+                      class="related-item-body-header"
+                      style="
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-bottom: 12px;
+                      "
+                    >
+                      <div class="w-dyn-list">
+                        <div role="list" class="w-dyn-items">
+                          <div role="listitem" class="w-dyn-item">
+                            <a
+                              href="#"
+                              class="related-item-topic"
+                              style="
+                                background: #146aff;
+                                color: white;
+                                padding: 4px 8px;
+                                border-radius: 4px;
+                                text-decoration: none;
+                                font-size: 12px;
+                              "
+                              >Investors</a
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="related-item-time-to-read"
+                        style="color: #6b7280; font-size: 14px"
+                      >
+                        3 min read
+                      </div>
+                    </div>
+                    <a
+                      href="#"
+                      class="related-item-heading-link"
+                      style="
+                        color: #111827;
+                        text-decoration: none;
+                        font-weight: 600;
+                        font-size: 18px;
+                        line-height: 1.4;
+                        display: block;
+                        margin-bottom: 16px;
+                      "
+                      >The Biggest AI and SaaS Funding Trends: What Investors
+                      Should Watch</a
+                    >
+                    <div class="related-item-body-footer">
+                      <a
+                        href="#"
+                        class="related-item-author w-inline-block"
+                        style="
+                          color: #6b7280;
+                          text-decoration: none;
+                          font-size: 14px;
+                        "
+                      >
+                        <div>Rebecca Strehlow</div>
+                        <div>Copywriter</div>
+                        <div>at</div>
+                        <div>Crunchbase</div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div role="listitem" class="collection-item w-dyn-item">
+                <div
+                  class="related-item"
+                  style="
+                    border: 1px solid #e5e7eb;
+                    border-radius: 8px;
+                    overflow: hidden;
+                    background: white;
+                  "
+                >
+                  <a
+                    aria-label="Wealth Management Software"
+                    href="#"
+                    class="related-item-image-link w-inline-block"
+                  >
+                    <img
+                      src="https://via.placeholder.com/410x200/4facfe/ffffff?text=Article+3"
+                      loading="lazy"
+                      alt="Article 3"
+                      class="related-item-image"
+                      style="width: 100%; height: 200px; object-fit: cover"
+                    />
+                  </a>
+                  <div class="related-item-body" style="padding: 20px">
+                    <div
+                      class="related-item-body-header"
+                      style="
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-bottom: 12px;
+                      "
+                    >
+                      <div class="w-dyn-list">
+                        <div role="list" class="w-dyn-items">
+                          <div role="listitem" class="w-dyn-item">
+                            <a
+                              href="#"
+                              class="related-item-topic"
+                              style="
+                                background: #146aff;
+                                color: white;
+                                padding: 4px 8px;
+                                border-radius: 4px;
+                                text-decoration: none;
+                                font-size: 12px;
+                              "
+                              >Investors</a
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="related-item-time-to-read"
+                        style="color: #6b7280; font-size: 14px"
+                      >
+                        3 min read
+                      </div>
+                    </div>
+                    <a
+                      href="#"
+                      class="related-item-heading-link"
+                      style="
+                        color: #111827;
+                        text-decoration: none;
+                        font-weight: 600;
+                        font-size: 18px;
+                        line-height: 1.4;
+                        display: block;
+                        margin-bottom: 16px;
+                      "
+                      >10 Best Wealth Management Software for 2025</a
+                    >
+                    <div class="related-item-body-footer">
+                      <a
+                        href="#"
+                        class="related-item-author w-inline-block"
+                        style="
+                          color: #6b7280;
+                          text-decoration: none;
+                          font-size: 14px;
+                        "
+                      >
+                        <div>Darcy Bickham</div>
+                        <div class="w-dyn-bind-empty"></div>
+                        <div class="w-condition-invisible">at</div>
+                        <div class="w-dyn-bind-empty"></div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div role="listitem" class="collection-item w-dyn-item">
+                <div
+                  class="related-item"
+                  style="
+                    border: 1px solid #e5e7eb;
+                    border-radius: 8px;
+                    overflow: hidden;
+                    background: white;
+                  "
+                >
+                  <a
+                    aria-label="Startup Funding Strategies"
+                    href="#"
+                    class="related-item-image-link w-inline-block"
+                  >
+                    <img
+                      src="https://via.placeholder.com/410x200/fa709a/ffffff?text=Article+4"
+                      loading="lazy"
+                      alt="Article 4"
+                      class="related-item-image"
+                      style="width: 100%; height: 200px; object-fit: cover"
+                    />
+                  </a>
+                  <div class="related-item-body" style="padding: 20px">
+                    <div
+                      class="related-item-body-header"
+                      style="
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-bottom: 12px;
+                      "
+                    >
+                      <div class="w-dyn-list">
+                        <div role="list" class="w-dyn-items">
+                          <div role="listitem" class="w-dyn-item">
+                            <a
+                              href="#"
+                              class="related-item-topic"
+                              style="
+                                background: #146aff;
+                                color: white;
+                                padding: 4px 8px;
+                                border-radius: 4px;
+                                text-decoration: none;
+                                font-size: 12px;
+                              "
+                              >Startups</a
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="related-item-time-to-read"
+                        style="color: #6b7280; font-size: 14px"
+                      >
+                        5 min read
+                      </div>
+                    </div>
+                    <a
+                      href="#"
+                      class="related-item-heading-link"
+                      style="
+                        color: #111827;
+                        text-decoration: none;
+                        font-weight: 600;
+                        font-size: 18px;
+                        line-height: 1.4;
+                        display: block;
+                        margin-bottom: 16px;
+                      "
+                      >Essential Startup Funding Strategies for 2025</a
+                    >
+                    <div class="related-item-body-footer">
+                      <a
+                        href="#"
+                        class="related-item-author w-inline-block"
+                        style="
+                          color: #6b7280;
+                          text-decoration: none;
+                          font-size: 14px;
+                        "
+                      >
+                        <div>John Smith</div>
+                        <div>Senior Writer</div>
+                        <div>at</div>
+                        <div>Crunchbase</div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <!-- Quotes Slider Section -->
         <section>
           <h2 class="section-title">

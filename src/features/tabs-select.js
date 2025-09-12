@@ -51,7 +51,6 @@ export function initTabsSelect() {
   });
 
   addTabsSelectCSS();
-  console.log("✅ Tabs Select: Mobile tab selectors initialized");
 }
 
 function addTabsSelectCSS() {

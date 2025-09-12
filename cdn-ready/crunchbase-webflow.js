@@ -102,12 +102,12 @@ const config = {
 });
 
 // Original production code below:
-function S() {
-  console.log("🎨 Demo Feature: Adding black border to body"), document.body.style.border = "5px solid navy", document.body.style.margin = "0", document.body.style.boxSizing = "border-box", console.log("✅ Demo Feature: Black border applied");
+function x() {
+  document.body.style.border = "5px solid navy", document.body.style.margin = "0", document.body.style.boxSizing = "border-box";
 }
-const x = () => {
-  const o = document.querySelectorAll('[data-logo-slider="true"]'), s = 7;
-  !o || o.length === 0 || window.matchMedia("(prefers-reduced-motion: reduce)").matches || o.forEach((e) => {
+const S = () => {
+  const r = document.querySelectorAll('[data-logo-slider="true"]'), s = 7;
+  !r || r.length === 0 || window.matchMedia("(prefers-reduced-motion: reduce)").matches || r.forEach((e) => {
     const i = e.querySelectorAll(":scope > *");
     i.length === 0 || i.length < s || (e.setAttribute("data-logo-slider-init", "true"), e.style.setProperty("--ls-items", i.length), i.forEach((t, n) => {
       t.style.setProperty("--ls-item-index", n + 1);
@@ -115,7 +115,7 @@ const x = () => {
   });
 };
 function A() {
-  class o {
+  class r {
     constructor(t) {
       this.container = t, this.currentIndex = 0, this.quotes = [], this.totalQuotes = 0, this.containerWidth = 0, this.isAnimating = !1, this.resizeTimeout = null, this.animationDuration = this.getCSSVariable(
         "--quotes-slider-duration",
@@ -154,17 +154,17 @@ function A() {
       const t = getComputedStyle(this.container);
       this.gap = parseInt(t.gap) || 0;
       const n = window.matchMedia("(max-width: 991px)").matches;
-      let r = 0;
+      let o = 0;
       this.quoteData = this.quotes.map((a, l) => {
         let c;
         n ? (c = this.containerWidth, a.style.width = `${this.containerWidth}px`) : a.classList.contains("quote-card-featured") ? (c = 862, a.style.width = "862px") : a.classList.contains("quote-card") ? (c = 410, a.style.width = "410px") : c = a.getBoundingClientRect().width;
         const h = {
           element: a,
           width: c,
-          offsetLeft: r,
+          offsetLeft: o,
           index: l
         };
-        return r += c + (l < this.totalQuotes - 1 ? this.gap : 0), h;
+        return o += c + (l < this.totalQuotes - 1 ? this.gap : 0), h;
       });
     }
     createNavigation() {
@@ -263,18 +263,18 @@ function A() {
     scrollToQuote(t) {
       if (t < 0 || t >= this.totalQuotes) return;
       this.currentIndex = t;
-      const r = this.quoteData[t].offsetLeft;
+      const o = this.quoteData[t].offsetLeft;
       this.container.scrollTo({
-        left: r,
+        left: o,
         behavior: "smooth"
       }), this.updateNavigationState(), setTimeout(() => {
         this.updateProgress();
       }, 50);
     }
     scrollToRightAlignment() {
-      const t = this.quoteData[this.totalQuotes - 1], r = t.offsetLeft + t.width - this.containerWidth;
+      const t = this.quoteData[this.totalQuotes - 1], o = t.offsetLeft + t.width - this.containerWidth;
       this.currentIndex = this.totalQuotes - 1, this.isAdaptiveAligning = !0, this.container.scrollTo({
-        left: Math.max(0, r),
+        left: Math.max(0, o),
         behavior: "smooth"
       }), this.updateNavigationState(), setTimeout(() => {
         this.updateProgress(), setTimeout(() => {
@@ -298,8 +298,8 @@ function A() {
         return;
       const t = this.container.scrollLeft;
       for (let n = 0; n < this.totalQuotes; n++) {
-        const r = this.quoteData[n], a = r.offsetLeft, l = r.offsetLeft + r.width, c = t + this.containerWidth, h = Math.max(a, t), f = Math.min(l, c);
-        if (Math.max(0, f - h) / r.width >= 0.3 || a >= t && a < c) {
+        const o = this.quoteData[n], a = o.offsetLeft, l = o.offsetLeft + o.width, c = t + this.containerWidth, h = Math.max(a, t), b = Math.min(l, c);
+        if (Math.max(0, b - h) / o.width >= 0.3 || a >= t && a < c) {
           this.currentIndex !== n && (this.currentIndex = n, this.updateNavigationState(), this.updateProgress());
           break;
         }
@@ -343,12 +343,12 @@ function A() {
   }
   const s = document.querySelectorAll(".quotes-slider-container"), e = [];
   return console.log(`📊 Quotes Slider: Found ${s.length} containers`), s.forEach((i) => {
-    const t = new o(i);
+    const t = new r(i);
     t.shouldEnable() || t.disable(), e.push(t);
   }), window.quotesSliders = e, e;
 }
 function C() {
-  class o {
+  class r {
     constructor() {
       this.init();
     }
@@ -358,10 +358,10 @@ function C() {
     processRatingElements() {
       const e = document.querySelectorAll("[rating-value]");
       console.log(`⭐ Star Rating: Found ${e.length} elements`), e.forEach((i, t) => {
-        const n = i.getAttribute("rating-value"), r = this.snapToNearestTenth(parseFloat(n) || 0);
+        const n = i.getAttribute("rating-value"), o = this.snapToNearestTenth(parseFloat(n) || 0);
         i.innerHTML = "";
-        const a = this.createStarContainer(r);
-        i.appendChild(a), i.setAttribute("rating-value", r.toString());
+        const a = this.createStarContainer(o);
+        i.appendChild(a), i.setAttribute("rating-value", o.toString());
       });
     }
     snapToNearestTenth(e) {
@@ -389,8 +389,8 @@ function C() {
         position: relative;
         display: inline-block;
       `;
-      const n = this.getStarFillState(e, i), r = this.createStarSvg(n);
-      return t.appendChild(r), t;
+      const n = this.getStarFillState(e, i), o = this.createStarSvg(n);
+      return t.appendChild(o), t;
     }
     getStarFillState(e, i) {
       const t = e - 1;
@@ -421,11 +421,11 @@ function C() {
         const n = document.createElementNS(
           "http://www.w3.org/2000/svg",
           "defs"
-        ), r = document.createElementNS(
+        ), o = document.createElementNS(
           "http://www.w3.org/2000/svg",
           "linearGradient"
         );
-        r.setAttribute("id", t), r.setAttribute("gradientUnits", "objectBoundingBox"), r.setAttribute("x1", "0%"), r.setAttribute("y1", "0%"), r.setAttribute("x2", "100%"), r.setAttribute("y2", "0%");
+        o.setAttribute("id", t), o.setAttribute("gradientUnits", "objectBoundingBox"), o.setAttribute("x1", "0%"), o.setAttribute("y1", "0%"), o.setAttribute("x2", "100%"), o.setAttribute("y2", "0%");
         const a = document.createElementNS(
           "http://www.w3.org/2000/svg",
           "stop"
@@ -435,21 +435,19 @@ function C() {
           "http://www.w3.org/2000/svg",
           "stop"
         );
-        l.setAttribute("offset", `${i}%`), l.setAttribute("stop-color", "#dcdfe1"), r.appendChild(a), r.appendChild(l), n.appendChild(r), e.appendChild(n);
+        l.setAttribute("offset", `${i}%`), l.setAttribute("stop-color", "#dcdfe1"), o.appendChild(a), o.appendChild(l), n.appendChild(o), e.appendChild(n);
       }
     }
   }
-  new o();
+  new r();
 }
-function k() {
-  class o {
+function E() {
+  class r {
     constructor() {
       this.init();
     }
     init() {
-      console.log(
-        "🔀 Comparison Table Toggler: Initialized and listening for clicks"
-      ), this.bindEvents();
+      this.bindEvents();
     }
     bindEvents() {
       document.addEventListener("click", (e) => {
@@ -498,30 +496,30 @@ function k() {
       });
     }
   }
-  new o();
+  new r();
 }
 function T() {
-  const o = document.querySelectorAll(".tabs.w-tabs");
-  o.length !== 0 && (console.log(`📱 Tabs Select: Found ${o.length} tab containers`), o.forEach((s) => {
+  const r = document.querySelectorAll(".tabs.w-tabs");
+  r.length !== 0 && (console.log(`📱 Tabs Select: Found ${r.length} tab containers`), r.forEach((s) => {
     const e = s.querySelectorAll(".tab-link");
     if (e.length === 0 || s.querySelector(".tabs-select"))
       return;
     const i = document.createElement("select");
     i.className = "tabs-select";
     const t = document.createElement("option");
-    t.value = "", t.textContent = "Select a tab...", t.disabled = !0, i.appendChild(t), e.forEach((n, r) => {
+    t.value = "", t.textContent = "Select a tab...", t.disabled = !0, i.appendChild(t), e.forEach((n, o) => {
       const a = document.createElement("option");
-      a.value = r, a.textContent = n.textContent.trim() || `Tab ${r + 1}`, n.classList.contains("w--current") && (a.selected = !0, t.disabled = !1, t.selected = !1), i.appendChild(a);
+      a.value = o, a.textContent = n.textContent.trim() || `Tab ${o + 1}`, n.classList.contains("w--current") && (a.selected = !0, t.disabled = !1, t.selected = !1), i.appendChild(a);
     }), i.addEventListener("change", function() {
       const n = parseInt(this.value);
       !isNaN(n) && e[n] && e[n].click();
     }), s.insertBefore(i, s.firstChild);
-  }), E(), console.log("✅ Tabs Select: Mobile tab selectors initialized"));
+  }), k());
 }
-function E() {
+function k() {
   if (document.getElementById("tabs-select-styles")) return;
-  const o = document.createElement("style");
-  o.id = "tabs-select-styles", o.textContent = `
+  const r = document.createElement("style");
+  r.id = "tabs-select-styles", r.textContent = `
     .tabs-select {
       width: 100%;
       padding: 12px 16px;
@@ -565,39 +563,39 @@ function E() {
         display: block !important;
       }
     }
-  `, document.head.appendChild(o);
+  `, document.head.appendChild(r);
 }
 function L() {
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", y) : y();
 }
 function y() {
-  const o = document.querySelectorAll(".tabbed-cards");
-  o.length !== 0 && (console.log(
-    `🎴 Tabbed Cards: Found ${o.length} containers`
-  ), o.forEach((s) => {
-    q(s);
-  }), console.log("✅ Tabbed Cards: All containers initialized"));
+  const r = document.querySelectorAll(".tabbed-cards");
+  r.length !== 0 && (console.log(
+    `🎴 Tabbed Cards: Found ${r.length} containers`
+  ), r.forEach((s) => {
+    I(s);
+  }));
 }
-function q(o) {
-  const s = o.querySelector(".tabbed-cards-image"), e = o.querySelectorAll(".tabbed-card.w-dropdown");
-  !s || e.length === 0 || (F(e), I(e, s), e.forEach((i, t) => {
-    M(i, t, o, s);
+function I(r) {
+  const s = r.querySelector(".tabbed-cards-image"), e = r.querySelectorAll(".tabbed-card.w-dropdown");
+  !s || e.length === 0 || (q(e), B(e, s), e.forEach((i, t) => {
+    F(i, t, r, s);
   }), D(e, s), N());
 }
-function F(o) {
-  o.forEach((s, e) => {
+function q(r) {
+  r.forEach((s, e) => {
     const t = s.querySelector(".tabbed-card-image-wrapper")?.querySelector("img");
     if (!t) return;
     const n = document.createElement("div");
     n.className = "tabbed-card-mobile-image", n.dataset.cardIndex = e;
-    const r = t.cloneNode(!0);
-    n.appendChild(r), s.parentNode.insertBefore(n, s.nextSibling);
+    const o = t.cloneNode(!0);
+    n.appendChild(o), s.parentNode.insertBefore(n, s.nextSibling);
   });
 }
-function I(o, s) {
+function B(r, s) {
   s.innerHTML = "";
   const e = document.createElement("img");
-  e.style.width = "100%", e.style.height = "auto", e.style.display = "block", e.style.transition = "opacity 0.2s ease", e.className = "tabbed-card-main-image", s.appendChild(e), o.forEach((i) => {
+  e.style.width = "100%", e.style.height = "auto", e.style.display = "block", e.style.transition = "opacity 0.2s ease", e.className = "tabbed-card-main-image", s.appendChild(e), r.forEach((i) => {
     const t = i.querySelector(".tabbed-card-image-wrapper img");
     if (t?.src) {
       const n = new Image();
@@ -605,61 +603,61 @@ function I(o, s) {
     }
   });
 }
-function M(o, s, e, i) {
-  const t = o.querySelector(".tabbed-card-toggler");
+function F(r, s, e, i) {
+  const t = r.querySelector(".tabbed-card-toggler");
   if (!t) return;
   t.addEventListener("click", () => {
-    t.getAttribute("aria-expanded") === "true" || (B(o, e), setTimeout(() => {
-      p(s, i), m(s, e);
+    t.getAttribute("aria-expanded") === "true" || (M(r, e), setTimeout(() => {
+      p(s, i), g(s, e);
     }, 100));
-  }), new MutationObserver((r) => {
-    r.forEach((a) => {
-      a.attributeName === "aria-expanded" && t.getAttribute("aria-expanded") === "true" && (p(s, i), m(s, e));
+  }), new MutationObserver((o) => {
+    o.forEach((a) => {
+      a.attributeName === "aria-expanded" && t.getAttribute("aria-expanded") === "true" && (p(s, i), g(s, e));
     });
   }).observe(t, {
     attributes: !0,
     attributeFilter: ["aria-expanded"]
   });
 }
-function B(o, s) {
+function M(r, s) {
   s.querySelectorAll(".tabbed-card.w-dropdown").forEach((i) => {
-    if (i !== o) {
+    if (i !== r) {
       const t = i.querySelector(".tabbed-card-toggler");
       t && t.getAttribute("aria-expanded") === "true" && (t.click(), setTimeout(() => {
         if (t.getAttribute("aria-expanded") === "true") {
           t.setAttribute("aria-expanded", "false");
-          const n = i.querySelector(".w-dropdown"), r = i.querySelector(".w-dropdown-list"), a = i.querySelector(".w-dropdown-toggle");
-          n?.classList.remove("w--open"), r?.classList.remove("w--open"), a?.classList.remove("w--open");
+          const n = i.querySelector(".w-dropdown"), o = i.querySelector(".w-dropdown-list"), a = i.querySelector(".w-dropdown-toggle");
+          n?.classList.remove("w--open"), o?.classList.remove("w--open"), a?.classList.remove("w--open");
         }
       }, 50));
     }
   });
 }
-function p(o, s) {
+function p(r, s) {
   const e = s.querySelector(".tabbed-card-main-image");
   if (!e) return;
-  const t = s.closest(".tabbed-cards").querySelectorAll(".tabbed-card.w-dropdown")[o];
+  const t = s.closest(".tabbed-cards").querySelectorAll(".tabbed-card.w-dropdown")[r];
   if (!t) return;
   const n = t.querySelector(".tabbed-card-image-wrapper img");
   n && e.src !== n.src && (e.style.opacity = "0.5", e.src = n.src, e.alt = n.alt || "", e.onload = () => {
     e.style.opacity = "1";
   });
 }
-function m(o, s) {
+function g(r, s) {
   s.querySelectorAll(
     ".tabbed-card-mobile-image"
   ).forEach((t) => {
     t.style.display = "none";
   });
   const i = s.querySelector(
-    `[data-card-index="${o}"]`
+    `[data-card-index="${r}"]`
   );
   i && (i.style.display = "block");
 }
 function N() {
   if (document.getElementById("tabbed-cards-mobile-styles")) return;
-  const o = document.createElement("style");
-  o.id = "tabbed-cards-mobile-styles", o.textContent = `
+  const r = document.createElement("style");
+  r.id = "tabbed-cards-mobile-styles", r.textContent = `
     /* Desktop: Show original images in content, hide mobile siblings */
     @media (min-width: 992px) {
       .tabbed-card-image-wrapper {
@@ -686,24 +684,24 @@ function N() {
         border-radius: 8px;
       }
     }
-  `, document.head.appendChild(o);
+  `, document.head.appendChild(r);
 }
-function D(o, s) {
-  if (o.length === 0) return;
-  const e = o[0], i = e.querySelector(".tabbed-card-toggler");
-  i && (o.forEach((t, n) => {
+function D(r, s) {
+  if (r.length === 0) return;
+  const e = r[0], i = e.querySelector(".tabbed-card-toggler");
+  i && (r.forEach((t, n) => {
     if (n !== 0) {
-      const r = t.querySelector(".tabbed-card-toggler");
-      r?.getAttribute("aria-expanded") === "true" && r.click();
+      const o = t.querySelector(".tabbed-card-toggler");
+      o?.getAttribute("aria-expanded") === "true" && o.click();
     }
   }), setTimeout(() => {
     i.getAttribute("aria-expanded") === "true" || (i.click(), setTimeout(() => {
       if (i.getAttribute("aria-expanded") !== "true") {
         i.setAttribute("aria-expanded", "true");
-        const n = e.querySelector(".w-dropdown"), r = e.querySelector(".w-dropdown-list"), a = e.querySelector(".w-dropdown-toggle");
-        n?.classList.add("w--open"), r?.classList.add("w--open"), a?.classList.add("w--open");
+        const n = e.querySelector(".w-dropdown"), o = e.querySelector(".w-dropdown-list"), a = e.querySelector(".w-dropdown-toggle");
+        n?.classList.add("w--open"), o?.classList.add("w--open"), a?.classList.add("w--open");
       }
-    }, 100)), p(0, s), m(0, e.closest(".tabbed-cards"));
+    }, 100)), p(0, s), g(0, e.closest(".tabbed-cards"));
   }, 200));
 }
 const u = {
@@ -716,73 +714,64 @@ let d = {
   css: !1,
   js: !1
 };
-function O() {
-  return new Promise((o) => {
+function R() {
+  return new Promise((r) => {
     if (d.css || document.querySelector(`link[href="${u.cssUrl}"]`)) {
-      d.css = !0, o();
+      d.css = !0, r();
       return;
     }
     const s = document.createElement("link");
     s.rel = "stylesheet", s.href = u.cssUrl, s.onload = () => {
-      d.css = !0, console.log("✅ Marketo CSS loaded"), o();
+      d.css = !0, r();
     }, s.onerror = () => {
-      console.error("❌ Failed to load Marketo CSS"), o();
+      console.error("❌ Failed to load Marketo CSS"), r();
     }, document.head.appendChild(s);
   });
 }
-function $() {
-  return new Promise((o) => {
+function O() {
+  return new Promise((r) => {
     if (d.js || window.MktoForms2) {
-      d.js = !0, o();
+      d.js = !0, r();
       return;
     }
     const s = document.createElement("script");
     s.src = u.jsUrl, s.onload = () => {
-      d.js = !0, console.log("✅ Marketo JS loaded"), o();
+      d.js = !0, r();
     }, s.onerror = () => {
-      console.error("❌ Failed to load Marketo JS"), o();
+      console.error("❌ Failed to load Marketo JS"), r();
     }, document.head.appendChild(s);
   });
 }
-function R(o) {
+function $(r) {
   try {
-    const s = o.getFormElem()[0], e = Array.from(
+    const s = r.getFormElem()[0], e = Array.from(
       s.querySelectorAll(".mktoFormRow")
     ).filter((i) => !i.querySelector('input[type="hidden"]'));
-    s.querySelectorAll(".is-odd-last").forEach((i) => i.classList.remove("is-odd-last")), e.length % 2 === 1 && e[e.length - 1].classList.add("is-odd-last"), console.log(
-      `✅ Layout applied to form with ${e.length} visible rows`
-    );
+    s.querySelectorAll(".is-odd-last").forEach((i) => i.classList.remove("is-odd-last")), e.length % 2 === 1 && e[e.length - 1].classList.add("is-odd-last");
   } catch (s) {
     console.error("❌ Error applying layout:", s);
   }
 }
 let w = 0;
-function b(o, s) {
+function f(r, s) {
   try {
-    if (o.hasAttribute("data-marketo-initialized")) {
-      console.log(
-        `ℹ️ Marketo form ${s} already initialized in this container`
-      );
+    if (r.hasAttribute("data-marketo-initialized"))
       return;
-    }
     w++;
     const e = `mktoForm_${s}_${w}`;
-    o.innerHTML = "";
+    r.innerHTML = "";
     const i = document.createElement("form");
-    i.id = e, o.appendChild(i), o.setAttribute("data-marketo-initialized", "true"), o.setAttribute("data-marketo-unique-id", e), console.log(
-      `🎯 Initializing Marketo form ${s} with unique ID: ${e}`
-    ), window.MktoForms2.loadForm(
+    i.id = e, r.appendChild(i), r.setAttribute("data-marketo-initialized", "true"), r.setAttribute("data-marketo-unique-id", e), window.MktoForms2.loadForm(
       u.baseUrl,
       u.munchkinId,
       parseInt(s),
       function(t) {
-        console.log(`✅ Marketo form ${s} loaded successfully`);
         const n = t.getFormElem()[0];
-        n && (i.parentNode.replaceChild(n, i), n.id = e, console.log(`🎯 Form rendered in container with ID: ${e}`)), setTimeout(() => R(t), 100);
-        const r = new CustomEvent("marketoFormLoaded", {
-          detail: { form: t, formId: s, container: o, uniqueId: e }
+        n && (i.parentNode.replaceChild(n, i), n.id = e), setTimeout(() => $(t), 100);
+        const o = new CustomEvent("marketoFormLoaded", {
+          detail: { form: t, formId: s, container: r, uniqueId: e }
         });
-        o.dispatchEvent(r);
+        r.dispatchEvent(o);
       }
     );
   } catch (e) {
@@ -790,14 +779,8 @@ function b(o, s) {
   }
 }
 function P() {
-  const o = document.querySelectorAll("[data-marketo-id]");
-  if (o.length === 0) {
-    console.log(
-      "ℹ️ No Marketo form containers found (looking for [data-marketo-id])"
-    );
-    return;
-  }
-  console.log(`🎯 Found ${o.length} Marketo form container(s)`), o.forEach((s, e) => {
+  const r = document.querySelectorAll("[data-marketo-id]");
+  r.length !== 0 && (console.log(`🎯 Found ${r.length} Marketo form container(s)`), r.forEach((s, e) => {
     const i = s.getAttribute("data-marketo-id");
     if (!i) {
       console.warn(
@@ -806,12 +789,12 @@ function P() {
       return;
     }
     setTimeout(() => {
-      b(s, i);
+      f(s, i);
     }, e * 100);
-  });
+  }));
 }
 function Q() {
-  console.log("🚀 Marketo Forms: Starting initialization..."), Promise.all([O(), $()]).then(() => {
+  Promise.all([R(), O()]).then(() => {
     setTimeout(() => {
       window.MktoForms2 ? (P(), new MutationObserver((s) => {
         s.forEach((e) => {
@@ -819,13 +802,13 @@ function Q() {
             if (i.nodeType === 1) {
               if (i.hasAttribute && i.hasAttribute("data-marketo-id")) {
                 const n = i.getAttribute("data-marketo-id");
-                setTimeout(() => b(i, n), 100);
+                setTimeout(() => f(i, n), 100);
               }
-              (i.querySelectorAll ? i.querySelectorAll("[data-marketo-id]") : []).forEach((n, r) => {
+              (i.querySelectorAll ? i.querySelectorAll("[data-marketo-id]") : []).forEach((n, o) => {
                 const a = n.getAttribute("data-marketo-id");
                 a && setTimeout(
-                  () => b(n, a),
-                  (r + 1) * 100
+                  () => f(n, a),
+                  (o + 1) * 100
                 );
               });
             }
@@ -834,28 +817,21 @@ function Q() {
       }).observe(document.body, {
         childList: !0,
         subtree: !0
-      }), console.log(
-        "✅ Marketo Forms: Initialization complete with dynamic form detection"
-      )) : console.error("❌ MktoForms2 not available after loading resources");
+      })) : console.error("❌ MktoForms2 not available after loading resources");
     }, 500);
-  }).catch((o) => {
-    console.error("❌ Error loading Marketo resources:", o);
+  }).catch((r) => {
+    console.error("❌ Error loading Marketo resources:", r);
   });
 }
-function _() {
-  console.log("🚀 Pricing Card Toggler: Starting...");
-  const o = document.querySelectorAll(".pricing-card-details");
-  if (o.length === 0) {
-    console.log("ℹ️ Pricing Card Toggler: No pricing card details found");
-    return;
-  }
-  console.log(
-    `📊 Pricing Card Toggler: Found ${o.length} pricing card(s)`
-  ), o.forEach((s, e) => {
-    new z(s, e);
-  }), console.log("✅ Pricing Card Toggler: Complete");
+function W() {
+  const r = document.querySelectorAll(".pricing-card-details");
+  r.length !== 0 && (console.log(
+    `📊 Pricing Card Toggler: Found ${r.length} pricing card(s)`
+  ), r.forEach((s, e) => {
+    new _(s, e);
+  }));
 }
-class z {
+class _ {
   constructor(s, e) {
     this.cardDetails = s, this.index = e, this.cardId = `pricing-card-${e}`, this.elements = this.getElements(), this.elements && (this.setupAccessibility(), this.setupEventListeners(), this.setActiveState("annual"));
   }
@@ -894,10 +870,10 @@ class z {
       monthlyToggle: i,
       annualLink: t,
       monthlyLink: n,
-      annualOption: r,
+      annualOption: o,
       monthlyOption: a
     } = this.elements, l = this.generateIds();
-    s.setAttribute("role", "tablist"), s.setAttribute("aria-label", "Pricing period selection"), s.id = l.toggle, e.setAttribute("role", "tab"), e.id = l.annual, e.setAttribute("aria-selected", "true"), e.setAttribute("aria-controls", l.annualOption), e.setAttribute("tabindex", "0"), i.setAttribute("role", "tab"), i.id = l.monthly, i.setAttribute("aria-selected", "false"), i.setAttribute("aria-controls", l.monthlyOption), i.setAttribute("tabindex", "-1"), t.setAttribute("tabindex", "-1"), n.setAttribute("tabindex", "-1"), t.setAttribute("aria-hidden", "true"), n.setAttribute("aria-hidden", "true"), r && (r.setAttribute("role", "tabpanel"), r.id = l.annualOption, r.setAttribute("aria-labelledby", l.annual), r.setAttribute("aria-hidden", "false")), a && (a.setAttribute("role", "tabpanel"), a.id = l.monthlyOption, a.setAttribute("aria-labelledby", l.monthly), a.setAttribute("aria-hidden", "true"));
+    s.setAttribute("role", "tablist"), s.setAttribute("aria-label", "Pricing period selection"), s.id = l.toggle, e.setAttribute("role", "tab"), e.id = l.annual, e.setAttribute("aria-selected", "true"), e.setAttribute("aria-controls", l.annualOption), e.setAttribute("tabindex", "0"), i.setAttribute("role", "tab"), i.id = l.monthly, i.setAttribute("aria-selected", "false"), i.setAttribute("aria-controls", l.monthlyOption), i.setAttribute("tabindex", "-1"), t.setAttribute("tabindex", "-1"), n.setAttribute("tabindex", "-1"), t.setAttribute("aria-hidden", "true"), n.setAttribute("aria-hidden", "true"), o && (o.setAttribute("role", "tabpanel"), o.id = l.annualOption, o.setAttribute("aria-labelledby", l.annual), o.setAttribute("aria-hidden", "false")), a && (a.setAttribute("role", "tabpanel"), a.id = l.monthlyOption, a.setAttribute("aria-labelledby", l.monthly), a.setAttribute("aria-hidden", "true"));
   }
   generateIds() {
     return {
@@ -910,13 +886,13 @@ class z {
   }
   setupEventListeners() {
     const { annualLink: s, monthlyLink: e, annualToggle: i, monthlyToggle: t } = this.elements;
-    i.addEventListener("click", (r) => {
-      r.preventDefault(), this.setActiveState("annual");
-    }), t.addEventListener("click", (r) => {
-      r.preventDefault(), this.setActiveState("monthly");
+    i.addEventListener("click", (o) => {
+      o.preventDefault(), this.setActiveState("annual");
+    }), t.addEventListener("click", (o) => {
+      o.preventDefault(), this.setActiveState("monthly");
     });
-    const n = (r) => this.handleKeyNavigation(r);
-    i.addEventListener("keydown", n), t.addEventListener("keydown", n), s.addEventListener("click", (r) => r.preventDefault()), e.addEventListener("click", (r) => r.preventDefault());
+    const n = (o) => this.handleKeyNavigation(o);
+    i.addEventListener("keydown", n), t.addEventListener("keydown", n), s.addEventListener("click", (o) => o.preventDefault()), e.addEventListener("click", (o) => o.preventDefault());
   }
   handleKeyNavigation(s) {
     const { key: e, target: i } = s, { annualToggle: t, monthlyToggle: n } = this.elements;
@@ -933,8 +909,8 @@ class z {
       case " ":
         s.preventDefault();
         {
-          const r = i === t;
-          this.setActiveState(r ? "annual" : "monthly");
+          const o = i === t;
+          this.setActiveState(o ? "annual" : "monthly");
         }
         break;
       case "Home":
@@ -947,7 +923,7 @@ class z {
   }
   setActiveState(s) {
     const e = s === "annual", { annualToggle: i, monthlyToggle: t } = this.elements;
-    i.setAttribute("aria-selected", e.toString()), t.setAttribute("aria-selected", (!e).toString()), i.setAttribute("tabindex", e ? "0" : "-1"), t.setAttribute("tabindex", e ? "-1" : "0"), this.updateToggleClasses(e), this.updateTextColors(e), this.updateOptionVisibility(e), U(
+    i.setAttribute("aria-selected", e.toString()), t.setAttribute("aria-selected", (!e).toString()), i.setAttribute("tabindex", e ? "0" : "-1"), t.setAttribute("tabindex", e ? "-1" : "0"), this.updateToggleClasses(e), this.updateTextColors(e), this.updateOptionVisibility(e), j(
       `${e ? "Annual" : "Monthly"} pricing selected`
     );
   }
@@ -964,27 +940,178 @@ class z {
     e && (e.setAttribute("aria-hidden", (!s).toString()), e.style.display = s ? "flex" : "none"), i && (i.setAttribute("aria-hidden", s.toString()), i.style.display = s ? "none" : "flex");
   }
 }
-function U(o) {
+function j(r) {
   const s = document.createElement("div");
-  s.setAttribute("aria-live", "polite"), s.setAttribute("aria-atomic", "true"), s.style.position = "absolute", s.style.left = "-10000px", s.style.width = "1px", s.style.height = "1px", s.style.overflow = "hidden", document.body.appendChild(s), s.textContent = o, setTimeout(() => {
+  s.setAttribute("aria-live", "polite"), s.setAttribute("aria-atomic", "true"), s.style.position = "absolute", s.style.left = "-10000px", s.style.width = "1px", s.style.height = "1px", s.style.overflow = "hidden", document.body.appendChild(s), s.textContent = r, setTimeout(() => {
     document.body.removeChild(s);
   }, 1e3);
 }
+function z() {
+  class r {
+    constructor(t) {
+      this.wrapper = t, this.itemsContainer = t.querySelector(
+        ".related-item-collection-list"
+      ), this.items = Array.from(t.querySelectorAll(".collection-item")), this.currentIndex = 0, this.totalItems = this.items.length, this.gap = 20, this.isAnimating = !1, this.resizeTimeout = null, this.animationDuration = this.getCSSVariable(
+        "--related-articles-slider-duration",
+        "400ms"
+      ), this.animationEasing = this.getCSSVariable(
+        "--related-articles-slider-easing",
+        "ease-out"
+      ), this.forceEnable = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1", this.init();
+    }
+    getCSSVariable(t, n) {
+      return getComputedStyle(document.documentElement).getPropertyValue(t).trim() || n;
+    }
+    init() {
+      if (!this.wrapper || !this.itemsContainer || this.totalItems === 0) {
+        console.warn("Related Articles Slider: Required elements not found");
+        return;
+      }
+      this.isEnabled = this.shouldEnable(), this.isEnabled && this.setupSlider(), window.addEventListener("resize", () => {
+        clearTimeout(this.resizeTimeout), this.resizeTimeout = setTimeout(() => this.handleResize(), 150);
+      });
+    }
+    shouldEnable() {
+      return window.matchMedia("(max-width: 991px)").matches || this.forceEnable;
+    }
+    setupSlider() {
+      this.updateDimensions(), this.wrapper.style.overflow = "hidden", this.itemsContainer.style.cssText = `
+        display: flex !important;
+        scroll-behavior: smooth;
+        gap: ${this.gap}px !important;
+        transition: transform ${this.animationDuration} ${this.animationEasing};
+        grid-template-columns: none !important;
+        grid-template-rows: none !important;
+        grid-auto-flow: none !important;
+      `, this.applyItemStyles(), this.navContainer || (this.createNavigation(), this.attachEventListeners()), this.updateNavigationState();
+    }
+    updateDimensions() {
+      this.containerWidth = this.itemsContainer.offsetWidth, this.itemsPerView = 1, this.maxIndex = Math.max(0, this.totalItems - this.itemsPerView);
+    }
+    applyItemStyles() {
+      const t = this.containerWidth;
+      this.items.forEach((n) => {
+        n.style.cssText = `
+          flex-shrink: 0;
+          width: ${t}px !important;
+          min-width: ${t}px !important;
+          max-width: ${t}px !important;
+          grid-column: unset !important;
+          grid-row: unset !important;
+          grid-area: unset !important;
+          place-self: unset !important;
+          align-self: unset !important;
+          justify-self: unset !important;
+        `;
+      });
+    }
+    createNavigation() {
+      this.navContainer = document.createElement("div"), this.navContainer.className = "related-articles-slider-nav", this.navContainer.style.cssText = `
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 30px;
+        justify-content: center;
+      `;
+      const t = `
+        width: 34px;
+        height: 34px;
+        border-radius: 22px;
+        border: 1.5px solid #146AFF;
+        background: transparent;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+        padding: 0;
+      `;
+      this.prevBtn = document.createElement("button"), this.prevBtn.className = "related-articles-slider-prev", this.prevBtn.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="7" height="13" viewBox="0 0 7 13" fill="none">
+          <path d="M6 0.999999L1 6L6 11.3333" stroke="#146AFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      `, this.prevBtn.style.cssText = t, this.nextBtn = document.createElement("button"), this.nextBtn.className = "related-articles-slider-next", this.nextBtn.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="7" height="13" viewBox="0 0 7 13" fill="none" style="transform: rotate(180deg);">
+          <path d="M6 0.999999L1 6L6 11.3333" stroke="#146AFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      `, this.nextBtn.style.cssText = t, this.navContainer.appendChild(this.prevBtn), this.navContainer.appendChild(this.nextBtn), this.wrapper.parentNode.insertBefore(
+        this.navContainer,
+        this.wrapper.nextSibling
+      );
+    }
+    attachEventListeners() {
+      this.prevBtn && this.prevBtn.addEventListener("click", () => this.goToPrevious()), this.nextBtn && this.nextBtn.addEventListener("click", () => this.goToNext());
+    }
+    goToNext() {
+      this.isAnimating || this.currentIndex >= this.maxIndex || this.navigateTo(this.currentIndex + 1);
+    }
+    goToPrevious() {
+      this.isAnimating || this.currentIndex <= 0 || this.navigateTo(this.currentIndex - 1);
+    }
+    navigateTo(t) {
+      this.isAnimating = !0, this.currentIndex = Math.max(0, Math.min(t, this.maxIndex));
+      const n = -(this.currentIndex * (this.containerWidth + this.gap));
+      this.itemsContainer.style.transform = `translateX(${n}px)`, this.updateNavigationState(), setTimeout(() => {
+        this.isAnimating = !1;
+      }, parseInt(this.animationDuration));
+    }
+    updateNavigationState() {
+      !this.prevBtn || !this.nextBtn || (this.currentIndex <= 0 ? (this.prevBtn.style.opacity = "0.3", this.prevBtn.style.cursor = "not-allowed") : (this.prevBtn.style.opacity = "1", this.prevBtn.style.cursor = "pointer"), this.currentIndex >= this.maxIndex ? (this.nextBtn.style.opacity = "0.3", this.nextBtn.style.cursor = "not-allowed") : (this.nextBtn.style.opacity = "1", this.nextBtn.style.cursor = "pointer"));
+    }
+    handleResize() {
+      const t = this.shouldEnable();
+      t && !this.isEnabled ? (this.isEnabled = !0, this.setupSlider()) : !t && this.isEnabled ? (this.isEnabled = !1, this.restoreOriginalLayout()) : this.isEnabled && (this.updateDimensions(), this.applyItemStyles(), this.currentIndex > this.maxIndex && (this.currentIndex = this.maxIndex), this.navigateTo(this.currentIndex));
+    }
+    restoreOriginalLayout() {
+      this.wrapper.style.overflow = "", this.itemsContainer.removeAttribute("style"), this.items.forEach((t) => t.removeAttribute("style")), this.navContainer && this.navContainer.parentNode && (this.navContainer.parentNode.removeChild(this.navContainer), this.navContainer = null, this.prevBtn = null, this.nextBtn = null);
+    }
+  }
+  const s = document.querySelectorAll(
+    ".related-item-collection-list-wrapper"
+  ), e = [];
+  return console.log(
+    `📰 Related Articles Slider: Found ${s.length} containers`
+  ), s.forEach((i) => {
+    const t = i, n = i.querySelector(
+      ".related-item-collection-list"
+    ), o = i.querySelectorAll(".collection-item");
+    if (t && n && o.length > 0) {
+      const a = new r(t);
+      e.push(a);
+    }
+  }), window.relatedArticlesSliders = e, e;
+}
+function U() {
+  const r = () => {
+    const s = document.querySelector(".blog-content-richtext");
+    if (!s)
+      return;
+    console.log("📖 Reading Time Estimate: Found rich text element");
+    const i = (s.textContent || s.innerText).trim().split(/\s+/).length, n = Math.ceil(i / 200), o = document.querySelector(".read-time-estimate");
+    o && (o.textContent = `${n} min read`), s.querySelectorAll("iframe").forEach((l) => {
+      const c = l.getAttribute("src") || "";
+      (c.includes("youtube.com") || c.includes("youtu.be")) && l.classList.add("youtube-iframe");
+    });
+  };
+  document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", r) : r();
+}
 const v = {
-  demo: S,
-  logoSlider: x,
+  demo: x,
+  logoSlider: S,
   quotesSlider: A,
   starRating: C,
-  comparisonTableToggler: k,
+  comparisonTableToggler: E,
   tabsSelect: T,
   tabbedCards: L,
   marketoForms: Q,
-  pricingCardToggler: _
+  pricingCardToggler: W,
+  relatedArticlesSlider: z,
+  readingTimeEstimate: U
   // Add more features here as you create them
   // myFeature: initMyFeature,
 };
-function W(o = ["demo"]) {
-  console.log("🎯 Initializing features:", o), o.forEach((s) => {
+function H(r = ["demo"]) {
+  r.forEach((s) => {
     if (v[s])
       try {
         v[s]();
@@ -996,18 +1123,18 @@ function W(o = ["demo"]) {
   });
 }
 if (typeof window < "u" && !window.__CRUNCHBASE_SHOULD_RUN_PROD__) {
-  const o = setInterval(() => {
-    window.__CRUNCHBASE_SHOULD_RUN_PROD__ && (clearInterval(o), g());
+  const r = setInterval(() => {
+    window.__CRUNCHBASE_SHOULD_RUN_PROD__ && (clearInterval(r), m());
   }, 50);
   setTimeout(() => {
-    clearInterval(o), window.__CRUNCHBASE_SHOULD_RUN_PROD__ || (console.log(
+    clearInterval(r), window.__CRUNCHBASE_SHOULD_RUN_PROD__ || (console.log(
       "⏰ Timeout waiting for wrapper, running production code anyway..."
-    ), g());
+    ), m());
   }, 5e3);
 } else
-  g();
-function g() {
-  console.log("🚀 Crunchbase Webflow script loaded"), W([
+  m();
+function m() {
+  console.log("🚀 Crunchbase Webflow script loaded"), H([
     "logoSlider",
     "quotesSlider",
     "starRating",
@@ -1017,7 +1144,11 @@ function g() {
     // RE-ENABLED with safer implementation
     "marketoForms",
     // Marketo forms integration
-    "pricingCardToggler"
+    "pricingCardToggler",
     // Pricing card annual/monthly toggler
+    "relatedArticlesSlider",
+    // Related articles slider for blog posts
+    "readingTimeEstimate"
+    // Reading time estimate for blog posts
   ]);
 }

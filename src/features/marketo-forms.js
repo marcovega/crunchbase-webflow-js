@@ -48,7 +48,6 @@ function loadMarketoCSS() {
     link.href = MARKETO_CONFIG.cssUrl;
     link.onload = () => {
       resourcesLoaded.css = true;
-      console.log("✅ Marketo CSS loaded");
       resolve();
     };
     link.onerror = () => {
@@ -74,7 +73,6 @@ function loadMarketoJS() {
     script.src = MARKETO_CONFIG.jsUrl;
     script.onload = () => {
       resourcesLoaded.js = true;
-      console.log("✅ Marketo JS loaded");
       resolve();
     };
     script.onerror = () => {
@@ -104,10 +102,6 @@ function applyLayout(form) {
     if (visibleRows.length % 2 === 1) {
       visibleRows[visibleRows.length - 1].classList.add("is-odd-last");
     }
-
-    console.log(
-      `✅ Layout applied to form with ${visibleRows.length} visible rows`
-    );
   } catch (error) {
     console.error("❌ Error applying layout:", error);
   }
@@ -123,9 +117,6 @@ function initializeMarketoForm(container, formId) {
   try {
     // Check if this container already has a form initialized
     if (container.hasAttribute("data-marketo-initialized")) {
-      console.log(
-        `ℹ️ Marketo form ${formId} already initialized in this container`
-      );
       return;
     }
 
@@ -143,18 +134,12 @@ function initializeMarketoForm(container, formId) {
     container.setAttribute("data-marketo-initialized", "true");
     container.setAttribute("data-marketo-unique-id", uniqueFormId);
 
-    console.log(
-      `🎯 Initializing Marketo form ${formId} with unique ID: ${uniqueFormId}`
-    );
-
     // Load form and render it in the specific form element
     window.MktoForms2.loadForm(
       MARKETO_CONFIG.baseUrl,
       MARKETO_CONFIG.munchkinId,
       parseInt(formId),
       function (form) {
-        console.log(`✅ Marketo form ${formId} loaded successfully`);
-
         // Get the actual form element that Marketo created
         const marketoForm = form.getFormElem()[0];
 
@@ -164,8 +149,6 @@ function initializeMarketoForm(container, formId) {
 
           // Update the ID to our unique ID to maintain uniqueness
           marketoForm.id = uniqueFormId;
-
-          console.log(`🎯 Form rendered in container with ID: ${uniqueFormId}`);
         }
 
         // Apply layout after a short delay to ensure form is rendered
@@ -190,9 +173,6 @@ function initializeAllMarketoForms() {
   const containers = document.querySelectorAll("[data-marketo-id]");
 
   if (containers.length === 0) {
-    console.log(
-      "ℹ️ No Marketo form containers found (looking for [data-marketo-id])"
-    );
     return;
   }
 
@@ -219,8 +199,6 @@ function initializeAllMarketoForms() {
  * Main initialization function
  */
 export function initMarketoForms() {
-  console.log("🚀 Marketo Forms: Starting initialization...");
-
   // Load resources and then initialize forms
   Promise.all([loadMarketoCSS(), loadMarketoJS()])
     .then(() => {
@@ -266,10 +244,6 @@ export function initMarketoForms() {
             childList: true,
             subtree: true,
           });
-
-          console.log(
-            "✅ Marketo Forms: Initialization complete with dynamic form detection"
-          );
         } else {
           console.error("❌ MktoForms2 not available after loading resources");
         }

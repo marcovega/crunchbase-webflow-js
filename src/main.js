@@ -44,6 +44,8 @@ function runCrunchbaseCode() {
     "tabbedCards", // RE-ENABLED with safer implementation
     "marketoForms", // Marketo forms integration
     "pricingCardToggler", // Pricing card annual/monthly toggler
+    "relatedArticlesSlider", // Related articles slider for blog posts
+    "readingTimeEstimate", // Reading time estimate for blog posts
   ]); // Can add "demo" to enable demo feature.
 
   // Development indicator and live reload
