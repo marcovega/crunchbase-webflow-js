@@ -102,19 +102,19 @@ const config = {
 });
 
 // Original production code below:
-function x() {
+function k() {
   document.body.style.border = "5px solid navy", document.body.style.margin = "0", document.body.style.boxSizing = "border-box";
 }
-const S = () => {
-  const r = document.querySelectorAll('[data-logo-slider="true"]'), s = 7;
+const L = () => {
+  const r = document.querySelectorAll('[data-logo-slider="true"]'), n = 7;
   !r || r.length === 0 || window.matchMedia("(prefers-reduced-motion: reduce)").matches || r.forEach((e) => {
     const i = e.querySelectorAll(":scope > *");
-    i.length === 0 || i.length < s || (e.setAttribute("data-logo-slider-init", "true"), e.style.setProperty("--ls-items", i.length), i.forEach((t, n) => {
-      t.style.setProperty("--ls-item-index", n + 1);
+    i.length === 0 || i.length < n || (e.setAttribute("data-logo-slider-init", "true"), e.style.setProperty("--ls-items", i.length), i.forEach((t, s) => {
+      t.style.setProperty("--ls-item-index", s + 1);
     }));
   });
 };
-function A() {
+function q() {
   class r {
     constructor(t) {
       this.container = t, this.currentIndex = 0, this.quotes = [], this.totalQuotes = 0, this.containerWidth = 0, this.isAnimating = !1, this.resizeTimeout = null, this.animationDuration = this.getCSSVariable(
@@ -125,10 +125,10 @@ function A() {
         "ease-out"
       ), this.init();
     }
-    getCSSVariable(t, n) {
+    getCSSVariable(t, s) {
       return getComputedStyle(document.documentElement).getPropertyValue(
         t
-      ).trim() || n;
+      ).trim() || s;
     }
     init() {
       this.setupContainer(), this.calculateDimensions(), this.createNavigation(), this.bindEvents(), this.updateCurrentIndexFromScroll(), this.updateNavigationState();
@@ -153,18 +153,18 @@ function A() {
       this.containerWidth = this.container.offsetWidth, this.quotes = Array.from(this.container.children), this.totalQuotes = this.quotes.length;
       const t = getComputedStyle(this.container);
       this.gap = parseInt(t.gap) || 0;
-      const n = window.matchMedia("(max-width: 991px)").matches;
+      const s = window.matchMedia("(max-width: 991px)").matches;
       let o = 0;
       this.quoteData = this.quotes.map((a, l) => {
         let c;
-        n ? (c = this.containerWidth, a.style.width = `${this.containerWidth}px`) : a.classList.contains("quote-card-featured") ? (c = 862, a.style.width = "862px") : a.classList.contains("quote-card") ? (c = 410, a.style.width = "410px") : c = a.getBoundingClientRect().width;
-        const h = {
+        s ? (c = this.containerWidth, a.style.width = `${this.containerWidth}px`) : a.classList.contains("quote-card-featured") ? (c = 862, a.style.width = "862px") : a.classList.contains("quote-card") ? (c = 410, a.style.width = "410px") : c = a.getBoundingClientRect().width;
+        const f = {
           element: a,
           width: c,
           offsetLeft: o,
           index: l
         };
-        return o += c + (l < this.totalQuotes - 1 ? this.gap : 0), h;
+        return o += c + (l < this.totalQuotes - 1 ? this.gap : 0), f;
       });
     }
     createNavigation() {
@@ -227,8 +227,8 @@ function A() {
       });
     }
     handleResize() {
-      const t = this.navContainer.style.justifyContent === "center", n = window.matchMedia("(max-width: 991px)").matches;
-      this.calculateDimensions(), t !== n && (this.navContainer && this.navContainer.parentNode && this.navContainer.parentNode.removeChild(this.navContainer), this.createNavigation()), this.updateNavigationState(), this.updateProgress();
+      const t = this.navContainer.style.justifyContent === "center", s = window.matchMedia("(max-width: 991px)").matches;
+      this.calculateDimensions(), t !== s && (this.navContainer && this.navContainer.parentNode && this.navContainer.parentNode.removeChild(this.navContainer), this.createNavigation()), this.updateNavigationState(), this.updateProgress();
     }
     goToNext() {
       if (this.isAnimating || this.currentIndex === this.totalQuotes - 1 && this.isAtScrollEnd())
@@ -243,8 +243,8 @@ function A() {
       if (!(this.isAnimating || this.currentIndex <= 0)) {
         if (this.isAnimating = !0, this.isAdaptiveAligning = !1, this.currentIndex === this.totalQuotes - 1)
           if (this.isAtScrollEnd()) {
-            const n = Math.max(0, this.currentIndex - 2);
-            this.currentIndex = n, this.scrollToQuote(this.currentIndex);
+            const s = Math.max(0, this.currentIndex - 2);
+            this.currentIndex = s, this.scrollToQuote(this.currentIndex);
           } else
             this.currentIndex--, this.scrollToQuote(this.currentIndex);
         else
@@ -255,10 +255,10 @@ function A() {
       }
     }
     shouldUseAdaptiveAlignment(t) {
-      let n = 0;
+      let s = 0;
       for (let l = t; l < this.totalQuotes; l++)
-        n += this.quoteData[l].width, l < this.totalQuotes - 1 && (n += this.gap);
-      return n <= this.containerWidth + 40;
+        s += this.quoteData[l].width, l < this.totalQuotes - 1 && (s += this.gap);
+      return s <= this.containerWidth + 40;
     }
     scrollToQuote(t) {
       if (t < 0 || t >= this.totalQuotes) return;
@@ -288,19 +288,19 @@ function A() {
       return -1;
     }
     findLastVisibleQuoteIndex(t) {
-      for (let n = this.totalQuotes - 1; n >= 0; n--)
-        if (this.quoteData[n].offsetLeft <= t + 10)
-          return n;
+      for (let s = this.totalQuotes - 1; s >= 0; s--)
+        if (this.quoteData[s].offsetLeft <= t + 10)
+          return s;
       return this.totalQuotes - 1;
     }
     updateCurrentIndexFromScroll() {
       if (this.isAdaptiveAligning)
         return;
       const t = this.container.scrollLeft;
-      for (let n = 0; n < this.totalQuotes; n++) {
-        const o = this.quoteData[n], a = o.offsetLeft, l = o.offsetLeft + o.width, c = t + this.containerWidth, h = Math.max(a, t), b = Math.min(l, c);
-        if (Math.max(0, b - h) / o.width >= 0.3 || a >= t && a < c) {
-          this.currentIndex !== n && (this.currentIndex = n, this.updateNavigationState(), this.updateProgress());
+      for (let s = 0; s < this.totalQuotes; s++) {
+        const o = this.quoteData[s], a = o.offsetLeft, l = o.offsetLeft + o.width, c = t + this.containerWidth, f = Math.max(a, t), d = Math.min(l, c);
+        if (Math.max(0, d - f) / o.width >= 0.3 || a >= t && a < c) {
+          this.currentIndex !== s && (this.currentIndex = s, this.updateNavigationState(), this.updateProgress());
           break;
         }
       }
@@ -316,12 +316,12 @@ function A() {
       this.nextBtn.disabled = t, this.updateButtonStyle(this.nextBtn);
     }
     updateButtonStyle(t) {
-      const n = t.querySelector("path");
-      t.disabled ? (t.style.background = "transparent", t.style.cursor = "not-allowed", t.style.opacity = "0.5", n && n.setAttribute("stroke", "#146AFF")) : (t.style.background = "#146AFF", t.style.cursor = "pointer", t.style.opacity = "1", n && n.setAttribute("stroke", "white"));
+      const s = t.querySelector("path");
+      t.disabled ? (t.style.background = "transparent", t.style.cursor = "not-allowed", t.style.opacity = "0.5", s && s.setAttribute("stroke", "#146AFF")) : (t.style.background = "#146AFF", t.style.cursor = "pointer", t.style.opacity = "1", s && s.setAttribute("stroke", "white"));
     }
     isAtScrollEnd() {
-      const t = this.container.scrollLeft, n = this.container.scrollWidth - this.container.clientWidth;
-      return Math.abs(t - n) < 5;
+      const t = this.container.scrollLeft, s = this.container.scrollWidth - this.container.clientWidth;
+      return Math.abs(t - s) < 5;
     }
     updateProgress() {
       if (!this.progressFill) return;
@@ -341,13 +341,13 @@ function A() {
       this.navContainer.style.display = "flex", this.container.style.overflowX = "auto";
     }
   }
-  const s = document.querySelectorAll(".quotes-slider-container"), e = [];
-  return console.log(`📊 Quotes Slider: Found ${s.length} containers`), s.forEach((i) => {
+  const n = document.querySelectorAll(".quotes-slider-container"), e = [];
+  return console.log(`📊 Quotes Slider: Found ${n.length} containers`), n.forEach((i) => {
     const t = new r(i);
     t.shouldEnable() || t.disable(), e.push(t);
   }), window.quotesSliders = e, e;
 }
-function C() {
+function I() {
   class r {
     constructor() {
       this.init();
@@ -358,7 +358,7 @@ function C() {
     processRatingElements() {
       const e = document.querySelectorAll("[rating-value]");
       console.log(`⭐ Star Rating: Found ${e.length} elements`), e.forEach((i, t) => {
-        const n = i.getAttribute("rating-value"), o = this.snapToNearestTenth(parseFloat(n) || 0);
+        const s = i.getAttribute("rating-value"), o = this.snapToNearestTenth(parseFloat(s) || 0);
         i.innerHTML = "";
         const a = this.createStarContainer(o);
         i.appendChild(a), i.setAttribute("rating-value", o.toString());
@@ -376,8 +376,8 @@ function C() {
         align-items: center;
       `;
       for (let t = 1; t <= 5; t++) {
-        const n = this.createStar(t, e);
-        i.appendChild(n);
+        const s = this.createStar(t, e);
+        i.appendChild(s);
       }
       return i;
     }
@@ -389,7 +389,7 @@ function C() {
         position: relative;
         display: inline-block;
       `;
-      const n = this.getStarFillState(e, i), o = this.createStarSvg(n);
+      const s = this.getStarFillState(e, i), o = this.createStarSvg(s);
       return t.appendChild(o), t;
     }
     getStarFillState(e, i) {
@@ -411,14 +411,14 @@ function C() {
       else if (e === "empty")
         t.setAttribute("fill", "#dcdfe1");
       else if (e.type === "partial") {
-        const n = `partial-fill-${e.percentage}`;
-        t.setAttribute("fill", `url(#${n})`), this.ensurePartialFillGradient(i, e.percentage, n);
+        const s = `partial-fill-${e.percentage}`;
+        t.setAttribute("fill", `url(#${s})`), this.ensurePartialFillGradient(i, e.percentage, s);
       }
       return i.appendChild(t), i;
     }
     ensurePartialFillGradient(e, i, t) {
       if (!document.getElementById(t)) {
-        const n = document.createElementNS(
+        const s = document.createElementNS(
           "http://www.w3.org/2000/svg",
           "defs"
         ), o = document.createElementNS(
@@ -435,13 +435,13 @@ function C() {
           "http://www.w3.org/2000/svg",
           "stop"
         );
-        l.setAttribute("offset", `${i}%`), l.setAttribute("stop-color", "#dcdfe1"), o.appendChild(a), o.appendChild(l), n.appendChild(o), e.appendChild(n);
+        l.setAttribute("offset", `${i}%`), l.setAttribute("stop-color", "#dcdfe1"), o.appendChild(a), o.appendChild(l), s.appendChild(o), e.appendChild(s);
       }
     }
   }
   new r();
 }
-function E() {
+function B() {
   class r {
     constructor() {
       this.init();
@@ -453,8 +453,8 @@ function E() {
       document.addEventListener("click", (e) => {
         const i = e.target.closest("[data-cmp-table-trigger]");
         if (!i) return;
-        const t = i.getAttribute("data-cmp-table-trigger"), n = i.closest(".comparison-table-container");
-        n && (t === "first-column" ? this.activateFirstColumn(n) : t === "last-column" && this.activateLastColumn(n));
+        const t = i.getAttribute("data-cmp-table-trigger"), s = i.closest(".comparison-table-container");
+        s && (t === "first-column" ? this.activateFirstColumn(s) : t === "last-column" && this.activateLastColumn(s));
       });
     }
     activateFirstColumn(e) {
@@ -476,47 +476,47 @@ function E() {
     showFirstColumn(e) {
       e.querySelectorAll(
         ".cmp-table-row.cmp-table-row-first"
-      ).forEach((n) => {
-        n.style.display = "flex";
+      ).forEach((s) => {
+        s.style.display = "flex";
       }), e.querySelectorAll(
         ".cmp-table-row.cmp-table-column-last"
-      ).forEach((n) => {
-        n.style.display = "none";
+      ).forEach((s) => {
+        s.style.display = "none";
       });
     }
     showLastColumn(e) {
       e.querySelectorAll(
         ".cmp-table-row.cmp-table-column-last"
-      ).forEach((n) => {
-        n.style.display = "flex";
+      ).forEach((s) => {
+        s.style.display = "flex";
       }), e.querySelectorAll(
         ".cmp-table-row.cmp-table-row-first"
-      ).forEach((n) => {
-        n.style.display = "none";
+      ).forEach((s) => {
+        s.style.display = "none";
       });
     }
   }
   new r();
 }
-function T() {
+function F() {
   const r = document.querySelectorAll(".tabs.w-tabs");
-  r.length !== 0 && (console.log(`📱 Tabs Select: Found ${r.length} tab containers`), r.forEach((s) => {
-    const e = s.querySelectorAll(".tab-link");
-    if (e.length === 0 || s.querySelector(".tabs-select"))
+  r.length !== 0 && (console.log(`📱 Tabs Select: Found ${r.length} tab containers`), r.forEach((n) => {
+    const e = n.querySelectorAll(".tab-link");
+    if (e.length === 0 || n.querySelector(".tabs-select"))
       return;
     const i = document.createElement("select");
     i.className = "tabs-select";
     const t = document.createElement("option");
-    t.value = "", t.textContent = "Select a tab...", t.disabled = !0, i.appendChild(t), e.forEach((n, o) => {
+    t.value = "", t.textContent = "Select a tab...", t.disabled = !0, i.appendChild(t), e.forEach((s, o) => {
       const a = document.createElement("option");
-      a.value = o, a.textContent = n.textContent.trim() || `Tab ${o + 1}`, n.classList.contains("w--current") && (a.selected = !0, t.disabled = !1, t.selected = !1), i.appendChild(a);
+      a.value = o, a.textContent = s.textContent.trim() || `Tab ${o + 1}`, s.classList.contains("w--current") && (a.selected = !0, t.disabled = !1, t.selected = !1), i.appendChild(a);
     }), i.addEventListener("change", function() {
-      const n = parseInt(this.value);
-      !isNaN(n) && e[n] && e[n].click();
-    }), s.insertBefore(i, s.firstChild);
-  }), k());
+      const s = parseInt(this.value);
+      !isNaN(s) && e[s] && e[s].click();
+    }), n.insertBefore(i, n.firstChild);
+  }), M());
 }
-function k() {
+function M() {
   if (document.getElementById("tabs-select-styles")) return;
   const r = document.createElement("style");
   r.id = "tabs-select-styles", r.textContent = `
@@ -565,96 +565,96 @@ function k() {
     }
   `, document.head.appendChild(r);
 }
-function L() {
-  document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", y) : y();
+function N() {
+  document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", A) : A();
 }
-function y() {
+function A() {
   const r = document.querySelectorAll(".tabbed-cards");
   r.length !== 0 && (console.log(
     `🎴 Tabbed Cards: Found ${r.length} containers`
-  ), r.forEach((s) => {
-    I(s);
+  ), r.forEach((n) => {
+    D(n);
   }));
 }
-function I(r) {
-  const s = r.querySelector(".tabbed-cards-image"), e = r.querySelectorAll(".tabbed-card.w-dropdown");
-  !s || e.length === 0 || (q(e), B(e, s), e.forEach((i, t) => {
-    F(i, t, r, s);
-  }), D(e, s), N());
+function D(r) {
+  const n = r.querySelector(".tabbed-cards-image"), e = r.querySelectorAll(".tabbed-card.w-dropdown");
+  !n || e.length === 0 || (O(e), R(e, n), e.forEach((i, t) => {
+    $(i, t, r, n);
+  }), W(e, n), Q());
 }
-function q(r) {
-  r.forEach((s, e) => {
-    const t = s.querySelector(".tabbed-card-image-wrapper")?.querySelector("img");
+function O(r) {
+  r.forEach((n, e) => {
+    const t = n.querySelector(".tabbed-card-image-wrapper")?.querySelector("img");
     if (!t) return;
-    const n = document.createElement("div");
-    n.className = "tabbed-card-mobile-image", n.dataset.cardIndex = e;
+    const s = document.createElement("div");
+    s.className = "tabbed-card-mobile-image", s.dataset.cardIndex = e;
     const o = t.cloneNode(!0);
-    n.appendChild(o), s.parentNode.insertBefore(n, s.nextSibling);
+    s.appendChild(o), n.parentNode.insertBefore(s, n.nextSibling);
   });
 }
-function B(r, s) {
-  s.innerHTML = "";
+function R(r, n) {
+  n.innerHTML = "";
   const e = document.createElement("img");
-  e.style.width = "100%", e.style.height = "auto", e.style.display = "block", e.style.transition = "opacity 0.2s ease", e.className = "tabbed-card-main-image", s.appendChild(e), r.forEach((i) => {
+  e.style.width = "100%", e.style.height = "auto", e.style.display = "block", e.style.transition = "opacity 0.2s ease", e.className = "tabbed-card-main-image", n.appendChild(e), r.forEach((i) => {
     const t = i.querySelector(".tabbed-card-image-wrapper img");
     if (t?.src) {
-      const n = new Image();
-      n.src = t.src;
+      const s = new Image();
+      s.src = t.src;
     }
   });
 }
-function F(r, s, e, i) {
+function $(r, n, e, i) {
   const t = r.querySelector(".tabbed-card-toggler");
   if (!t) return;
   t.addEventListener("click", () => {
-    t.getAttribute("aria-expanded") === "true" || (M(r, e), setTimeout(() => {
-      p(s, i), g(s, e);
+    t.getAttribute("aria-expanded") === "true" || (P(r, e), setTimeout(() => {
+      w(n, i), v(n, e);
     }, 100));
   }), new MutationObserver((o) => {
     o.forEach((a) => {
-      a.attributeName === "aria-expanded" && t.getAttribute("aria-expanded") === "true" && (p(s, i), g(s, e));
+      a.attributeName === "aria-expanded" && t.getAttribute("aria-expanded") === "true" && (w(n, i), v(n, e));
     });
   }).observe(t, {
     attributes: !0,
     attributeFilter: ["aria-expanded"]
   });
 }
-function M(r, s) {
-  s.querySelectorAll(".tabbed-card.w-dropdown").forEach((i) => {
+function P(r, n) {
+  n.querySelectorAll(".tabbed-card.w-dropdown").forEach((i) => {
     if (i !== r) {
       const t = i.querySelector(".tabbed-card-toggler");
       t && t.getAttribute("aria-expanded") === "true" && (t.click(), setTimeout(() => {
         if (t.getAttribute("aria-expanded") === "true") {
           t.setAttribute("aria-expanded", "false");
-          const n = i.querySelector(".w-dropdown"), o = i.querySelector(".w-dropdown-list"), a = i.querySelector(".w-dropdown-toggle");
-          n?.classList.remove("w--open"), o?.classList.remove("w--open"), a?.classList.remove("w--open");
+          const s = i.querySelector(".w-dropdown"), o = i.querySelector(".w-dropdown-list"), a = i.querySelector(".w-dropdown-toggle");
+          s?.classList.remove("w--open"), o?.classList.remove("w--open"), a?.classList.remove("w--open");
         }
       }, 50));
     }
   });
 }
-function p(r, s) {
-  const e = s.querySelector(".tabbed-card-main-image");
+function w(r, n) {
+  const e = n.querySelector(".tabbed-card-main-image");
   if (!e) return;
-  const t = s.closest(".tabbed-cards").querySelectorAll(".tabbed-card.w-dropdown")[r];
+  const t = n.closest(".tabbed-cards").querySelectorAll(".tabbed-card.w-dropdown")[r];
   if (!t) return;
-  const n = t.querySelector(".tabbed-card-image-wrapper img");
-  n && e.src !== n.src && (e.style.opacity = "0.5", e.src = n.src, e.alt = n.alt || "", e.onload = () => {
+  const s = t.querySelector(".tabbed-card-image-wrapper img");
+  s && e.src !== s.src && (e.style.opacity = "0.5", e.src = s.src, e.alt = s.alt || "", e.onload = () => {
     e.style.opacity = "1";
   });
 }
-function g(r, s) {
-  s.querySelectorAll(
+function v(r, n) {
+  n.querySelectorAll(
     ".tabbed-card-mobile-image"
   ).forEach((t) => {
     t.style.display = "none";
   });
-  const i = s.querySelector(
+  const i = n.querySelector(
     `[data-card-index="${r}"]`
   );
   i && (i.style.display = "block");
 }
-function N() {
+function Q() {
   if (document.getElementById("tabbed-cards-mobile-styles")) return;
   const r = document.createElement("style");
   r.id = "tabbed-cards-mobile-styles", r.textContent = `
@@ -686,11 +686,11 @@ function N() {
     }
   `, document.head.appendChild(r);
 }
-function D(r, s) {
+function W(r, n) {
   if (r.length === 0) return;
   const e = r[0], i = e.querySelector(".tabbed-card-toggler");
-  i && (r.forEach((t, n) => {
-    if (n !== 0) {
+  i && (r.forEach((t, s) => {
+    if (s !== 0) {
       const o = t.querySelector(".tabbed-card-toggler");
       o?.getAttribute("aria-expanded") === "true" && o.click();
     }
@@ -698,90 +698,90 @@ function D(r, s) {
     i.getAttribute("aria-expanded") === "true" || (i.click(), setTimeout(() => {
       if (i.getAttribute("aria-expanded") !== "true") {
         i.setAttribute("aria-expanded", "true");
-        const n = e.querySelector(".w-dropdown"), o = e.querySelector(".w-dropdown-list"), a = e.querySelector(".w-dropdown-toggle");
-        n?.classList.add("w--open"), o?.classList.add("w--open"), a?.classList.add("w--open");
+        const s = e.querySelector(".w-dropdown"), o = e.querySelector(".w-dropdown-list"), a = e.querySelector(".w-dropdown-toggle");
+        s?.classList.add("w--open"), o?.classList.add("w--open"), a?.classList.add("w--open");
       }
-    }, 100)), p(0, s), g(0, e.closest(".tabbed-cards"));
+    }, 100)), w(0, n), v(0, e.closest(".tabbed-cards"));
   }, 200));
 }
-const u = {
+const b = {
   baseUrl: "https://pages.crunchbase.com",
   munchkinId: "976-JJA-800",
   cssUrl: "https://app-sj22.marketo.com/js/forms2/css/forms2.css",
   jsUrl: "https://pages.crunchbase.com/js/forms2/js/forms2.min.js"
 };
-let d = {
+let g = {
   css: !1,
   js: !1
 };
-function R() {
+function _() {
   return new Promise((r) => {
-    if (d.css || document.querySelector(`link[href="${u.cssUrl}"]`)) {
-      d.css = !0, r();
+    if (g.css || document.querySelector(`link[href="${b.cssUrl}"]`)) {
+      g.css = !0, r();
       return;
     }
-    const s = document.createElement("link");
-    s.rel = "stylesheet", s.href = u.cssUrl, s.onload = () => {
-      d.css = !0, r();
-    }, s.onerror = () => {
+    const n = document.createElement("link");
+    n.rel = "stylesheet", n.href = b.cssUrl, n.onload = () => {
+      g.css = !0, r();
+    }, n.onerror = () => {
       console.error("❌ Failed to load Marketo CSS"), r();
-    }, document.head.appendChild(s);
+    }, document.head.appendChild(n);
   });
 }
-function O() {
+function z() {
   return new Promise((r) => {
-    if (d.js || window.MktoForms2) {
-      d.js = !0, r();
+    if (g.js || window.MktoForms2) {
+      g.js = !0, r();
       return;
     }
-    const s = document.createElement("script");
-    s.src = u.jsUrl, s.onload = () => {
-      d.js = !0, r();
-    }, s.onerror = () => {
+    const n = document.createElement("script");
+    n.src = b.jsUrl, n.onload = () => {
+      g.js = !0, r();
+    }, n.onerror = () => {
       console.error("❌ Failed to load Marketo JS"), r();
-    }, document.head.appendChild(s);
+    }, document.head.appendChild(n);
   });
 }
-function $(r) {
+function U(r) {
   try {
-    const s = r.getFormElem()[0], e = Array.from(
-      s.querySelectorAll(".mktoFormRow")
+    const n = r.getFormElem()[0], e = Array.from(
+      n.querySelectorAll(".mktoFormRow")
     ).filter((i) => !i.querySelector('input[type="hidden"]'));
-    s.querySelectorAll(".is-odd-last").forEach((i) => i.classList.remove("is-odd-last")), e.length % 2 === 1 && e[e.length - 1].classList.add("is-odd-last");
-  } catch (s) {
-    console.error("❌ Error applying layout:", s);
+    n.querySelectorAll(".is-odd-last").forEach((i) => i.classList.remove("is-odd-last")), e.length % 2 === 1 && e[e.length - 1].classList.add("is-odd-last");
+  } catch (n) {
+    console.error("❌ Error applying layout:", n);
   }
 }
-let w = 0;
-function f(r, s) {
+let C = 0;
+function x(r, n) {
   try {
     if (r.hasAttribute("data-marketo-initialized"))
       return;
-    w++;
-    const e = `mktoForm_${s}_${w}`;
+    C++;
+    const e = `mktoForm_${n}_${C}`;
     r.innerHTML = "";
     const i = document.createElement("form");
     i.id = e, r.appendChild(i), r.setAttribute("data-marketo-initialized", "true"), r.setAttribute("data-marketo-unique-id", e), window.MktoForms2.loadForm(
-      u.baseUrl,
-      u.munchkinId,
-      parseInt(s),
+      b.baseUrl,
+      b.munchkinId,
+      parseInt(n),
       function(t) {
-        const n = t.getFormElem()[0];
-        n && (i.parentNode.replaceChild(n, i), n.id = e), setTimeout(() => $(t), 100);
+        const s = t.getFormElem()[0];
+        s && (i.parentNode.replaceChild(s, i), s.id = e), setTimeout(() => U(t), 100);
         const o = new CustomEvent("marketoFormLoaded", {
-          detail: { form: t, formId: s, container: r, uniqueId: e }
+          detail: { form: t, formId: n, container: r, uniqueId: e }
         });
         r.dispatchEvent(o);
       }
     );
   } catch (e) {
-    console.error(`❌ Error initializing Marketo form ${s}:`, e);
+    console.error(`❌ Error initializing Marketo form ${n}:`, e);
   }
 }
-function P() {
+function j() {
   const r = document.querySelectorAll("[data-marketo-id]");
-  r.length !== 0 && (console.log(`🎯 Found ${r.length} Marketo form container(s)`), r.forEach((s, e) => {
-    const i = s.getAttribute("data-marketo-id");
+  r.length !== 0 && (console.log(`🎯 Found ${r.length} Marketo form container(s)`), r.forEach((n, e) => {
+    const i = n.getAttribute("data-marketo-id");
     if (!i) {
       console.warn(
         `⚠️ Container ${e + 1} has data-marketo-id but no value`
@@ -789,25 +789,25 @@ function P() {
       return;
     }
     setTimeout(() => {
-      f(s, i);
+      x(n, i);
     }, e * 100);
   }));
 }
-function Q() {
-  Promise.all([R(), O()]).then(() => {
+function H() {
+  Promise.all([_(), z()]).then(() => {
     setTimeout(() => {
-      window.MktoForms2 ? (P(), new MutationObserver((s) => {
-        s.forEach((e) => {
+      window.MktoForms2 ? (j(), new MutationObserver((n) => {
+        n.forEach((e) => {
           e.addedNodes.forEach((i) => {
             if (i.nodeType === 1) {
               if (i.hasAttribute && i.hasAttribute("data-marketo-id")) {
-                const n = i.getAttribute("data-marketo-id");
-                setTimeout(() => f(i, n), 100);
+                const s = i.getAttribute("data-marketo-id");
+                setTimeout(() => x(i, s), 100);
               }
-              (i.querySelectorAll ? i.querySelectorAll("[data-marketo-id]") : []).forEach((n, o) => {
-                const a = n.getAttribute("data-marketo-id");
+              (i.querySelectorAll ? i.querySelectorAll("[data-marketo-id]") : []).forEach((s, o) => {
+                const a = s.getAttribute("data-marketo-id");
                 a && setTimeout(
-                  () => f(n, a),
+                  () => x(s, a),
                   (o + 1) * 100
                 );
               });
@@ -823,20 +823,20 @@ function Q() {
     console.error("❌ Error loading Marketo resources:", r);
   });
 }
-function W() {
+function V() {
   const r = document.querySelectorAll(".pricing-card-details");
   r.length !== 0 && (console.log(
     `📊 Pricing Card Toggler: Found ${r.length} pricing card(s)`
-  ), r.forEach((s, e) => {
-    new _(s, e);
+  ), r.forEach((n, e) => {
+    new X(n, e);
   }));
 }
-class _ {
-  constructor(s, e) {
-    this.cardDetails = s, this.index = e, this.cardId = `pricing-card-${e}`, this.elements = this.getElements(), this.elements && (this.setupAccessibility(), this.setupEventListeners(), this.setActiveState("annual"));
+class X {
+  constructor(n, e) {
+    this.cardDetails = n, this.index = e, this.cardId = `pricing-card-${e}`, this.elements = this.getElements(), this.elements && (this.setupAccessibility(), this.setupEventListeners(), this.setActiveState("annual"));
   }
   getElements() {
-    const s = {
+    const n = {
       toggle: this.cardDetails.querySelector(".pricing-card-toggle"),
       annualToggle: this.cardDetails.querySelector(".pricing-card-toggle-dark"),
       monthlyToggle: this.cardDetails.querySelector(
@@ -850,30 +850,30 @@ class _ {
       ),
       pricingOptions: this.cardDetails.querySelectorAll(".pricing-card-option")
     };
-    s.annualOption = s.pricingOptions[0], s.monthlyOption = s.pricingOptions[1];
+    n.annualOption = n.pricingOptions[0], n.monthlyOption = n.pricingOptions[1];
     const i = [
       "toggle",
       "annualToggle",
       "monthlyToggle",
       "annualLink",
       "monthlyLink"
-    ].filter((t) => !s[t]);
+    ].filter((t) => !n[t]);
     return i.length > 0 ? (console.warn(
       `⚠️ Pricing Card Toggler: Missing elements in card ${this.index + 1}:`,
       i
-    ), null) : s;
+    ), null) : n;
   }
   setupAccessibility() {
     const {
-      toggle: s,
+      toggle: n,
       annualToggle: e,
       monthlyToggle: i,
       annualLink: t,
-      monthlyLink: n,
+      monthlyLink: s,
       annualOption: o,
       monthlyOption: a
     } = this.elements, l = this.generateIds();
-    s.setAttribute("role", "tablist"), s.setAttribute("aria-label", "Pricing period selection"), s.id = l.toggle, e.setAttribute("role", "tab"), e.id = l.annual, e.setAttribute("aria-selected", "true"), e.setAttribute("aria-controls", l.annualOption), e.setAttribute("tabindex", "0"), i.setAttribute("role", "tab"), i.id = l.monthly, i.setAttribute("aria-selected", "false"), i.setAttribute("aria-controls", l.monthlyOption), i.setAttribute("tabindex", "-1"), t.setAttribute("tabindex", "-1"), n.setAttribute("tabindex", "-1"), t.setAttribute("aria-hidden", "true"), n.setAttribute("aria-hidden", "true"), o && (o.setAttribute("role", "tabpanel"), o.id = l.annualOption, o.setAttribute("aria-labelledby", l.annual), o.setAttribute("aria-hidden", "false")), a && (a.setAttribute("role", "tabpanel"), a.id = l.monthlyOption, a.setAttribute("aria-labelledby", l.monthly), a.setAttribute("aria-hidden", "true"));
+    n.setAttribute("role", "tablist"), n.setAttribute("aria-label", "Pricing period selection"), n.id = l.toggle, e.setAttribute("role", "tab"), e.id = l.annual, e.setAttribute("aria-selected", "true"), e.setAttribute("aria-controls", l.annualOption), e.setAttribute("tabindex", "0"), i.setAttribute("role", "tab"), i.id = l.monthly, i.setAttribute("aria-selected", "false"), i.setAttribute("aria-controls", l.monthlyOption), i.setAttribute("tabindex", "-1"), t.setAttribute("tabindex", "-1"), s.setAttribute("tabindex", "-1"), t.setAttribute("aria-hidden", "true"), s.setAttribute("aria-hidden", "true"), o && (o.setAttribute("role", "tabpanel"), o.id = l.annualOption, o.setAttribute("aria-labelledby", l.annual), o.setAttribute("aria-hidden", "false")), a && (a.setAttribute("role", "tabpanel"), a.id = l.monthlyOption, a.setAttribute("aria-labelledby", l.monthly), a.setAttribute("aria-hidden", "true"));
   }
   generateIds() {
     return {
@@ -885,68 +885,68 @@ class _ {
     };
   }
   setupEventListeners() {
-    const { annualLink: s, monthlyLink: e, annualToggle: i, monthlyToggle: t } = this.elements;
+    const { annualLink: n, monthlyLink: e, annualToggle: i, monthlyToggle: t } = this.elements;
     i.addEventListener("click", (o) => {
       o.preventDefault(), this.setActiveState("annual");
     }), t.addEventListener("click", (o) => {
       o.preventDefault(), this.setActiveState("monthly");
     });
-    const n = (o) => this.handleKeyNavigation(o);
-    i.addEventListener("keydown", n), t.addEventListener("keydown", n), s.addEventListener("click", (o) => o.preventDefault()), e.addEventListener("click", (o) => o.preventDefault());
+    const s = (o) => this.handleKeyNavigation(o);
+    i.addEventListener("keydown", s), t.addEventListener("keydown", s), n.addEventListener("click", (o) => o.preventDefault()), e.addEventListener("click", (o) => o.preventDefault());
   }
-  handleKeyNavigation(s) {
-    const { key: e, target: i } = s, { annualToggle: t, monthlyToggle: n } = this.elements;
+  handleKeyNavigation(n) {
+    const { key: e, target: i } = n, { annualToggle: t, monthlyToggle: s } = this.elements;
     switch (e) {
       case "ArrowLeft":
       case "ArrowUp":
-        s.preventDefault(), i === n && (t.focus(), this.setActiveState("annual"));
+        n.preventDefault(), i === s && (t.focus(), this.setActiveState("annual"));
         break;
       case "ArrowRight":
       case "ArrowDown":
-        s.preventDefault(), i === t && (n.focus(), this.setActiveState("monthly"));
+        n.preventDefault(), i === t && (s.focus(), this.setActiveState("monthly"));
         break;
       case "Enter":
       case " ":
-        s.preventDefault();
+        n.preventDefault();
         {
           const o = i === t;
           this.setActiveState(o ? "annual" : "monthly");
         }
         break;
       case "Home":
-        s.preventDefault(), t.focus(), this.setActiveState("annual");
+        n.preventDefault(), t.focus(), this.setActiveState("annual");
         break;
       case "End":
-        s.preventDefault(), n.focus(), this.setActiveState("monthly");
+        n.preventDefault(), s.focus(), this.setActiveState("monthly");
         break;
     }
   }
-  setActiveState(s) {
-    const e = s === "annual", { annualToggle: i, monthlyToggle: t } = this.elements;
-    i.setAttribute("aria-selected", e.toString()), t.setAttribute("aria-selected", (!e).toString()), i.setAttribute("tabindex", e ? "0" : "-1"), t.setAttribute("tabindex", e ? "-1" : "0"), this.updateToggleClasses(e), this.updateTextColors(e), this.updateOptionVisibility(e), j(
+  setActiveState(n) {
+    const e = n === "annual", { annualToggle: i, monthlyToggle: t } = this.elements;
+    i.setAttribute("aria-selected", e.toString()), t.setAttribute("aria-selected", (!e).toString()), i.setAttribute("tabindex", e ? "0" : "-1"), t.setAttribute("tabindex", e ? "-1" : "0"), this.updateToggleClasses(e), this.updateTextColors(e), this.updateOptionVisibility(e), G(
       `${e ? "Annual" : "Monthly"} pricing selected`
     );
   }
-  updateToggleClasses(s) {
+  updateToggleClasses(n) {
     const { annualToggle: e, monthlyToggle: i } = this.elements;
-    e.classList.toggle("pricing-card-toggle-dark", s), e.classList.toggle("pricing-card-toggle-light", !s), i.classList.toggle("pricing-card-toggle-dark", !s), i.classList.toggle("pricing-card-toggle-light", s);
+    e.classList.toggle("pricing-card-toggle-dark", n), e.classList.toggle("pricing-card-toggle-light", !n), i.classList.toggle("pricing-card-toggle-dark", !n), i.classList.toggle("pricing-card-toggle-light", n);
   }
-  updateTextColors(s) {
-    const { annualLink: e, monthlyLink: i } = this.elements, t = "white", n = "var(--_colors---primary--dark-blue)";
-    e.style.color = s ? t : n, i.style.color = s ? n : t;
+  updateTextColors(n) {
+    const { annualLink: e, monthlyLink: i } = this.elements, t = "white", s = "var(--_colors---primary--dark-blue)";
+    e.style.color = n ? t : s, i.style.color = n ? s : t;
   }
-  updateOptionVisibility(s) {
+  updateOptionVisibility(n) {
     const { annualOption: e, monthlyOption: i } = this.elements;
-    e && (e.setAttribute("aria-hidden", (!s).toString()), e.style.display = s ? "flex" : "none"), i && (i.setAttribute("aria-hidden", s.toString()), i.style.display = s ? "none" : "flex");
+    e && (e.setAttribute("aria-hidden", (!n).toString()), e.style.display = n ? "flex" : "none"), i && (i.setAttribute("aria-hidden", n.toString()), i.style.display = n ? "none" : "flex");
   }
 }
-function j(r) {
-  const s = document.createElement("div");
-  s.setAttribute("aria-live", "polite"), s.setAttribute("aria-atomic", "true"), s.style.position = "absolute", s.style.left = "-10000px", s.style.width = "1px", s.style.height = "1px", s.style.overflow = "hidden", document.body.appendChild(s), s.textContent = r, setTimeout(() => {
-    document.body.removeChild(s);
+function G(r) {
+  const n = document.createElement("div");
+  n.setAttribute("aria-live", "polite"), n.setAttribute("aria-atomic", "true"), n.style.position = "absolute", n.style.left = "-10000px", n.style.width = "1px", n.style.height = "1px", n.style.overflow = "hidden", document.body.appendChild(n), n.textContent = r, setTimeout(() => {
+    document.body.removeChild(n);
   }, 1e3);
 }
-function z() {
+function J() {
   class r {
     constructor(t) {
       this.wrapper = t, this.itemsContainer = t.querySelector(
@@ -959,8 +959,8 @@ function z() {
         "ease-out"
       ), this.forceEnable = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1", this.init();
     }
-    getCSSVariable(t, n) {
-      return getComputedStyle(document.documentElement).getPropertyValue(t).trim() || n;
+    getCSSVariable(t, s) {
+      return getComputedStyle(document.documentElement).getPropertyValue(t).trim() || s;
     }
     init() {
       if (!this.wrapper || !this.itemsContainer || this.totalItems === 0) {
@@ -990,8 +990,8 @@ function z() {
     }
     applyItemStyles() {
       const t = this.containerWidth;
-      this.items.forEach((n) => {
-        n.style.cssText = `
+      this.items.forEach((s) => {
+        s.style.cssText = `
           flex-shrink: 0;
           width: ${t}px !important;
           min-width: ${t}px !important;
@@ -1050,8 +1050,8 @@ function z() {
     }
     navigateTo(t) {
       this.isAnimating = !0, this.currentIndex = Math.max(0, Math.min(t, this.maxIndex));
-      const n = -(this.currentIndex * (this.containerWidth + this.gap));
-      this.itemsContainer.style.transform = `translateX(${n}px)`, this.updateNavigationState(), setTimeout(() => {
+      const s = -(this.currentIndex * (this.containerWidth + this.gap));
+      this.itemsContainer.style.transform = `translateX(${s}px)`, this.updateNavigationState(), setTimeout(() => {
         this.isAnimating = !1;
       }, parseInt(this.animationDuration));
     }
@@ -1066,75 +1066,135 @@ function z() {
       this.wrapper.style.overflow = "", this.itemsContainer.removeAttribute("style"), this.items.forEach((t) => t.removeAttribute("style")), this.navContainer && this.navContainer.parentNode && (this.navContainer.parentNode.removeChild(this.navContainer), this.navContainer = null, this.prevBtn = null, this.nextBtn = null);
     }
   }
-  const s = document.querySelectorAll(
+  const n = document.querySelectorAll(
     ".related-item-collection-list-wrapper"
   ), e = [];
   return console.log(
-    `📰 Related Articles Slider: Found ${s.length} containers`
-  ), s.forEach((i) => {
-    const t = i, n = i.querySelector(
+    `📰 Related Articles Slider: Found ${n.length} containers`
+  ), n.forEach((i) => {
+    const t = i, s = i.querySelector(
       ".related-item-collection-list"
     ), o = i.querySelectorAll(".collection-item");
-    if (t && n && o.length > 0) {
+    if (t && s && o.length > 0) {
       const a = new r(t);
       e.push(a);
     }
   }), window.relatedArticlesSliders = e, e;
 }
-function U() {
+function K() {
   const r = () => {
-    const s = document.querySelector(".blog-content-richtext");
-    if (!s)
+    const n = document.querySelector(".blog-content-richtext");
+    if (!n)
       return;
     console.log("📖 Reading Time Estimate: Found rich text element");
-    const i = (s.textContent || s.innerText).trim().split(/\s+/).length, n = Math.ceil(i / 200), o = document.querySelector(".read-time-estimate");
-    o && (o.textContent = `${n} min read`), s.querySelectorAll("iframe").forEach((l) => {
+    const i = (n.textContent || n.innerText).trim().split(/\s+/).length, s = Math.ceil(i / 200), o = document.querySelector(".read-time-estimate");
+    o && (o.textContent = `${s} min read`), n.querySelectorAll("iframe").forEach((l) => {
       const c = l.getAttribute("src") || "";
       (c.includes("youtube.com") || c.includes("youtu.be")) && l.classList.add("youtube-iframe");
     });
   };
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", r) : r();
 }
-const v = {
-  demo: x,
-  logoSlider: S,
-  quotesSlider: A,
-  starRating: C,
-  comparisonTableToggler: E,
-  tabsSelect: T,
-  tabbedCards: L,
-  marketoForms: Q,
-  pricingCardToggler: W,
-  relatedArticlesSlider: z,
-  readingTimeEstimate: U
+function Y() {
+  const r = () => {
+    const n = document.querySelector(".table-of-content"), e = document.querySelector(".blog-content");
+    if (!e)
+      return;
+    console.log("📚 Table of Contents: Found blog content element");
+    const i = e.querySelectorAll("h2");
+    let t = null, s = !1;
+    function o() {
+      if (i.length === 0) return;
+      const d = document.createElement("ul");
+      i.forEach((h, u) => {
+        const m = document.createElement("li"), p = document.createElement("a"), T = h.textContent.trim(), S = h.getAttribute("id");
+        S && (p.href = `#${S}`, p.textContent = T, p.classList.add("toc-link"), u === 0 && (p.classList.add("active"), t = p), m.appendChild(p), d.appendChild(m));
+      }), n && (n.innerHTML = "", n.appendChild(d));
+    }
+    o();
+    const a = document.querySelectorAll(".toc-link");
+    function l(d) {
+      s || t === d || (s = !0, requestAnimationFrame(() => {
+        t && t.classList.remove("active"), d && d.classList.add("active"), t = d, s = !1;
+      }));
+    }
+    a.forEach((d) => {
+      d.addEventListener("click", function(h) {
+        h.preventDefault();
+        const u = this.getAttribute("href").substring(1), m = document.getElementById(u);
+        m && m.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+    let c = !1;
+    function f() {
+      c || (c = !0, requestAnimationFrame(() => {
+        const d = window.scrollY;
+        let h = null;
+        for (let u = i.length - 1; u >= 0; u--) {
+          const m = i[u], p = m.offsetTop;
+          if (d >= p - 100) {
+            h = m;
+            break;
+          }
+        }
+        if (!h && i.length > 0) {
+          const u = i[0];
+          d < u.offsetTop - 100 && (h = u);
+        }
+        if (h) {
+          const u = document.querySelector(
+            `.toc-link[href="#${h.getAttribute("id")}"]`
+          );
+          l(u);
+        }
+        c = !1;
+      }));
+    }
+    window.addEventListener("scroll", f, { passive: !0 });
+  };
+  document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", r) : r();
+}
+const E = {
+  demo: k,
+  logoSlider: L,
+  quotesSlider: q,
+  starRating: I,
+  comparisonTableToggler: B,
+  tabsSelect: F,
+  tabbedCards: N,
+  marketoForms: H,
+  pricingCardToggler: V,
+  relatedArticlesSlider: J,
+  readingTimeEstimate: K,
+  tableOfContents: Y
   // Add more features here as you create them
   // myFeature: initMyFeature,
 };
-function H(r = ["demo"]) {
-  r.forEach((s) => {
-    if (v[s])
+function Z(r = ["demo"]) {
+  r.forEach((n) => {
+    if (E[n])
       try {
-        v[s]();
+        E[n]();
       } catch (e) {
-        console.error(`❌ Error initializing feature '${s}':`, e);
+        console.error(`❌ Error initializing feature '${n}':`, e);
       }
     else
-      console.warn(`⚠️ Feature '${s}' not found`);
+      console.warn(`⚠️ Feature '${n}' not found`);
   });
 }
 if (typeof window < "u" && !window.__CRUNCHBASE_SHOULD_RUN_PROD__) {
   const r = setInterval(() => {
-    window.__CRUNCHBASE_SHOULD_RUN_PROD__ && (clearInterval(r), m());
+    window.__CRUNCHBASE_SHOULD_RUN_PROD__ && (clearInterval(r), y());
   }, 50);
   setTimeout(() => {
     clearInterval(r), window.__CRUNCHBASE_SHOULD_RUN_PROD__ || (console.log(
       "⏰ Timeout waiting for wrapper, running production code anyway..."
-    ), m());
+    ), y());
   }, 5e3);
 } else
-  m();
-function m() {
-  console.log("🚀 Crunchbase Webflow script loaded"), H([
+  y();
+function y() {
+  console.log("🚀 Crunchbase Webflow script loaded"), Z([
     "logoSlider",
     "quotesSlider",
     "starRating",
@@ -1148,7 +1208,9 @@ function m() {
     // Pricing card annual/monthly toggler
     "relatedArticlesSlider",
     // Related articles slider for blog posts
-    "readingTimeEstimate"
+    "readingTimeEstimate",
     // Reading time estimate for blog posts
+    "tableOfContents"
+    // Table of contents for blog posts
   ]);
 }

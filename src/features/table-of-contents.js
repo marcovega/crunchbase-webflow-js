@@ -16,7 +16,7 @@ export function initTableOfContents() {
   const initializeFeature = () => {
     const tocContainer = document.querySelector(".table-of-content");
     const blogContent = document.querySelector(".blog-content");
-    
+
     if (!blogContent) {
       return;
     }
