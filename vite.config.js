@@ -15,6 +15,16 @@ export default {
     cors: true,
     origin: "http://127.0.0.1:5173",
     strictPort: true,
+    proxy: {
+      '/api/crunchbase': {
+        target: 'https://api.crunchbase.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/crunchbase/, ''),
+        headers: {
+          'X-cb-user-key': '<api-key>'
+        }
+      }
+    }
   },
   define: {
     "process.env.NODE_ENV": '"production"',
@@ -55,23 +65,23 @@ export default {
         // Read the wrapper and config files
         const wrapperPath = path.resolve(__dirname, 'src/prod-wrapper.js');
         const configPath = path.resolve(__dirname, 'src/config.js');
-        
+
         let wrapperCode = '';
         let configCode = '';
-        
+
         try {
           // Read and inline the config
           const configContent = fs.readFileSync(configPath, 'utf-8');
           configCode = configContent.replace('export const config =', 'const config =');
-          
+
           // Read the wrapper and remove the import
           const wrapperContent = fs.readFileSync(wrapperPath, 'utf-8');
           wrapperCode = wrapperContent.replace("import { config } from './config.js';", '');
-          
+
           // Combine: config + wrapper + original code
           const originalCode = mainBundle.code;
           mainBundle.code = `${configCode}\n\n${wrapperCode}\n\n// Original production code below:\n${originalCode}`;
-          
+
           console.log('✅ Production wrapper added to bundle');
         } catch (error) {
           console.warn('⚠️ Failed to add production wrapper:', error);
