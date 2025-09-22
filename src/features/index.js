@@ -17,6 +17,7 @@ import initPricingCardToggler from "./pricing-card-toggler.js";
 import initRelatedArticlesSlider from "./related-articles-slider.js";
 import initReadingTimeEstimate from "./reading-time-estimate.js";
 import initTableOfContents from "./table-of-contents.js";
+import initHeroTabs from "./hero-tabs.js";
 
 // Export all features
 export {
@@ -28,10 +29,11 @@ export {
   initTabsSelect,
   initTabbedCards,
   initMarketoForms,
-  initPricingCardToggler,
+  // initPricingCardToggler,
   initRelatedArticlesSlider,
   initReadingTimeEstimate,
   initTableOfContents,
+  initHeroTabs,
 };
 
 // Feature registry for easy enable/disable
@@ -44,10 +46,11 @@ export const features = {
   tabsSelect: initTabsSelect,
   tabbedCards: initTabbedCards,
   marketoForms: initMarketoForms,
-  pricingCardToggler: initPricingCardToggler,
+  // pricingCardToggler: initPricingCardToggler,
   relatedArticlesSlider: initRelatedArticlesSlider,
   readingTimeEstimate: initReadingTimeEstimate,
   tableOfContents: initTableOfContents,
+  heroTabs: initHeroTabs,
   // Add more features here as you create them
   // myFeature: initMyFeature,
 };

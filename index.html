@@ -1063,6 +1063,492 @@
           </div>
         </section>
 
+        <!-- Hero Tabs Section -->
+        <section>
+          <h2 class="section-title">📋 Hero Tabs</h2>
+          <p class="section-description">
+            Accessible tab functionality with ARIA attributes, keyboard
+            navigation, and focus management
+          </p>
+
+          <div
+            style="
+              max-width: 800px;
+              border: 2px dashed #d1d5db;
+              padding: 2rem;
+              border-radius: 8px;
+              margin-bottom: 2rem;
+            "
+          >
+            <h3 style="margin-bottom: 1rem; color: #374151">Hero Tabs Test</h3>
+            <p style="margin-bottom: 1.5rem; color: #6b7280; font-size: 0.9rem">
+              Test keyboard navigation with Tab, Arrow keys, Home, End, Enter,
+              and Space. Screen reader announcements included.
+            </p>
+
+            <!-- Hero Tabs -->
+            <div
+              class="hero-tabs"
+              style="
+                display: flex;
+                gap: 1rem;
+                margin-bottom: 2rem;
+                border-bottom: 2px solid #e5e7eb;
+                padding-bottom: 1rem;
+              "
+            >
+              <a
+                data-tab-for="tab-pro"
+                href="#"
+                class="hero-tabs-item hero-tabs-item-active w-inline-block"
+                style="
+                  padding: 0.75rem 1.5rem;
+                  background: #146aff;
+                  color: white;
+                  text-decoration: none;
+                  border-radius: 6px 6px 0 0;
+                  font-weight: 600;
+                  transition: all 0.2s ease;
+                "
+              >
+                <div>Pro</div>
+              </a>
+              <a
+                data-tab-for="tab-business"
+                href="#"
+                class="hero-tabs-item w-inline-block"
+                style="
+                  padding: 0.75rem 1.5rem;
+                  background: #f8fafc;
+                  color: #64748b;
+                  text-decoration: none;
+                  border-radius: 6px 6px 0 0;
+                  font-weight: 600;
+                  transition: all 0.2s ease;
+                  border: 1px solid #e2e8f0;
+                "
+              >
+                <div>Business</div>
+              </a>
+              <a
+                data-tab-for="tab-enterprise"
+                href="#"
+                class="hero-tabs-item w-inline-block"
+                style="
+                  padding: 0.75rem 1.5rem;
+                  background: #f8fafc;
+                  color: #64748b;
+                  text-decoration: none;
+                  border-radius: 6px 6px 0 0;
+                  font-weight: 600;
+                  transition: all 0.2s ease;
+                  border: 1px solid #e2e8f0;
+                "
+              >
+                <div>Enterprise</div>
+              </a>
+            </div>
+
+            <!-- Tab Content -->
+            <div
+              data-tab-container="tab-pro"
+              style="
+                padding: 2rem;
+                background: #f8fafc;
+                border-radius: 8px;
+                border: 1px solid #e2e8f0;
+              "
+            >
+              <h4
+                style="margin-bottom: 1rem; color: #146aff; font-size: 1.25rem"
+              >
+                Pro Plan Content
+              </h4>
+              <p style="color: #64748b; line-height: 1.6">
+                Perfect for growing teams that need advanced features and
+                integrations. Includes unlimited projects, priority support, and
+                advanced analytics.
+              </p>
+              <ul
+                style="margin-top: 1rem; color: #64748b; padding-left: 1.5rem"
+              >
+                <li>Up to 50 team members</li>
+                <li>Advanced reporting</li>
+                <li>API access</li>
+                <li>Priority support</li>
+              </ul>
+            </div>
+
+            <div
+              data-tab-container="tab-business"
+              style="
+                padding: 2rem;
+                background: #f8fafc;
+                border-radius: 8px;
+                border: 1px solid #e2e8f0;
+              "
+            >
+              <h4
+                style="margin-bottom: 1rem; color: #146aff; font-size: 1.25rem"
+              >
+                Business Plan Content
+              </h4>
+              <p style="color: #64748b; line-height: 1.6">
+                Designed for larger organizations with complex needs. Enhanced
+                security, custom integrations, and dedicated account management.
+              </p>
+              <ul
+                style="margin-top: 1rem; color: #64748b; padding-left: 1.5rem"
+              >
+                <li>Unlimited team members</li>
+                <li>Custom integrations</li>
+                <li>Advanced security</li>
+                <li>Dedicated account manager</li>
+              </ul>
+            </div>
+
+            <div
+              data-tab-container="tab-enterprise"
+              style="
+                padding: 2rem;
+                background: #f8fafc;
+                border-radius: 8px;
+                border: 1px solid #e2e8f0;
+              "
+            >
+              <h4
+                style="margin-bottom: 1rem; color: #146aff; font-size: 1.25rem"
+              >
+                Enterprise Plan Content
+              </h4>
+              <p style="color: #64748b; line-height: 1.6">
+                Complete solution for enterprise organizations. White-label
+                options, on-premise deployment, and 24/7 dedicated support.
+              </p>
+              <ul
+                style="margin-top: 1rem; color: #64748b; padding-left: 1.5rem"
+              >
+                <li>White-label options</li>
+                <li>On-premise deployment</li>
+                <li>24/7 dedicated support</li>
+                <li>Custom SLA agreements</li>
+              </ul>
+            </div>
+
+            <div
+              style="
+                margin-top: 1rem;
+                padding: 0.75rem;
+                background: #fef3c7;
+                border-radius: 4px;
+                font-size: 0.9rem;
+              "
+            >
+              💡 Accessibility Features: Use Tab to focus tabs, Arrow keys to
+              navigate, Enter/Space to activate, Home/End for first/last tab.
+            </div>
+          </div>
+
+          <!-- Second Hero Tabs Container (to test synchronization) -->
+          <div
+            style="
+              max-width: 800px;
+              border: 2px dashed #d946ef;
+              padding: 2rem;
+              border-radius: 8px;
+              margin-bottom: 2rem;
+            "
+          >
+            <h3 style="margin-bottom: 1rem; color: #374151">
+              Second Hero Tabs (Synchronized)
+            </h3>
+            <p style="margin-bottom: 1.5rem; color: #6b7280; font-size: 0.9rem">
+              This second container should sync with the first one. Click any
+              tab here or above to see global synchronization.
+            </p>
+
+            <!-- Second Hero Tabs -->
+            <div
+              class="hero-tabs"
+              style="
+                display: flex;
+                gap: 1rem;
+                margin-bottom: 2rem;
+                border-bottom: 2px solid #e5e7eb;
+                padding-bottom: 1rem;
+              "
+            >
+              <a
+                data-tab-for="tab-pro"
+                href="#"
+                class="hero-tabs-item hero-tabs-item-active w-inline-block"
+                style="
+                  padding: 0.75rem 1.5rem;
+                  background: #d946ef;
+                  color: white;
+                  text-decoration: none;
+                  border-radius: 6px 6px 0 0;
+                  font-weight: 600;
+                  transition: all 0.2s ease;
+                "
+              >
+                <div>Pro</div>
+              </a>
+              <a
+                data-tab-for="tab-business"
+                href="#"
+                class="hero-tabs-item w-inline-block"
+                style="
+                  padding: 0.75rem 1.5rem;
+                  background: #f8fafc;
+                  color: #64748b;
+                  text-decoration: none;
+                  border-radius: 6px 6px 0 0;
+                  font-weight: 600;
+                  transition: all 0.2s ease;
+                  border: 1px solid #e2e8f0;
+                "
+              >
+                <div>Business</div>
+              </a>
+              <a
+                data-tab-for="tab-enterprise"
+                href="#"
+                class="hero-tabs-item w-inline-block"
+                style="
+                  padding: 0.75rem 1.5rem;
+                  background: #f8fafc;
+                  color: #64748b;
+                  text-decoration: none;
+                  border-radius: 6px 6px 0 0;
+                  font-weight: 600;
+                  transition: all 0.2s ease;
+                  border: 1px solid #e2e8f0;
+                "
+              >
+                <div>Enterprise</div>
+              </a>
+            </div>
+
+            <!-- Different content for second container -->
+            <div
+              data-tab-container="tab-pro"
+              style="
+                padding: 2rem;
+                background: #fdf4ff;
+                border-radius: 8px;
+                border: 1px solid #e879f9;
+              "
+            >
+              <h4
+                style="margin-bottom: 1rem; color: #d946ef; font-size: 1.25rem"
+              >
+                Pro Plan - Second Container
+              </h4>
+              <p style="color: #64748b; line-height: 1.6">
+                This is the same Pro content but in a different styled container
+                to show synchronization. Notice how both containers switch
+                together!
+              </p>
+            </div>
+
+            <div
+              data-tab-container="tab-business"
+              style="
+                padding: 2rem;
+                background: #fdf4ff;
+                border-radius: 8px;
+                border: 1px solid #e879f9;
+              "
+            >
+              <h4
+                style="margin-bottom: 1rem; color: #d946ef; font-size: 1.25rem"
+              >
+                Business Plan - Second Container
+              </h4>
+              <p style="color: #64748b; line-height: 1.6">
+                This Business content is also synchronized across all hero
+                containers on the page.
+              </p>
+            </div>
+
+            <div
+              data-tab-container="tab-enterprise"
+              style="
+                padding: 2rem;
+                background: #fdf4ff;
+                border-radius: 8px;
+                border: 1px solid #e879f9;
+              "
+            >
+              <h4
+                style="margin-bottom: 1rem; color: #d946ef; font-size: 1.25rem"
+              >
+                Enterprise Plan - Second Container
+              </h4>
+              <p style="color: #64748b; line-height: 1.6">
+                Enterprise content synchronized globally across all hero
+                sections.
+              </p>
+            </div>
+
+            <div
+              style="
+                margin-top: 1rem;
+                padding: 0.75rem;
+                background: #fdf4ff;
+                border: 1px solid #e879f9;
+                border-radius: 4px;
+                font-size: 0.9rem;
+              "
+            >
+              🔄 Global Sync: Clicking tabs here will sync with all other
+              hero-tabs containers on the page.
+            </div>
+          </div>
+
+          <!-- Pricing Toggle Example (different structure) -->
+          <div
+            style="
+              max-width: 800px;
+              border: 2px dashed #10b981;
+              padding: 2rem;
+              border-radius: 8px;
+              margin-bottom: 2rem;
+            "
+          >
+            <h3 style="margin-bottom: 1rem; color: #374151">
+              Pricing Toggle (Different Structure)
+            </h3>
+            <p style="margin-bottom: 1.5rem; color: #6b7280; font-size: 0.9rem">
+              This shows how the feature works with different HTML structures
+              like pricing toggles. Still syncs globally!
+            </p>
+
+            <!-- Pricing Toggle Structure -->
+            <div
+              class="pricing-card-toggle"
+              role="tablist"
+              aria-label="Pricing period selection"
+              style="
+                display: flex;
+                background: #f1f5f9;
+                border-radius: 8px;
+                padding: 4px;
+                margin-bottom: 2rem;
+                width: fit-content;
+              "
+            >
+              <div
+                class="pricing-card-toggle-dark"
+                role="tab"
+                aria-selected="true"
+                tabindex="0"
+                style="
+                  background: #10b981;
+                  color: white;
+                  padding: 0.75rem 1.5rem;
+                  border-radius: 6px;
+                  cursor: pointer;
+                  font-weight: 600;
+                  transition: all 0.2s ease;
+                "
+              >
+                <a
+                  data-tab-for="tab-pro"
+                  href="#"
+                  tabindex="-1"
+                  aria-hidden="true"
+                  style="color: inherit; text-decoration: none"
+                >
+                  Pro Plan
+                </a>
+              </div>
+              <div
+                class="pricing-card-toggle-light"
+                role="tab"
+                aria-selected="false"
+                tabindex="-1"
+                style="
+                  background: transparent;
+                  color: #64748b;
+                  padding: 0.75rem 1.5rem;
+                  border-radius: 6px;
+                  cursor: pointer;
+                  font-weight: 600;
+                  transition: all 0.2s ease;
+                "
+              >
+                <a
+                  data-tab-for="tab-business"
+                  href="#"
+                  tabindex="-1"
+                  aria-hidden="true"
+                  style="color: inherit; text-decoration: none"
+                >
+                  Business Plan
+                </a>
+              </div>
+            </div>
+
+            <!-- Content for pricing toggle -->
+            <div
+              data-tab-container="tab-pro"
+              style="
+                padding: 2rem;
+                background: #f0fdf4;
+                border-radius: 8px;
+                border: 1px solid #10b981;
+              "
+            >
+              <h4
+                style="margin-bottom: 1rem; color: #10b981; font-size: 1.25rem"
+              >
+                Pro Plan - Pricing Structure
+              </h4>
+              <p style="color: #64748b; line-height: 1.6">
+                This content is synchronized with all other "Pro" tabs on the
+                page, even though it uses a completely different HTML structure
+                (pricing toggle vs hero tabs).
+              </p>
+            </div>
+
+            <div
+              data-tab-container="tab-business"
+              style="
+                padding: 2rem;
+                background: #f0fdf4;
+                border-radius: 8px;
+                border: 1px solid #10b981;
+              "
+            >
+              <h4
+                style="margin-bottom: 1rem; color: #10b981; font-size: 1.25rem"
+              >
+                Business Plan - Pricing Structure
+              </h4>
+              <p style="color: #64748b; line-height: 1.6">
+                This Business content syncs globally regardless of the container
+                structure. The feature is now truly generic and reusable!
+              </p>
+            </div>
+
+            <div
+              style="
+                margin-top: 1rem;
+                padding: 0.75rem;
+                background: #f0fdf4;
+                border: 1px solid #10b981;
+                border-radius: 4px;
+                font-size: 0.9rem;
+              "
+            >
+              ✨ Generic Structure: This uses data-tab-for attributes but with a
+              pricing toggle structure. Still syncs perfectly!
+            </div>
+          </div>
+        </section>
+
         <!-- Comparison Table Toggler Section -->
         <section>
           <h2 class="section-title">📊 Comparison Table Toggler</h2>
