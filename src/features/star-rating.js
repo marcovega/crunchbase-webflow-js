@@ -112,9 +112,10 @@ export function initStarRating() {
 
       // Apply styling based on fill state
       if (fillState === "full") {
-        path.setAttribute("fill", "var(--_colors---utility--color)");
+        path.setAttribute("fill", "currentColor");
       } else if (fillState === "empty") {
-        path.setAttribute("fill", "#dcdfe1");
+        path.setAttribute("fill", "currentColor");
+        path.setAttribute("opacity", "0.15");
       } else if (fillState.type === "partial") {
         const gradientId = `partial-fill-${fillState.percentage}`;
         path.setAttribute("fill", `url(#${gradientId})`);
@@ -150,14 +151,15 @@ export function initStarRating() {
           "stop"
         );
         stop1.setAttribute("offset", `${percentage}%`);
-        stop1.setAttribute("stop-color", "var(--_colors---utility--color)");
+        stop1.setAttribute("stop-color", "currentColor");
 
         const stop2 = document.createElementNS(
           "http://www.w3.org/2000/svg",
           "stop"
         );
         stop2.setAttribute("offset", `${percentage}%`);
-        stop2.setAttribute("stop-color", "#dcdfe1");
+        stop2.setAttribute("stop-color", "currentColor");
+        stop2.setAttribute("stop-opacity", "0.15");
 
         gradient.appendChild(stop1);
         gradient.appendChild(stop2);

@@ -13,7 +13,7 @@ import initComparisonTableToggler from "./comparison-table-toggler.js";
 import initTabsSelect from "./tabs-select.js";
 import initTabbedCards from "./tabbed-cards.js";
 import initMarketoForms from "./marketo-forms.js";
-import initPricingCardToggler from "./pricing-card-toggler.js";
+// import initPricingCardToggler from "./pricing-card-toggler.js";
 import initRelatedArticlesSlider from "./related-articles-slider.js";
 import initReadingTimeEstimate from "./reading-time-estimate.js";
 import initTableOfContents from "./table-of-contents.js";

@@ -407,9 +407,9 @@ function B() {
         "d",
         "M9.26.745a.41.41 0 0 1 .735 0l2.548 5.162a.41.41 0 0 0 .308.224l5.697.828a.41.41 0 0 1 .228.7l-4.123 4.018a.41.41 0 0 0-.118.363l.973 5.674a.41.41 0 0 1-.594.432l-5.096-2.68a.41.41 0 0 0-.382 0l-5.095 2.68a.41.41 0 0 1-.595-.432l.973-5.674a.41.41 0 0 0-.118-.363L.48 7.658a.41.41 0 0 1 .227-.699l5.697-.828a.41.41 0 0 0 .309-.224L9.26.745Z"
       ), s === "full")
-        t.setAttribute("fill", "var(--_colors---utility--color)");
+        t.setAttribute("fill", "currentColor");
       else if (s === "empty")
-        t.setAttribute("fill", "#dcdfe1");
+        t.setAttribute("fill", "currentColor"), t.setAttribute("opacity", "0.15");
       else if (s.type === "partial") {
         const i = `partial-fill-${s.percentage}`;
         t.setAttribute("fill", `url(#${i})`), this.ensurePartialFillGradient(e, s.percentage, i);
@@ -430,12 +430,12 @@ function B() {
           "http://www.w3.org/2000/svg",
           "stop"
         );
-        a.setAttribute("offset", `${e}%`), a.setAttribute("stop-color", "var(--_colors---utility--color)");
+        a.setAttribute("offset", `${e}%`), a.setAttribute("stop-color", "currentColor");
         const l = document.createElementNS(
           "http://www.w3.org/2000/svg",
           "stop"
         );
-        l.setAttribute("offset", `${e}%`), l.setAttribute("stop-color", "#dcdfe1"), r.appendChild(a), r.appendChild(l), i.appendChild(r), s.appendChild(i);
+        l.setAttribute("offset", `${e}%`), l.setAttribute("stop-color", "currentColor"), l.setAttribute("stop-opacity", "0.15"), r.appendChild(a), r.appendChild(l), i.appendChild(r), s.appendChild(i);
       }
     }
   }
@@ -580,7 +580,7 @@ function D(n) {
   const o = n.querySelector(".tabbed-cards-image"), s = n.querySelectorAll(".tabbed-card.w-dropdown");
   !o || s.length === 0 || (P(s), O(s, o), s.forEach((e, t) => {
     Q(e, t, n, o);
-  }), z(s, o), _());
+  }), U(s, o), z());
 }
 function P(n) {
   n.forEach((o, s) => {
@@ -654,7 +654,7 @@ function v(n, o) {
   );
   e && (e.style.display = "block");
 }
-function _() {
+function z() {
   if (document.getElementById("tabbed-cards-mobile-styles")) return;
   const n = document.createElement("style");
   n.id = "tabbed-cards-mobile-styles", n.textContent = `
@@ -686,7 +686,7 @@ function _() {
     }
   `, document.head.appendChild(n);
 }
-function z(n, o) {
+function U(n, o) {
   if (n.length === 0) return;
   const s = n[0], e = s.querySelector(".tabbed-card-toggler");
   e && (n.forEach((t, i) => {
@@ -714,7 +714,7 @@ let b = {
   css: !1,
   js: !1
 };
-function U() {
+function _() {
   return new Promise((n) => {
     if (b.css || document.querySelector(`link[href="${g.cssUrl}"]`)) {
       b.css = !0, n();
@@ -794,7 +794,7 @@ function V() {
   }));
 }
 function G() {
-  Promise.all([U(), j()]).then(() => {
+  Promise.all([_(), j()]).then(() => {
     setTimeout(() => {
       window.MktoForms2 ? (V(), new MutationObserver((o) => {
         o.forEach((s) => {
