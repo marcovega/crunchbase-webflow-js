@@ -24,8 +24,13 @@ export function initCaseStudyFilter() {
     return;
   }
 
-  // Find all cards
-  const cards = Array.from(container.querySelectorAll(CARD_SELECTOR));
+  // Find all cards and their parent w-dyn-item elements
+  const cards = Array.from(container.querySelectorAll(CARD_SELECTOR)).map(
+    (card) => {
+      const parent = card.closest(".w-dyn-item");
+      return { card, parent };
+    }
+  );
   if (cards.length === 0) {
     console.warn(
       `⚠️ Case Study Filter: No cards found with selector "${CARD_SELECTOR}"`
@@ -64,7 +69,7 @@ export function initCaseStudyFilter() {
 
     // Collect unique values from cards
     const uniqueValues = new Set();
-    cards.forEach((card) => {
+    cards.forEach(({ card }) => {
       const value = card.getAttribute(dataAttribute);
       if (value && value.trim()) {
         uniqueValues.add(value.trim());
@@ -126,7 +131,7 @@ export function initCaseStudyFilter() {
     let visibleCount = 0;
     let hiddenCount = 0;
 
-    cards.forEach((card) => {
+    cards.forEach(({ card, parent }) => {
       let shouldShow = true;
 
       // Check each active filter
@@ -144,13 +149,24 @@ export function initCaseStudyFilter() {
         }
       }
 
-      // Show or hide the card
-      if (shouldShow) {
-        card.style.display = "";
-        visibleCount++;
+      // Show or hide the parent w-dyn-item
+      if (parent) {
+        if (shouldShow) {
+          parent.style.display = "";
+          visibleCount++;
+        } else {
+          parent.style.display = "none";
+          hiddenCount++;
+        }
       } else {
-        card.style.display = "none";
-        hiddenCount++;
+        // Fallback to card if parent not found
+        if (shouldShow) {
+          card.style.display = "";
+          visibleCount++;
+        } else {
+          card.style.display = "none";
+          hiddenCount++;
+        }
       }
     });
 
