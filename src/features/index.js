@@ -13,11 +13,11 @@ import initComparisonTableToggler from "./comparison-table-toggler.js";
 import initTabsSelect from "./tabs-select.js";
 import initTabbedCards from "./tabbed-cards.js";
 import initMarketoForms from "./marketo-forms.js";
-// import initPricingCardToggler from "./pricing-card-toggler.js";
 import initRelatedArticlesSlider from "./related-articles-slider.js";
 import initReadingTimeEstimate from "./reading-time-estimate.js";
 import initTableOfContents from "./table-of-contents.js";
 import initHeroTabs from "./hero-tabs.js";
+import initCaseStudyFilter from "./case-study-filter.js";
 
 // Export all features
 export {
@@ -29,11 +29,11 @@ export {
   initTabsSelect,
   initTabbedCards,
   initMarketoForms,
-  // initPricingCardToggler,
   initRelatedArticlesSlider,
   initReadingTimeEstimate,
   initTableOfContents,
   initHeroTabs,
+  initCaseStudyFilter,
 };
 
 // Feature registry for easy enable/disable
@@ -46,11 +46,11 @@ export const features = {
   tabsSelect: initTabsSelect,
   tabbedCards: initTabbedCards,
   marketoForms: initMarketoForms,
-  // pricingCardToggler: initPricingCardToggler,
   relatedArticlesSlider: initRelatedArticlesSlider,
   readingTimeEstimate: initReadingTimeEstimate,
   tableOfContents: initTableOfContents,
   heroTabs: initHeroTabs,
+  caseStudyFilter: initCaseStudyFilter,
   // Add more features here as you create them
   // myFeature: initMyFeature,
 };

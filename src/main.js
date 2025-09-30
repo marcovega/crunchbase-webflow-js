@@ -48,6 +48,7 @@ function runCrunchbaseCode() {
     "readingTimeEstimate", // Reading time estimate for blog posts
     "tableOfContents", // Table of contents for blog posts
     "heroTabs", // Hero tabs with accessibility features
+    "caseStudyFilter", // Case study filtering system
   ]); // Can add "demo" to enable demo feature.
 
   // Development indicator and live reload
