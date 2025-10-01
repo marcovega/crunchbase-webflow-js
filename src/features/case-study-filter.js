@@ -14,6 +14,7 @@ export function initCaseStudyFilter() {
   const CARDS_CONTAINER_SELECTOR = ".case-study-cards-grid";
   const CARD_SELECTOR = ".case-study-card";
   const FILTER_CONTROL_ATTRIBUTE = "data-filter-control";
+  const DYNAMIC_CONTENT_LOAD_DELAY = 3000; // Wait 3 seconds for dynamic content
 
   // Find the container
   const container = document.querySelector(CARDS_CONTAINER_SELECTOR);
@@ -64,15 +65,50 @@ export function initCaseStudyFilter() {
     const filterType = select.getAttribute(FILTER_CONTROL_ATTRIBUTE);
     if (!filterType) return;
 
+    // Special handling: delay use-case initialization for dynamic content
+    if (filterType === "use-case") {
+      console.log(
+        `⏳ Use Case filter: Waiting ${DYNAMIC_CONTENT_LOAD_DELAY}ms for dynamic content to load...`
+      );
+      setTimeout(() => {
+        console.log(
+          "✨ Use Case filter: Dynamic content loaded, initializing..."
+        );
+        initializeFilter(select, filterType);
+      }, DYNAMIC_CONTENT_LOAD_DELAY);
+    } else {
+      // Initialize other filters immediately (server-side rendered)
+      initializeFilter(select, filterType);
+    }
+  });
+
+  function initializeFilter(select, filterType) {
     const dataAttribute = `data-filter-${filterType}`;
     console.log(`🔧 Setting up filter: ${filterType} (${dataAttribute})`);
 
     // Collect unique values from cards
     const uniqueValues = new Set();
     cards.forEach(({ card }) => {
-      const value = card.getAttribute(dataAttribute);
-      if (value && value.trim()) {
-        uniqueValues.add(value.trim());
+      // Special handling for Use Cases which are in a nested list structure
+      if (filterType === "use-case") {
+        const nestTarget = card.querySelector('[fs-list-nest="use-cases"]');
+        if (nestTarget) {
+          const useCaseItems = nestTarget.querySelectorAll(
+            '[role="listitem"].w-dyn-item'
+          );
+          useCaseItems.forEach((item) => {
+            const text = item.textContent.trim();
+            if (text) {
+              uniqueValues.add(text);
+            }
+          });
+        }
+      } else {
+        // Standard handling for other filter types
+        const value = card.getAttribute(dataAttribute);
+        if (value && value.trim()) {
+          uniqueValues.add(value.trim());
+        }
       }
     });
 
@@ -120,7 +156,7 @@ export function initCaseStudyFilter() {
 
       applyFilters();
     });
-  });
+  }
 
   /**
    * Apply all active filters to cards
@@ -139,11 +175,32 @@ export function initCaseStudyFilter() {
         // Skip if filter is set to "All" (empty string)
         if (!filterValue) continue;
 
-        const dataAttribute = `data-filter-${filterType}`;
-        const cardValue = card.getAttribute(dataAttribute);
+        let isMatch = false;
+
+        // Special handling for Use Cases
+        if (filterType === "use-case") {
+          const nestTarget = card.querySelector('[fs-list-nest="use-cases"]');
+          if (nestTarget) {
+            const useCaseItems = nestTarget.querySelectorAll(
+              '[role="listitem"].w-dyn-item'
+            );
+            for (const item of useCaseItems) {
+              const text = item.textContent.trim();
+              if (text === filterValue) {
+                isMatch = true;
+                break;
+              }
+            }
+          }
+        } else {
+          // Standard handling for other filter types
+          const dataAttribute = `data-filter-${filterType}`;
+          const cardValue = card.getAttribute(dataAttribute);
+          isMatch = cardValue === filterValue;
+        }
 
         // Hide card if it doesn't match this filter
-        if (cardValue !== filterValue) {
+        if (!isMatch) {
           shouldShow = false;
           break;
         }

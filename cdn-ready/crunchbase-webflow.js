@@ -102,20 +102,20 @@ const config = {
 });
 
 // Original production code below:
-function F() {
+function N() {
   document.body.style.border = "5px solid navy", document.body.style.margin = "0", document.body.style.boxSizing = "border-box";
 }
-const q = () => {
-  const s = document.querySelectorAll('[data-logo-slider="true"]'), o = 7;
-  !s || s.length === 0 || window.matchMedia("(prefers-reduced-motion: reduce)").matches || s.forEach((n) => {
-    const e = n.querySelectorAll(":scope > *");
-    e.length === 0 || e.length < o || (n.setAttribute("data-logo-slider-init", "true"), n.style.setProperty("--ls-items", e.length), e.forEach((t, i) => {
+const M = () => {
+  const n = document.querySelectorAll('[data-logo-slider="true"]'), o = 7;
+  !n || n.length === 0 || window.matchMedia("(prefers-reduced-motion: reduce)").matches || n.forEach((s) => {
+    const e = s.querySelectorAll(":scope > *");
+    e.length === 0 || e.length < o || (s.setAttribute("data-logo-slider-init", "true"), s.style.setProperty("--ls-items", e.length), e.forEach((t, i) => {
       t.style.setProperty("--ls-item-index", i + 1);
     }));
   });
 };
-function I() {
-  class s {
+function $() {
+  class n {
     constructor(t) {
       this.container = t, this.currentIndex = 0, this.quotes = [], this.totalQuotes = 0, this.containerWidth = 0, this.isAnimating = !1, this.resizeTimeout = null, this.animationDuration = this.getCSSVariable(
         "--quotes-slider-duration",
@@ -155,16 +155,16 @@ function I() {
       this.gap = parseInt(t.gap) || 0;
       const i = window.matchMedia("(max-width: 991px)").matches;
       let r = 0;
-      this.quoteData = this.quotes.map((l, a) => {
-        let c;
-        i ? (c = this.containerWidth, l.style.width = `${this.containerWidth}px`) : l.classList.contains("quote-card-featured") ? (c = 862, l.style.width = "862px") : l.classList.contains("quote-card") ? (c = 410, l.style.width = "410px") : c = l.getBoundingClientRect().width;
-        const f = {
-          element: l,
-          width: c,
+      this.quoteData = this.quotes.map((a, l) => {
+        let u;
+        i ? (u = this.containerWidth, a.style.width = `${this.containerWidth}px`) : a.classList.contains("quote-card-featured") ? (u = 862, a.style.width = "862px") : a.classList.contains("quote-card") ? (u = 410, a.style.width = "410px") : u = a.getBoundingClientRect().width;
+        const d = {
+          element: a,
+          width: u,
           offsetLeft: r,
-          index: a
+          index: l
         };
-        return r += c + (a < this.totalQuotes - 1 ? this.gap : 0), f;
+        return r += u + (l < this.totalQuotes - 1 ? this.gap : 0), d;
       });
     }
     createNavigation() {
@@ -256,8 +256,8 @@ function I() {
     }
     shouldUseAdaptiveAlignment(t) {
       let i = 0;
-      for (let a = t; a < this.totalQuotes; a++)
-        i += this.quoteData[a].width, a < this.totalQuotes - 1 && (i += this.gap);
+      for (let l = t; l < this.totalQuotes; l++)
+        i += this.quoteData[l].width, l < this.totalQuotes - 1 && (i += this.gap);
       return i <= this.containerWidth + 40;
     }
     scrollToQuote(t) {
@@ -298,8 +298,8 @@ function I() {
         return;
       const t = this.container.scrollLeft;
       for (let i = 0; i < this.totalQuotes; i++) {
-        const r = this.quoteData[i], l = r.offsetLeft, a = r.offsetLeft + r.width, c = t + this.containerWidth, f = Math.max(l, t), d = Math.min(a, c);
-        if (Math.max(0, d - f) / r.width >= 0.3 || l >= t && l < c) {
+        const r = this.quoteData[i], a = r.offsetLeft, l = r.offsetLeft + r.width, u = t + this.containerWidth, d = Math.max(a, t), c = Math.min(l, u);
+        if (Math.max(0, c - d) / r.width >= 0.3 || a >= t && a < u) {
           this.currentIndex !== i && (this.currentIndex = i, this.updateNavigationState(), this.updateProgress());
           break;
         }
@@ -341,14 +341,14 @@ function I() {
       this.navContainer.style.display = "flex", this.container.style.overflowX = "auto";
     }
   }
-  const o = document.querySelectorAll(".quotes-slider-container"), n = [];
+  const o = document.querySelectorAll(".quotes-slider-container"), s = [];
   return console.log(`📊 Quotes Slider: Found ${o.length} containers`), o.forEach((e) => {
-    const t = new s(e);
-    t.shouldEnable() || t.disable(), n.push(t);
-  }), window.quotesSliders = n, n;
+    const t = new n(e);
+    t.shouldEnable() || t.disable(), s.push(t);
+  }), window.quotesSliders = s, s;
 }
-function B() {
-  class s {
+function R() {
+  class n {
     constructor() {
       this.init();
     }
@@ -356,19 +356,19 @@ function B() {
       this.processRatingElements();
     }
     processRatingElements() {
-      const n = document.querySelectorAll("[rating-value]");
-      console.log(`⭐ Star Rating: Found ${n.length} elements`), n.forEach((e, t) => {
+      const s = document.querySelectorAll("[rating-value]");
+      console.log(`⭐ Star Rating: Found ${s.length} elements`), s.forEach((e, t) => {
         const i = e.getAttribute("rating-value"), r = this.snapToNearestTenth(parseFloat(i) || 0);
         e.innerHTML = "";
-        const l = this.createStarContainer(r);
-        e.appendChild(l), e.setAttribute("rating-value", r.toString());
+        const a = this.createStarContainer(r);
+        e.appendChild(a), e.setAttribute("rating-value", r.toString());
       });
     }
-    snapToNearestTenth(n) {
-      const e = Math.max(0, Math.min(5, n));
+    snapToNearestTenth(s) {
+      const e = Math.max(0, Math.min(5, s));
       return Math.round(e * 10) / 10;
     }
-    createStarContainer(n) {
+    createStarContainer(s) {
       const e = document.createElement("div");
       e.style.cssText = `
         display: flex;
@@ -376,12 +376,12 @@ function B() {
         align-items: center;
       `;
       for (let t = 1; t <= 5; t++) {
-        const i = this.createStar(t, n);
+        const i = this.createStar(t, s);
         e.appendChild(i);
       }
       return e;
     }
-    createStar(n, e) {
+    createStar(s, e) {
       const t = document.createElement("div");
       t.style.cssText = `
         width: 19px;
@@ -389,14 +389,14 @@ function B() {
         position: relative;
         display: inline-block;
       `;
-      const i = this.getStarFillState(n, e), r = this.createStarSvg(i);
+      const i = this.getStarFillState(s, e), r = this.createStarSvg(i);
       return t.appendChild(r), t;
     }
-    getStarFillState(n, e) {
-      const t = n - 1;
-      return e >= n ? "full" : e > t ? { type: "partial", percentage: ((e - t) * 100).toFixed(0) } : "empty";
+    getStarFillState(s, e) {
+      const t = s - 1;
+      return e >= s ? "full" : e > t ? { type: "partial", percentage: ((e - t) * 100).toFixed(0) } : "empty";
     }
-    createStarSvg(n) {
+    createStarSvg(s) {
       const e = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       e.setAttribute("xmlns", "http://www.w3.org/2000/svg"), e.setAttribute("width", "19"), e.setAttribute("height", "19"), e.setAttribute("fill", "none"), e.setAttribute("viewBox", "0 0 19 19");
       const t = document.createElementNS(
@@ -406,17 +406,17 @@ function B() {
       if (t.setAttribute(
         "d",
         "M9.26.745a.41.41 0 0 1 .735 0l2.548 5.162a.41.41 0 0 0 .308.224l5.697.828a.41.41 0 0 1 .228.7l-4.123 4.018a.41.41 0 0 0-.118.363l.973 5.674a.41.41 0 0 1-.594.432l-5.096-2.68a.41.41 0 0 0-.382 0l-5.095 2.68a.41.41 0 0 1-.595-.432l.973-5.674a.41.41 0 0 0-.118-.363L.48 7.658a.41.41 0 0 1 .227-.699l5.697-.828a.41.41 0 0 0 .309-.224L9.26.745Z"
-      ), n === "full")
+      ), s === "full")
         t.setAttribute("fill", "currentColor");
-      else if (n === "empty")
+      else if (s === "empty")
         t.setAttribute("fill", "currentColor"), t.setAttribute("opacity", "0.15");
-      else if (n.type === "partial") {
-        const i = `partial-fill-${n.percentage}`;
-        t.setAttribute("fill", `url(#${i})`), this.ensurePartialFillGradient(e, n.percentage, i);
+      else if (s.type === "partial") {
+        const i = `partial-fill-${s.percentage}`;
+        t.setAttribute("fill", `url(#${i})`), this.ensurePartialFillGradient(e, s.percentage, i);
       }
       return e.appendChild(t), e;
     }
-    ensurePartialFillGradient(n, e, t) {
+    ensurePartialFillGradient(s, e, t) {
       if (!document.getElementById(t)) {
         const i = document.createElementNS(
           "http://www.w3.org/2000/svg",
@@ -426,23 +426,23 @@ function B() {
           "linearGradient"
         );
         r.setAttribute("id", t), r.setAttribute("gradientUnits", "objectBoundingBox"), r.setAttribute("x1", "0%"), r.setAttribute("y1", "0%"), r.setAttribute("x2", "100%"), r.setAttribute("y2", "0%");
-        const l = document.createElementNS(
-          "http://www.w3.org/2000/svg",
-          "stop"
-        );
-        l.setAttribute("offset", `${e}%`), l.setAttribute("stop-color", "currentColor");
         const a = document.createElementNS(
           "http://www.w3.org/2000/svg",
           "stop"
         );
-        a.setAttribute("offset", `${e}%`), a.setAttribute("stop-color", "currentColor"), a.setAttribute("stop-opacity", "0.15"), r.appendChild(l), r.appendChild(a), i.appendChild(r), n.appendChild(i);
+        a.setAttribute("offset", `${e}%`), a.setAttribute("stop-color", "currentColor");
+        const l = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "stop"
+        );
+        l.setAttribute("offset", `${e}%`), l.setAttribute("stop-color", "currentColor"), l.setAttribute("stop-opacity", "0.15"), r.appendChild(a), r.appendChild(l), i.appendChild(r), s.appendChild(i);
       }
     }
   }
-  new s();
+  new n();
 }
-function N() {
-  class s {
+function D() {
+  class n {
     constructor() {
       this.init();
     }
@@ -450,76 +450,76 @@ function N() {
       this.bindEvents();
     }
     bindEvents() {
-      document.addEventListener("click", (n) => {
-        const e = n.target.closest("[data-cmp-table-trigger]");
+      document.addEventListener("click", (s) => {
+        const e = s.target.closest("[data-cmp-table-trigger]");
         if (!e) return;
         const t = e.getAttribute("data-cmp-table-trigger"), i = e.closest(".comparison-table-container");
         i && (t === "first-column" ? this.activateFirstColumn(i) : t === "last-column" && this.activateLastColumn(i));
       });
     }
-    activateFirstColumn(n) {
-      const e = n.querySelector(
+    activateFirstColumn(s) {
+      const e = s.querySelector(
         '[data-cmp-table-trigger="first-column"]'
-      ), t = n.querySelector(
+      ), t = s.querySelector(
         '[data-cmp-table-trigger="last-column"]'
       );
-      e && e.classList.add("comparison-table-link-active"), t && t.classList.remove("comparison-table-link-active"), this.showFirstColumn(n);
+      e && e.classList.add("comparison-table-link-active"), t && t.classList.remove("comparison-table-link-active"), this.showFirstColumn(s);
     }
-    activateLastColumn(n) {
-      const e = n.querySelector(
+    activateLastColumn(s) {
+      const e = s.querySelector(
         '[data-cmp-table-trigger="first-column"]'
-      ), t = n.querySelector(
+      ), t = s.querySelector(
         '[data-cmp-table-trigger="last-column"]'
       );
-      e && e.classList.remove("comparison-table-link-active"), t && t.classList.add("comparison-table-link-active"), this.showLastColumn(n);
+      e && e.classList.remove("comparison-table-link-active"), t && t.classList.add("comparison-table-link-active"), this.showLastColumn(s);
     }
-    showFirstColumn(n) {
-      n.querySelectorAll(
+    showFirstColumn(s) {
+      s.querySelectorAll(
         ".cmp-table-row.cmp-table-row-first"
       ).forEach((i) => {
         i.style.display = "flex";
-      }), n.querySelectorAll(
+      }), s.querySelectorAll(
         ".cmp-table-row.cmp-table-column-last"
       ).forEach((i) => {
         i.style.display = "none";
       });
     }
-    showLastColumn(n) {
-      n.querySelectorAll(
+    showLastColumn(s) {
+      s.querySelectorAll(
         ".cmp-table-row.cmp-table-column-last"
       ).forEach((i) => {
         i.style.display = "flex";
-      }), n.querySelectorAll(
+      }), s.querySelectorAll(
         ".cmp-table-row.cmp-table-row-first"
       ).forEach((i) => {
         i.style.display = "none";
       });
     }
   }
-  new s();
+  new n();
 }
-function M() {
-  const s = document.querySelectorAll(".tabs.w-tabs");
-  s.length !== 0 && (console.log(`📱 Tabs Select: Found ${s.length} tab containers`), s.forEach((o) => {
-    const n = o.querySelectorAll(".tab-link");
-    if (n.length === 0 || o.querySelector(".tabs-select"))
+function O() {
+  const n = document.querySelectorAll(".tabs.w-tabs");
+  n.length !== 0 && (console.log(`📱 Tabs Select: Found ${n.length} tab containers`), n.forEach((o) => {
+    const s = o.querySelectorAll(".tab-link");
+    if (s.length === 0 || o.querySelector(".tabs-select"))
       return;
     const e = document.createElement("select");
     e.className = "tabs-select";
     const t = document.createElement("option");
-    t.value = "", t.textContent = "Select a tab...", t.disabled = !0, e.appendChild(t), n.forEach((i, r) => {
-      const l = document.createElement("option");
-      l.value = r, l.textContent = i.textContent.trim() || `Tab ${r + 1}`, i.classList.contains("w--current") && (l.selected = !0, t.disabled = !1, t.selected = !1), e.appendChild(l);
+    t.value = "", t.textContent = "Select a tab...", t.disabled = !0, e.appendChild(t), s.forEach((i, r) => {
+      const a = document.createElement("option");
+      a.value = r, a.textContent = i.textContent.trim() || `Tab ${r + 1}`, i.classList.contains("w--current") && (a.selected = !0, t.disabled = !1, t.selected = !1), e.appendChild(a);
     }), e.addEventListener("change", function() {
       const i = parseInt(this.value);
-      !isNaN(i) && n[i] && n[i].click();
+      !isNaN(i) && s[i] && s[i].click();
     }), o.insertBefore(e, o.firstChild);
-  }), $());
+  }), _());
 }
-function $() {
+function _() {
   if (document.getElementById("tabs-select-styles")) return;
-  const s = document.createElement("style");
-  s.id = "tabs-select-styles", s.textContent = `
+  const n = document.createElement("style");
+  n.id = "tabs-select-styles", n.textContent = `
     .tabs-select {
       width: 100%;
       padding: 12px 16px;
@@ -563,39 +563,39 @@ function $() {
         display: block !important;
       }
     }
-  `, document.head.appendChild(s);
+  `, document.head.appendChild(n);
 }
-function R() {
-  document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", C) : C();
+function P() {
+  document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", k) : k();
 }
-function C() {
-  const s = document.querySelectorAll(".tabbed-cards");
-  s.length !== 0 && (console.log(
-    `🎴 Tabbed Cards: Found ${s.length} containers`
-  ), s.forEach((o) => {
-    D(o);
+function k() {
+  const n = document.querySelectorAll(".tabbed-cards");
+  n.length !== 0 && (console.log(
+    `🎴 Tabbed Cards: Found ${n.length} containers`
+  ), n.forEach((o) => {
+    Q(o);
   }));
 }
-function D(s) {
-  const o = s.querySelector(".tabbed-cards-image"), n = s.querySelectorAll(".tabbed-card.w-dropdown");
-  !o || n.length === 0 || (O(n), P(n, o), n.forEach((e, t) => {
-    _(e, t, s, o);
-  }), U(n, o), W());
+function Q(n) {
+  const o = n.querySelector(".tabbed-cards-image"), s = n.querySelectorAll(".tabbed-card.w-dropdown");
+  !o || s.length === 0 || (W(s), U(s, o), s.forEach((e, t) => {
+    z(e, t, n, o);
+  }), H(s, o), V());
 }
-function O(s) {
-  s.forEach((o, n) => {
+function W(n) {
+  n.forEach((o, s) => {
     const t = o.querySelector(".tabbed-card-image-wrapper")?.querySelector("img");
     if (!t) return;
     const i = document.createElement("div");
-    i.className = "tabbed-card-mobile-image", i.dataset.cardIndex = n;
+    i.className = "tabbed-card-mobile-image", i.dataset.cardIndex = s;
     const r = t.cloneNode(!0);
     i.appendChild(r), o.parentNode.insertBefore(i, o.nextSibling);
   });
 }
-function P(s, o) {
+function U(n, o) {
   o.innerHTML = "";
-  const n = document.createElement("img");
-  n.style.width = "100%", n.style.height = "auto", n.style.display = "block", n.style.transition = "opacity 0.2s ease", n.className = "tabbed-card-main-image", o.appendChild(n), s.forEach((e) => {
+  const s = document.createElement("img");
+  s.style.width = "100%", s.style.height = "auto", s.style.display = "block", s.style.transition = "opacity 0.2s ease", s.className = "tabbed-card-main-image", o.appendChild(s), n.forEach((e) => {
     const t = e.querySelector(".tabbed-card-image-wrapper img");
     if (t?.src) {
       const i = new Image();
@@ -603,61 +603,61 @@ function P(s, o) {
     }
   });
 }
-function _(s, o, n, e) {
-  const t = s.querySelector(".tabbed-card-toggler");
+function z(n, o, s, e) {
+  const t = n.querySelector(".tabbed-card-toggler");
   if (!t) return;
   t.addEventListener("click", () => {
-    t.getAttribute("aria-expanded") === "true" || (Q(s, n), setTimeout(() => {
-      x(o, e), S(o, n);
+    t.getAttribute("aria-expanded") === "true" || (j(n, s), setTimeout(() => {
+      C(o, e), E(o, s);
     }, 100));
   }), new MutationObserver((r) => {
-    r.forEach((l) => {
-      l.attributeName === "aria-expanded" && t.getAttribute("aria-expanded") === "true" && (x(o, e), S(o, n));
+    r.forEach((a) => {
+      a.attributeName === "aria-expanded" && t.getAttribute("aria-expanded") === "true" && (C(o, e), E(o, s));
     });
   }).observe(t, {
     attributes: !0,
     attributeFilter: ["aria-expanded"]
   });
 }
-function Q(s, o) {
+function j(n, o) {
   o.querySelectorAll(".tabbed-card.w-dropdown").forEach((e) => {
-    if (e !== s) {
+    if (e !== n) {
       const t = e.querySelector(".tabbed-card-toggler");
       t && t.getAttribute("aria-expanded") === "true" && (t.click(), setTimeout(() => {
         if (t.getAttribute("aria-expanded") === "true") {
           t.setAttribute("aria-expanded", "false");
-          const i = e.querySelector(".w-dropdown"), r = e.querySelector(".w-dropdown-list"), l = e.querySelector(".w-dropdown-toggle");
-          i?.classList.remove("w--open"), r?.classList.remove("w--open"), l?.classList.remove("w--open");
+          const i = e.querySelector(".w-dropdown"), r = e.querySelector(".w-dropdown-list"), a = e.querySelector(".w-dropdown-toggle");
+          i?.classList.remove("w--open"), r?.classList.remove("w--open"), a?.classList.remove("w--open");
         }
       }, 50));
     }
   });
 }
-function x(s, o) {
-  const n = o.querySelector(".tabbed-card-main-image");
-  if (!n) return;
-  const t = o.closest(".tabbed-cards").querySelectorAll(".tabbed-card.w-dropdown")[s];
+function C(n, o) {
+  const s = o.querySelector(".tabbed-card-main-image");
+  if (!s) return;
+  const t = o.closest(".tabbed-cards").querySelectorAll(".tabbed-card.w-dropdown")[n];
   if (!t) return;
   const i = t.querySelector(".tabbed-card-image-wrapper img");
-  i && n.src !== i.src && (n.style.opacity = "0.5", n.src = i.src, n.alt = i.alt || "", n.onload = () => {
-    n.style.opacity = "1";
+  i && s.src !== i.src && (s.style.opacity = "0.5", s.src = i.src, s.alt = i.alt || "", s.onload = () => {
+    s.style.opacity = "1";
   });
 }
-function S(s, o) {
+function E(n, o) {
   o.querySelectorAll(
     ".tabbed-card-mobile-image"
   ).forEach((t) => {
     t.style.display = "none";
   });
   const e = o.querySelector(
-    `[data-card-index="${s}"]`
+    `[data-card-index="${n}"]`
   );
   e && (e.style.display = "block");
 }
-function W() {
+function V() {
   if (document.getElementById("tabbed-cards-mobile-styles")) return;
-  const s = document.createElement("style");
-  s.id = "tabbed-cards-mobile-styles", s.textContent = `
+  const n = document.createElement("style");
+  n.id = "tabbed-cards-mobile-styles", n.textContent = `
     /* Desktop: Show original images in content, hide mobile siblings */
     @media (min-width: 992px) {
       .tabbed-card-image-wrapper {
@@ -684,12 +684,12 @@ function W() {
         border-radius: 8px;
       }
     }
-  `, document.head.appendChild(s);
+  `, document.head.appendChild(n);
 }
-function U(s, o) {
-  if (s.length === 0) return;
-  const n = s[0], e = n.querySelector(".tabbed-card-toggler");
-  e && (s.forEach((t, i) => {
+function H(n, o) {
+  if (n.length === 0) return;
+  const s = n[0], e = s.querySelector(".tabbed-card-toggler");
+  e && (n.forEach((t, i) => {
     if (i !== 0) {
       const r = t.querySelector(".tabbed-card-toggler");
       r?.getAttribute("aria-expanded") === "true" && r.click();
@@ -698,116 +698,116 @@ function U(s, o) {
     e.getAttribute("aria-expanded") === "true" || (e.click(), setTimeout(() => {
       if (e.getAttribute("aria-expanded") !== "true") {
         e.setAttribute("aria-expanded", "true");
-        const i = n.querySelector(".w-dropdown"), r = n.querySelector(".w-dropdown-list"), l = n.querySelector(".w-dropdown-toggle");
-        i?.classList.add("w--open"), r?.classList.add("w--open"), l?.classList.add("w--open");
+        const i = s.querySelector(".w-dropdown"), r = s.querySelector(".w-dropdown-list"), a = s.querySelector(".w-dropdown-toggle");
+        i?.classList.add("w--open"), r?.classList.add("w--open"), a?.classList.add("w--open");
       }
-    }, 100)), x(0, o), S(0, n.closest(".tabbed-cards"));
+    }, 100)), C(0, o), E(0, s.closest(".tabbed-cards"));
   }, 200));
 }
-const b = {
+const x = {
   baseUrl: "https://pages.crunchbase.com",
   munchkinId: "976-JJA-800",
   cssUrl: "https://app-sj22.marketo.com/js/forms2/css/forms2.css",
   jsUrl: "https://pages.crunchbase.com/js/forms2/js/forms2.min.js"
 };
-let g = {
+let w = {
   css: !1,
   js: !1
 };
-function j() {
-  return new Promise((s) => {
-    if (g.css || document.querySelector(`link[href="${b.cssUrl}"]`)) {
-      g.css = !0, s();
+function G() {
+  return new Promise((n) => {
+    if (w.css || document.querySelector(`link[href="${x.cssUrl}"]`)) {
+      w.css = !0, n();
       return;
     }
     const o = document.createElement("link");
-    o.rel = "stylesheet", o.href = b.cssUrl, o.onload = () => {
-      g.css = !0, s();
+    o.rel = "stylesheet", o.href = x.cssUrl, o.onload = () => {
+      w.css = !0, n();
     }, o.onerror = () => {
-      console.error("❌ Failed to load Marketo CSS"), s();
+      console.error("❌ Failed to load Marketo CSS"), n();
     }, document.head.appendChild(o);
   });
 }
-function z() {
-  return new Promise((s) => {
-    if (g.js || window.MktoForms2) {
-      g.js = !0, s();
+function X() {
+  return new Promise((n) => {
+    if (w.js || window.MktoForms2) {
+      w.js = !0, n();
       return;
     }
     const o = document.createElement("script");
-    o.src = b.jsUrl, o.onload = () => {
-      g.js = !0, s();
+    o.src = x.jsUrl, o.onload = () => {
+      w.js = !0, n();
     }, o.onerror = () => {
-      console.error("❌ Failed to load Marketo JS"), s();
+      console.error("❌ Failed to load Marketo JS"), n();
     }, document.head.appendChild(o);
   });
 }
-function V(s) {
+function J(n) {
   try {
-    const o = s.getFormElem()[0], n = Array.from(
+    const o = n.getFormElem()[0], s = Array.from(
       o.querySelectorAll(".mktoFormRow")
     ).filter((e) => !e.querySelector('input[type="hidden"]'));
-    o.querySelectorAll(".is-odd-last").forEach((e) => e.classList.remove("is-odd-last")), n.length % 2 === 1 && n[n.length - 1].classList.add("is-odd-last");
+    o.querySelectorAll(".is-odd-last").forEach((e) => e.classList.remove("is-odd-last")), s.length % 2 === 1 && s[s.length - 1].classList.add("is-odd-last");
   } catch (o) {
     console.error("❌ Error applying layout:", o);
   }
 }
-let E = 0;
-function A(s, o) {
+let L = 0;
+function T(n, o) {
   try {
-    if (s.hasAttribute("data-marketo-initialized"))
+    if (n.hasAttribute("data-marketo-initialized"))
       return;
-    E++;
-    const n = `mktoForm_${o}_${E}`;
-    s.innerHTML = "";
+    L++;
+    const s = `mktoForm_${o}_${L}`;
+    n.innerHTML = "";
     const e = document.createElement("form");
-    e.id = n, s.appendChild(e), s.setAttribute("data-marketo-initialized", "true"), s.setAttribute("data-marketo-unique-id", n), window.MktoForms2.loadForm(
-      b.baseUrl,
-      b.munchkinId,
+    e.id = s, n.appendChild(e), n.setAttribute("data-marketo-initialized", "true"), n.setAttribute("data-marketo-unique-id", s), window.MktoForms2.loadForm(
+      x.baseUrl,
+      x.munchkinId,
       parseInt(o),
       function(t) {
         const i = t.getFormElem()[0];
-        i && (e.parentNode.replaceChild(i, e), i.id = n), setTimeout(() => V(t), 100);
+        i && (e.parentNode.replaceChild(i, e), i.id = s), setTimeout(() => J(t), 100);
         const r = new CustomEvent("marketoFormLoaded", {
-          detail: { form: t, formId: o, container: s, uniqueId: n }
+          detail: { form: t, formId: o, container: n, uniqueId: s }
         });
-        s.dispatchEvent(r);
+        n.dispatchEvent(r);
       }
     );
-  } catch (n) {
-    console.error(`❌ Error initializing Marketo form ${o}:`, n);
+  } catch (s) {
+    console.error(`❌ Error initializing Marketo form ${o}:`, s);
   }
 }
-function H() {
-  const s = document.querySelectorAll("[data-marketo-id]");
-  s.length !== 0 && (console.log(`🎯 Found ${s.length} Marketo form container(s)`), s.forEach((o, n) => {
+function Y() {
+  const n = document.querySelectorAll("[data-marketo-id]");
+  n.length !== 0 && (console.log(`🎯 Found ${n.length} Marketo form container(s)`), n.forEach((o, s) => {
     const e = o.getAttribute("data-marketo-id");
     if (!e) {
       console.warn(
-        `⚠️ Container ${n + 1} has data-marketo-id but no value`
+        `⚠️ Container ${s + 1} has data-marketo-id but no value`
       );
       return;
     }
     setTimeout(() => {
-      A(o, e);
-    }, n * 100);
+      T(o, e);
+    }, s * 100);
   }));
 }
-function G() {
-  Promise.all([j(), z()]).then(() => {
+function K() {
+  Promise.all([G(), X()]).then(() => {
     setTimeout(() => {
-      window.MktoForms2 ? (H(), new MutationObserver((o) => {
-        o.forEach((n) => {
-          n.addedNodes.forEach((e) => {
+      window.MktoForms2 ? (Y(), new MutationObserver((o) => {
+        o.forEach((s) => {
+          s.addedNodes.forEach((e) => {
             if (e.nodeType === 1) {
               if (e.hasAttribute && e.hasAttribute("data-marketo-id")) {
                 const i = e.getAttribute("data-marketo-id");
-                setTimeout(() => A(e, i), 100);
+                setTimeout(() => T(e, i), 100);
               }
               (e.querySelectorAll ? e.querySelectorAll("[data-marketo-id]") : []).forEach((i, r) => {
-                const l = i.getAttribute("data-marketo-id");
-                l && setTimeout(
-                  () => A(i, l),
+                const a = i.getAttribute("data-marketo-id");
+                a && setTimeout(
+                  () => T(i, a),
                   (r + 1) * 100
                 );
               });
@@ -819,12 +819,12 @@ function G() {
         subtree: !0
       })) : console.error("❌ MktoForms2 not available after loading resources");
     }, 500);
-  }).catch((s) => {
-    console.error("❌ Error loading Marketo resources:", s);
+  }).catch((n) => {
+    console.error("❌ Error loading Marketo resources:", n);
   });
 }
-function X() {
-  class s {
+function Z() {
+  class n {
     constructor(t) {
       this.wrapper = t, this.itemsContainer = t.querySelector(
         ".related-item-collection-list"
@@ -945,7 +945,7 @@ function X() {
   }
   const o = document.querySelectorAll(
     ".related-item-collection-list-wrapper"
-  ), n = [];
+  ), s = [];
   return console.log(
     `📰 Related Articles Slider: Found ${o.length} containers`
   ), o.forEach((e) => {
@@ -953,176 +953,176 @@ function X() {
       ".related-item-collection-list"
     ), r = e.querySelectorAll(".collection-item");
     if (t && i && r.length > 0) {
-      const l = new s(t);
-      n.push(l);
+      const a = new n(t);
+      s.push(a);
     }
-  }), window.relatedArticlesSliders = n, n;
+  }), window.relatedArticlesSliders = s, s;
 }
-function J() {
-  const s = () => {
+function tt() {
+  const n = () => {
     const o = document.querySelector(".blog-content-richtext");
     if (!o)
       return;
     console.log("📖 Reading Time Estimate: Found rich text element");
     const e = (o.textContent || o.innerText).trim().split(/\s+/).length, i = Math.ceil(e / 200), r = document.querySelector(".read-time-estimate");
-    r && (r.textContent = `${i} min read`), o.querySelectorAll("iframe").forEach((a) => {
-      const c = a.getAttribute("src") || "";
-      (c.includes("youtube.com") || c.includes("youtu.be")) && a.classList.add("youtube-iframe");
+    r && (r.textContent = `${i} min read`), o.querySelectorAll("iframe").forEach((l) => {
+      const u = l.getAttribute("src") || "";
+      (u.includes("youtube.com") || u.includes("youtu.be")) && l.classList.add("youtube-iframe");
     });
   };
-  document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", s) : s();
+  document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", n) : n();
 }
-function K() {
-  const s = () => {
-    const o = document.querySelector(".table-of-content"), n = document.querySelector(".blog-content");
-    if (!n)
+function et() {
+  const n = () => {
+    const o = document.querySelector(".table-of-content"), s = document.querySelector(".blog-content");
+    if (!s)
       return;
     console.log("📚 Table of Contents: Found blog content element");
-    const e = n.querySelectorAll("h2");
+    const e = s.querySelectorAll("h2");
     let t = null, i = !1;
     function r() {
       if (e.length === 0) return;
-      const d = document.createElement("ul");
-      e.forEach((h, m) => {
-        const u = document.createElement("li"), p = document.createElement("a"), y = h.textContent.trim(), w = h.getAttribute("id");
-        w && (p.href = `#${w}`, p.textContent = y, p.classList.add("toc-link"), m === 0 && (p.classList.add("active"), t = p), u.appendChild(p), d.appendChild(u));
-      }), o && (o.innerHTML = "", o.appendChild(d));
+      const c = document.createElement("ul");
+      e.forEach((m, h) => {
+        const g = document.createElement("li"), b = document.createElement("a"), p = m.textContent.trim(), f = m.getAttribute("id");
+        f && (b.href = `#${f}`, b.textContent = p, b.classList.add("toc-link"), h === 0 && (b.classList.add("active"), t = b), g.appendChild(b), c.appendChild(g));
+      }), o && (o.innerHTML = "", o.appendChild(c));
     }
     r();
-    const l = document.querySelectorAll(".toc-link");
-    function a(d) {
-      i || t === d || (i = !0, requestAnimationFrame(() => {
-        t && t.classList.remove("active"), d && d.classList.add("active"), t = d, i = !1;
+    const a = document.querySelectorAll(".toc-link");
+    function l(c) {
+      i || t === c || (i = !0, requestAnimationFrame(() => {
+        t && t.classList.remove("active"), c && c.classList.add("active"), t = c, i = !1;
       }));
     }
-    l.forEach((d) => {
-      d.addEventListener("click", function(h) {
-        h.preventDefault();
-        const m = this.getAttribute("href").substring(1), u = document.getElementById(m);
-        u && u.scrollIntoView({ behavior: "smooth", block: "start" });
+    a.forEach((c) => {
+      c.addEventListener("click", function(m) {
+        m.preventDefault();
+        const h = this.getAttribute("href").substring(1), g = document.getElementById(h);
+        g && g.scrollIntoView({ behavior: "smooth", block: "start" });
       });
     });
-    let c = !1;
-    function f() {
-      c || (c = !0, requestAnimationFrame(() => {
-        const d = window.scrollY;
-        let h = null;
-        for (let m = e.length - 1; m >= 0; m--) {
-          const u = e[m], p = u.offsetTop;
-          if (d >= p - 100) {
-            h = u;
+    let u = !1;
+    function d() {
+      u || (u = !0, requestAnimationFrame(() => {
+        const c = window.scrollY;
+        let m = null;
+        for (let h = e.length - 1; h >= 0; h--) {
+          const g = e[h], b = g.offsetTop;
+          if (c >= b - 100) {
+            m = g;
             break;
           }
         }
-        if (!h && e.length > 0) {
-          const m = e[0];
-          d < m.offsetTop - 100 && (h = m);
+        if (!m && e.length > 0) {
+          const h = e[0];
+          c < h.offsetTop - 100 && (m = h);
         }
-        if (h) {
-          const m = document.querySelector(
-            `.toc-link[href="#${h.getAttribute("id")}"]`
+        if (m) {
+          const h = document.querySelector(
+            `.toc-link[href="#${m.getAttribute("id")}"]`
           );
-          a(m);
+          l(h);
         }
-        c = !1;
+        u = !1;
       }));
     }
-    window.addEventListener("scroll", f, { passive: !0 });
+    window.addEventListener("scroll", d, { passive: !0 });
   };
-  document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", s) : s();
+  document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", n) : n();
 }
-function Y() {
-  const s = document.querySelectorAll("[data-tab-for]");
-  if (s.length === 0) return;
+function it() {
+  const n = document.querySelectorAll("[data-tab-for]");
+  if (n.length === 0) return;
   const o = /* @__PURE__ */ new Map();
-  s.forEach((e) => {
+  n.forEach((e) => {
     let t = e.closest('[role="tablist"]') || e.closest(".hero-tabs") || e.closest(".pricing-card-toggle") || e.parentElement;
     o.has(t) || o.set(t, []), o.get(t).push(e);
-  }), Z();
-  let n = 0;
+  }), st();
+  let s = 0;
   o.forEach((e, t) => {
-    tt(t, e, n++);
+    nt(t, e, s++);
   });
 }
-function Z() {
-  const s = document.querySelectorAll("[data-tab-for]"), o = [], n = /* @__PURE__ */ new Set();
-  s.forEach((e) => {
+function st() {
+  const n = document.querySelectorAll("[data-tab-for]"), o = [], s = /* @__PURE__ */ new Set();
+  n.forEach((e) => {
     const t = e.getAttribute("data-tab-for");
-    t && !n.has(t) && (o.push(t), n.add(t));
+    t && !s.has(t) && (o.push(t), s.add(t));
   }), o.forEach((e, t) => {
     const i = document.querySelectorAll(
       `[data-tab-container="${e}"]`
     ), r = t === 0;
-    i.forEach((l) => {
-      l.style.display = r ? "block" : "none", l.setAttribute("aria-hidden", r ? "false" : "true");
+    i.forEach((a) => {
+      a.style.display = r ? "block" : "none", a.setAttribute("aria-hidden", r ? "false" : "true");
     });
   });
 }
-function tt(s, o, n) {
+function nt(n, o, s) {
   if (o.length === 0) return;
-  const e = `hero-tabs-${n}`, t = `${e}-tablist`;
-  s.getAttribute("role") || s.setAttribute("role", "tablist"), s.getAttribute("id") || s.setAttribute("id", t), s.getAttribute("aria-label") || s.setAttribute("aria-label", "Tab navigation"), o.forEach((i, r) => {
-    const l = i.getAttribute("data-tab-for"), a = document.querySelector(
-      `[data-tab-container="${l}"]`
+  const e = `hero-tabs-${s}`, t = `${e}-tablist`;
+  n.getAttribute("role") || n.setAttribute("role", "tablist"), n.getAttribute("id") || n.setAttribute("id", t), n.getAttribute("aria-label") || n.setAttribute("aria-label", "Tab navigation"), o.forEach((i, r) => {
+    const a = i.getAttribute("data-tab-for"), l = document.querySelector(
+      `[data-tab-container="${a}"]`
     );
-    if (!a) return;
-    const c = `${e}-tab-${r}`, f = `${e}-panel-${r}`;
-    i.getAttribute("role") || i.setAttribute("role", "tab"), i.getAttribute("id") || i.setAttribute("id", c), i.setAttribute("aria-controls", f);
-    const d = a.style.display !== "none";
-    i.setAttribute("tabindex", d ? "0" : "-1"), i.setAttribute("aria-selected", d ? "true" : "false"), i.classList.toggle("hero-tabs-item-active", d), a.setAttribute("role", "tabpanel"), a.setAttribute("id", f), a.setAttribute(
+    if (!l) return;
+    const u = `${e}-tab-${r}`, d = `${e}-panel-${r}`;
+    i.getAttribute("role") || i.setAttribute("role", "tab"), i.getAttribute("id") || i.setAttribute("id", u), i.setAttribute("aria-controls", d);
+    const c = l.style.display !== "none";
+    i.setAttribute("tabindex", c ? "0" : "-1"), i.setAttribute("aria-selected", c ? "true" : "false"), i.classList.toggle("hero-tabs-item-active", c), l.setAttribute("role", "tabpanel"), l.setAttribute("id", d), l.setAttribute(
       "aria-labelledby",
-      i.getAttribute("id") || c
-    ), a.setAttribute("tabindex", "0"), i.addEventListener("click", (h) => {
-      h.preventDefault(), L(i.getAttribute("data-tab-for"), s);
+      i.getAttribute("id") || u
+    ), l.setAttribute("tabindex", "0"), i.addEventListener("click", (m) => {
+      m.preventDefault(), I(i.getAttribute("data-tab-for"), n);
     }), i.addEventListener(
       "keydown",
-      (h) => et(h, s, o, r)
+      (m) => ot(m, n, o, r)
     ), i.addEventListener("focus", () => {
       i.scrollIntoView({ behavior: "smooth", block: "nearest" });
     });
   });
 }
-function L(s, o = null) {
-  const n = document.querySelectorAll("[data-tab-for]"), e = document.querySelectorAll("[data-tab-container]");
+function I(n, o = null) {
+  const s = document.querySelectorAll("[data-tab-for]"), e = document.querySelectorAll("[data-tab-container]");
   let t = null, i = null;
   e.forEach((r) => {
-    const a = r.getAttribute("data-tab-container") === s;
-    r.style.display = a ? "block" : "none", r.setAttribute("aria-hidden", a ? "false" : "true");
-  }), n.forEach((r) => {
-    const a = r.getAttribute("data-tab-for") === s;
-    r.classList.toggle("hero-tabs-item-active", a), r.setAttribute("aria-selected", a ? "true" : "false"), r.setAttribute("tabindex", a ? "0" : "-1"), a && (t = r, o && (r.closest('[role="tablist"]') === o || r.closest(".hero-tabs") === o || r.closest(".pricing-card-toggle") === o || r.parentElement === o) && (i = r));
-  }), t && it(t), i && i.focus();
+    const l = r.getAttribute("data-tab-container") === n;
+    r.style.display = l ? "block" : "none", r.setAttribute("aria-hidden", l ? "false" : "true");
+  }), s.forEach((r) => {
+    const l = r.getAttribute("data-tab-for") === n;
+    r.classList.toggle("hero-tabs-item-active", l), r.setAttribute("aria-selected", l ? "true" : "false"), r.setAttribute("tabindex", l ? "0" : "-1"), l && (t = r, o && (r.closest('[role="tablist"]') === o || r.closest(".hero-tabs") === o || r.closest(".pricing-card-toggle") === o || r.parentElement === o) && (i = r));
+  }), t && rt(t), i && i.focus();
 }
-function et(s, o, n, e) {
+function ot(n, o, s, e) {
   let t = e;
-  switch (s.key) {
+  switch (n.key) {
     case "ArrowLeft":
     case "ArrowUp":
-      s.preventDefault(), t = e > 0 ? e - 1 : n.length - 1;
+      n.preventDefault(), t = e > 0 ? e - 1 : s.length - 1;
       break;
     case "ArrowRight":
     case "ArrowDown":
-      s.preventDefault(), t = e < n.length - 1 ? e + 1 : 0;
+      n.preventDefault(), t = e < s.length - 1 ? e + 1 : 0;
       break;
     case "Home":
-      s.preventDefault(), t = 0;
+      n.preventDefault(), t = 0;
       break;
     case "End":
-      s.preventDefault(), t = n.length - 1;
+      n.preventDefault(), t = s.length - 1;
       break;
     case "Enter":
     case " ":
-      s.preventDefault(), L(
-        n[e].getAttribute("data-tab-for"),
+      n.preventDefault(), I(
+        s[e].getAttribute("data-tab-for"),
         o
       );
       return;
     default:
       return;
   }
-  n[t].focus();
+  s[t].focus();
 }
-function it(s) {
+function rt(n) {
   const o = document.createElement("div");
   o.setAttribute("aria-live", "polite"), o.setAttribute("aria-atomic", "true"), o.className = "sr-only", o.style.cssText = `
     position: absolute !important;
@@ -1134,14 +1134,14 @@ function it(s) {
     clip: rect(0, 0, 0, 0) !important;
     white-space: nowrap !important;
     border: 0 !important;
-  `, o.textContent = `${s.textContent.trim()} tab selected`, document.body.appendChild(o), setTimeout(() => {
+  `, o.textContent = `${n.textContent.trim()} tab selected`, document.body.appendChild(o), setTimeout(() => {
     o.parentNode && o.parentNode.removeChild(o);
   }, 1e3);
 }
-function T() {
+function F() {
   if (document.getElementById("hero-tabs-styles")) return;
-  const s = document.createElement("style");
-  s.id = "hero-tabs-styles", s.textContent = `
+  const n = document.createElement("style");
+  n.id = "hero-tabs-styles", n.textContent = `
     [data-tab-for]:focus {
       outline: 2px solid #005fcc;
       outline-offset: 2px;
@@ -1175,139 +1175,173 @@ function T() {
       white-space: nowrap !important;
       border: 0 !important;
     }
-  `, document.head.appendChild(s);
+  `, document.head.appendChild(n);
 }
-document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", T) : T();
-function nt() {
+document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", F) : F();
+function at() {
   console.log("🔍 Case Study Filter: Starting...");
-  const s = ".case-study-cards-grid", o = ".case-study-card", n = "data-filter-control", e = document.querySelector(s);
-  if (!e) {
+  const n = ".case-study-cards-grid", o = ".case-study-card", s = "data-filter-control", e = 3e3, t = document.querySelector(n);
+  if (!t) {
     console.warn(
-      `⚠️ Case Study Filter: Container "${s}" not found`
+      `⚠️ Case Study Filter: Container "${n}" not found`
     );
     return;
   }
-  const t = Array.from(e.querySelectorAll(o)).map(
-    (a) => {
-      const c = a.closest(".w-dyn-item");
-      return { card: a, parent: c };
+  const i = Array.from(t.querySelectorAll(o)).map(
+    (d) => {
+      const c = d.closest(".w-dyn-item");
+      return { card: d, parent: c };
     }
   );
-  if (t.length === 0) {
+  if (i.length === 0) {
     console.warn(
       `⚠️ Case Study Filter: No cards found with selector "${o}"`
     );
     return;
   }
-  console.log(`📊 Case Study Filter: Found ${t.length} cards`);
-  const i = Array.from(
-    document.querySelectorAll(`[${n}]`)
+  console.log(`📊 Case Study Filter: Found ${i.length} cards`);
+  const r = Array.from(
+    document.querySelectorAll(`[${s}]`)
   );
-  if (i.length === 0) {
+  if (r.length === 0) {
     console.warn(
-      `⚠️ Case Study Filter: No filter controls found with attribute "${n}"`
+      `⚠️ Case Study Filter: No filter controls found with attribute "${s}"`
     );
     return;
   }
   console.log(
-    `🎛️ Case Study Filter: Found ${i.length} filter control(s)`
+    `🎛️ Case Study Filter: Found ${r.length} filter control(s)`
   );
-  const r = {};
-  i.forEach((a) => {
-    const c = a.getAttribute(n);
-    if (!c) return;
-    const f = `data-filter-${c}`;
-    console.log(`🔧 Setting up filter: ${c} (${f})`);
-    const d = /* @__PURE__ */ new Set();
-    t.forEach(({ card: u }) => {
-      const p = u.getAttribute(f);
-      p && p.trim() && d.add(p.trim());
-    });
-    const h = Array.from(d).sort(
-      (u, p) => u.localeCompare(p)
-    );
-    console.log(`   Found ${h.length} unique values:`, h);
-    const m = Array.from(a.options);
-    for (let u = m.length - 1; u >= 0; u--)
-      u === 0 && (!m[u].value || m[u].value === "") || a.remove(u);
-    h.forEach((u) => {
-      const p = document.createElement("option");
-      p.value = u, p.textContent = u, a.appendChild(p);
-    }), r[c] = "", a.addEventListener("change", function() {
-      r[c] = this.value, console.log(`🔄 Filter changed: ${c} = "${this.value}"`), this.value ? this.style.color = "var(--_colors---primary--dark-blue)" : this.style.color = "", l();
-    });
+  const a = {};
+  r.forEach((d) => {
+    const c = d.getAttribute(s);
+    c && (c === "use-case" ? (console.log(
+      `⏳ Use Case filter: Waiting ${e}ms for dynamic content to load...`
+    ), setTimeout(() => {
+      console.log(
+        "✨ Use Case filter: Dynamic content loaded, initializing..."
+      ), l(d, c);
+    }, e)) : l(d, c));
   });
-  function l() {
-    console.log("🎯 Applying filters:", r);
-    let a = 0, c = 0;
-    t.forEach(({ card: d, parent: h }) => {
-      let m = !0;
-      for (const [u, p] of Object.entries(r)) {
-        if (!p) continue;
-        const y = `data-filter-${u}`;
-        if (d.getAttribute(y) !== p) {
-          m = !1;
+  function l(d, c) {
+    const m = `data-filter-${c}`;
+    console.log(`🔧 Setting up filter: ${c} (${m})`);
+    const h = /* @__PURE__ */ new Set();
+    i.forEach(({ card: p }) => {
+      if (c === "use-case") {
+        const f = p.querySelector('[fs-list-nest="use-cases"]');
+        f && f.querySelectorAll(
+          '[role="listitem"].w-dyn-item'
+        ).forEach((y) => {
+          const v = y.textContent.trim();
+          v && h.add(v);
+        });
+      } else {
+        const f = p.getAttribute(m);
+        f && f.trim() && h.add(f.trim());
+      }
+    });
+    const g = Array.from(h).sort(
+      (p, f) => p.localeCompare(f)
+    );
+    console.log(`   Found ${g.length} unique values:`, g);
+    const b = Array.from(d.options);
+    for (let p = b.length - 1; p >= 0; p--)
+      p === 0 && (!b[p].value || b[p].value === "") || d.remove(p);
+    g.forEach((p) => {
+      const f = document.createElement("option");
+      f.value = p, f.textContent = p, d.appendChild(f);
+    }), a[c] = "", d.addEventListener("change", function() {
+      a[c] = this.value, console.log(`🔄 Filter changed: ${c} = "${this.value}"`), this.value ? this.style.color = "var(--_colors---primary--dark-blue)" : this.style.color = "", u();
+    });
+  }
+  function u() {
+    console.log("🎯 Applying filters:", a);
+    let d = 0, c = 0;
+    i.forEach(({ card: h, parent: g }) => {
+      let b = !0;
+      for (const [p, f] of Object.entries(a)) {
+        if (!f) continue;
+        let A = !1;
+        if (p === "use-case") {
+          const y = h.querySelector('[fs-list-nest="use-cases"]');
+          if (y) {
+            const v = y.querySelectorAll(
+              '[role="listitem"].w-dyn-item'
+            );
+            for (const B of v)
+              if (B.textContent.trim() === f) {
+                A = !0;
+                break;
+              }
+          }
+        } else {
+          const y = `data-filter-${p}`;
+          A = h.getAttribute(y) === f;
+        }
+        if (!A) {
+          b = !1;
           break;
         }
       }
-      h ? m ? (h.style.display = "", a++) : (h.style.display = "none", c++) : m ? (d.style.display = "", a++) : (d.style.display = "none", c++);
+      g ? b ? (g.style.display = "", d++) : (g.style.display = "none", c++) : b ? (h.style.display = "", d++) : (h.style.display = "none", c++);
     }), console.log(
-      `✅ Filter applied: ${a} visible, ${c} hidden`
+      `✅ Filter applied: ${d} visible, ${c} hidden`
     );
-    const f = new CustomEvent("caseStudyFiltersApplied", {
+    const m = new CustomEvent("caseStudyFiltersApplied", {
       detail: {
-        activeFilters: r,
-        visibleCount: a,
+        activeFilters: a,
+        visibleCount: d,
         hiddenCount: c,
-        totalCount: t.length
+        totalCount: i.length
       }
     });
-    document.dispatchEvent(f);
+    document.dispatchEvent(m);
   }
-  l(), console.log("✅ Case Study Filter: Complete");
+  u(), console.log("✅ Case Study Filter: Complete");
 }
-const k = {
-  demo: F,
-  logoSlider: q,
-  quotesSlider: I,
-  starRating: B,
-  comparisonTableToggler: N,
-  tabsSelect: M,
-  tabbedCards: R,
-  marketoForms: G,
-  relatedArticlesSlider: X,
-  readingTimeEstimate: J,
-  tableOfContents: K,
-  heroTabs: Y,
-  caseStudyFilter: nt
+const q = {
+  demo: N,
+  logoSlider: M,
+  quotesSlider: $,
+  starRating: R,
+  comparisonTableToggler: D,
+  tabsSelect: O,
+  tabbedCards: P,
+  marketoForms: K,
+  relatedArticlesSlider: Z,
+  readingTimeEstimate: tt,
+  tableOfContents: et,
+  heroTabs: it,
+  caseStudyFilter: at
   // Add more features here as you create them
   // myFeature: initMyFeature,
 };
-function st(s = ["demo"]) {
-  s.forEach((o) => {
-    if (k[o])
+function lt(n = ["demo"]) {
+  n.forEach((o) => {
+    if (q[o])
       try {
-        k[o]();
-      } catch (n) {
-        console.error(`❌ Error initializing feature '${o}':`, n);
+        q[o]();
+      } catch (s) {
+        console.error(`❌ Error initializing feature '${o}':`, s);
       }
     else
       console.warn(`⚠️ Feature '${o}' not found`);
   });
 }
 if (typeof window < "u" && !window.__CRUNCHBASE_SHOULD_RUN_PROD__) {
-  const s = setInterval(() => {
-    window.__CRUNCHBASE_SHOULD_RUN_PROD__ && (clearInterval(s), v());
+  const n = setInterval(() => {
+    window.__CRUNCHBASE_SHOULD_RUN_PROD__ && (clearInterval(n), S());
   }, 50);
   setTimeout(() => {
-    clearInterval(s), window.__CRUNCHBASE_SHOULD_RUN_PROD__ || (console.log(
+    clearInterval(n), window.__CRUNCHBASE_SHOULD_RUN_PROD__ || (console.log(
       "⏰ Timeout waiting for wrapper, running production code anyway..."
-    ), v());
+    ), S());
   }, 5e3);
 } else
-  v();
-function v() {
-  console.log("🚀 Crunchbase Webflow script loaded"), st([
+  S();
+function S() {
+  console.log("🚀 Crunchbase Webflow script loaded"), lt([
     "logoSlider",
     "quotesSlider",
     "starRating",
