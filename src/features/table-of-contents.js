@@ -14,132 +14,151 @@
 export function initTableOfContents() {
   // Wait for DOM to be ready
   const initializeFeature = () => {
-    const tocContainer = document.querySelector(".table-of-content");
-    const blogContent = document.querySelector(".blog-content");
+    // Find all elements with data-toc-content attribute
+    const contentElements = document.querySelectorAll("[data-toc-content]");
 
-    if (!blogContent) {
+    if (contentElements.length === 0) {
       return;
     }
 
-    console.log("📚 Table of Contents: Found blog content element");
+    console.log(
+      `📚 Table of Contents: Found ${contentElements.length} content element(s)`
+    );
 
-    const headings = blogContent.querySelectorAll("h2");
+    // Initialize TOC for each content element
+    contentElements.forEach((contentElement) => {
+      const tocId = contentElement.getAttribute("data-toc-content");
+      const tocContainer = document.querySelector(
+        `[data-toc-target="${tocId}"]`
+      );
 
-    let currentActiveElement = null;
-    let isUpdating = false;
-
-    // Create TOC markup dynamically
-    function createTableOfContents() {
-      if (headings.length === 0) return;
-
-      const ul = document.createElement("ul");
-
-      headings.forEach((heading, index) => {
-        const li = document.createElement("li");
-        const a = document.createElement("a");
-
-        const headingText = heading.textContent.trim();
-        const headingId = heading.getAttribute("id");
-
-        if (headingId) {
-          a.href = `#${headingId}`;
-          a.textContent = headingText;
-          a.classList.add("toc-link");
-
-          if (index === 0) {
-            a.classList.add("active");
-            currentActiveElement = a;
-          }
-
-          li.appendChild(a);
-          ul.appendChild(li);
-        }
-      });
-
-      if (tocContainer) {
-        tocContainer.innerHTML = "";
-        tocContainer.appendChild(ul);
-      }
-    }
-
-    createTableOfContents();
-    const tocLinks = document.querySelectorAll(".toc-link");
-
-    function updateActiveLink(newActiveElement) {
-      if (isUpdating || currentActiveElement === newActiveElement) {
+      if (!tocContainer) {
+        console.warn(`📚 Table of Contents: No target found for "${tocId}"`);
         return;
       }
 
-      isUpdating = true;
+      const headings = contentElement.querySelectorAll("h2");
 
-      requestAnimationFrame(() => {
-        if (currentActiveElement) {
-          currentActiveElement.classList.remove("active");
+      if (headings.length === 0) {
+        return;
+      }
+
+      let currentActiveElement = null;
+      let isUpdating = false;
+
+      // Create TOC markup dynamically
+      function createTableOfContents() {
+        const ul = document.createElement("ul");
+
+        headings.forEach((heading, index) => {
+          const li = document.createElement("li");
+          const a = document.createElement("a");
+
+          const headingText = heading.textContent.trim();
+          const headingId = heading.getAttribute("id");
+
+          if (headingId) {
+            a.href = `#${headingId}`;
+            a.textContent = headingText;
+            a.classList.add("toc-link");
+            a.dataset.tocId = tocId;
+
+            if (index === 0) {
+              a.classList.add("active");
+              currentActiveElement = a;
+            }
+
+            li.appendChild(a);
+            ul.appendChild(li);
+          }
+        });
+
+        tocContainer.innerHTML = "";
+        tocContainer.appendChild(ul);
+      }
+
+      createTableOfContents();
+      const tocLinks = tocContainer.querySelectorAll(".toc-link");
+
+      function updateActiveLink(newActiveElement) {
+        if (isUpdating || currentActiveElement === newActiveElement) {
+          return;
         }
 
-        if (newActiveElement) {
-          newActiveElement.classList.add("active");
-        }
+        isUpdating = true;
 
-        currentActiveElement = newActiveElement;
-        isUpdating = false;
+        requestAnimationFrame(() => {
+          if (currentActiveElement) {
+            currentActiveElement.classList.remove("active");
+          }
+
+          if (newActiveElement) {
+            newActiveElement.classList.add("active");
+          }
+
+          currentActiveElement = newActiveElement;
+          isUpdating = false;
+        });
+      }
+
+      // Click handlers
+      tocLinks.forEach((link) => {
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute("href").substring(1);
+          const targetElement = document.getElementById(targetId);
+          if (targetElement) {
+            targetElement.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
       });
-    }
 
-    // Click handlers
-    tocLinks.forEach((link) => {
-      link.addEventListener("click", function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute("href").substring(1);
-        const targetElement = document.getElementById(targetId);
-        if (targetElement) {
-          targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-      });
+      // Custom scroll handler that better handles reverse scrolling
+      let ticking = false;
+      function handleScroll() {
+        if (ticking) return;
+
+        ticking = true;
+        requestAnimationFrame(() => {
+          const scrollY = window.scrollY;
+          let activeHeading = null;
+
+          // Check each heading from bottom to top (for reverse scroll behavior)
+          for (let i = headings.length - 1; i >= 0; i--) {
+            const heading = headings[i];
+            const headingTop = heading.offsetTop;
+
+            // If we're past the top of this heading, it should be active
+            if (scrollY >= headingTop - 100) {
+              activeHeading = heading;
+              break;
+            }
+          }
+
+          // If no heading is active and we're above the first heading, activate first
+          if (!activeHeading && headings.length > 0) {
+            const firstHeading = headings[0];
+            if (scrollY < firstHeading.offsetTop - 100) {
+              activeHeading = firstHeading;
+            }
+          }
+
+          if (activeHeading) {
+            const activeLink = tocContainer.querySelector(
+              `.toc-link[href="#${activeHeading.getAttribute("id")}"]`
+            );
+            updateActiveLink(activeLink);
+          }
+
+          ticking = false;
+        });
+      }
+
+      window.addEventListener("scroll", handleScroll, { passive: true });
     });
-
-    // Custom scroll handler that better handles reverse scrolling
-    let ticking = false;
-    function handleScroll() {
-      if (ticking) return;
-
-      ticking = true;
-      requestAnimationFrame(() => {
-        const scrollY = window.scrollY;
-        let activeHeading = null;
-
-        // Check each heading from bottom to top (for reverse scroll behavior)
-        for (let i = headings.length - 1; i >= 0; i--) {
-          const heading = headings[i];
-          const headingTop = heading.offsetTop;
-
-          // If we're past the top of this heading, it should be active
-          if (scrollY >= headingTop - 100) {
-            activeHeading = heading;
-            break;
-          }
-        }
-
-        // If no heading is active and we're above the first heading, activate first
-        if (!activeHeading && headings.length > 0) {
-          const firstHeading = headings[0];
-          if (scrollY < firstHeading.offsetTop - 100) {
-            activeHeading = firstHeading;
-          }
-        }
-
-        if (activeHeading) {
-          const activeLink = document.querySelector(
-            `.toc-link[href="#${activeHeading.getAttribute("id")}"]`
-          );
-          updateActiveLink(activeLink);
-        }
-
-        ticking = false;
-      });
-    }
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
   };
 
   // Check if DOM is already loaded
