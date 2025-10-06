@@ -37,8 +37,8 @@ export function initTableOfContents() {
         return;
       }
 
-      // Use different selectors based on the instance type
-      const headingSelector = tocId === "guide" ? ".highlight-heading" : "h2";
+      // Selector for all h2 headings
+      const headingSelector = "h2";
       const headings = contentElement.querySelectorAll(headingSelector);
 
       if (headings.length === 0) {
