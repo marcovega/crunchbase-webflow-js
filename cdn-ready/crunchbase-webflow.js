@@ -108,9 +108,9 @@ function N() {
 const M = () => {
   const n = document.querySelectorAll('[data-logo-slider="true"]'), o = 7;
   !n || n.length === 0 || window.matchMedia("(prefers-reduced-motion: reduce)").matches || n.forEach((s) => {
-    const i = s.querySelectorAll(":scope > *");
-    i.length === 0 || i.length < o || (s.setAttribute("data-logo-slider-init", "true"), s.style.setProperty("--ls-items", i.length), i.forEach((t, e) => {
-      t.style.setProperty("--ls-item-index", e + 1);
+    const e = s.querySelectorAll(":scope > *");
+    e.length === 0 || e.length < o || (s.setAttribute("data-logo-slider-init", "true"), s.style.setProperty("--ls-items", e.length), e.forEach((t, i) => {
+      t.style.setProperty("--ls-item-index", i + 1);
     }));
   });
 };
@@ -125,10 +125,10 @@ function $() {
         "ease-out"
       ), this.init();
     }
-    getCSSVariable(t, e) {
+    getCSSVariable(t, i) {
       return getComputedStyle(document.documentElement).getPropertyValue(
         t
-      ).trim() || e;
+      ).trim() || i;
     }
     init() {
       this.setupContainer(), this.calculateDimensions(), this.createNavigation(), this.bindEvents(), this.updateCurrentIndexFromScroll(), this.updateNavigationState();
@@ -153,18 +153,18 @@ function $() {
       this.containerWidth = this.container.offsetWidth, this.quotes = Array.from(this.container.children), this.totalQuotes = this.quotes.length;
       const t = getComputedStyle(this.container);
       this.gap = parseInt(t.gap) || 0;
-      const e = window.matchMedia("(max-width: 991px)").matches;
+      const i = window.matchMedia("(max-width: 991px)").matches;
       let r = 0;
       this.quoteData = this.quotes.map((a, l) => {
-        let p;
-        e ? (p = this.containerWidth, a.style.width = `${this.containerWidth}px`) : a.classList.contains("quote-card-featured") ? (p = 862, a.style.width = "862px") : a.classList.contains("quote-card") ? (p = 410, a.style.width = "410px") : p = a.getBoundingClientRect().width;
-        const h = {
+        let m;
+        i ? (m = this.containerWidth, a.style.width = `${this.containerWidth}px`) : a.classList.contains("quote-card-featured") ? (m = 862, a.style.width = "862px") : a.classList.contains("quote-card") ? (m = 410, a.style.width = "410px") : m = a.getBoundingClientRect().width;
+        const u = {
           element: a,
-          width: p,
+          width: m,
           offsetLeft: r,
           index: l
         };
-        return r += p + (l < this.totalQuotes - 1 ? this.gap : 0), h;
+        return r += m + (l < this.totalQuotes - 1 ? this.gap : 0), u;
       });
     }
     createNavigation() {
@@ -227,8 +227,8 @@ function $() {
       });
     }
     handleResize() {
-      const t = this.navContainer.style.justifyContent === "center", e = window.matchMedia("(max-width: 991px)").matches;
-      this.calculateDimensions(), t !== e && (this.navContainer && this.navContainer.parentNode && this.navContainer.parentNode.removeChild(this.navContainer), this.createNavigation()), this.updateNavigationState(), this.updateProgress();
+      const t = this.navContainer.style.justifyContent === "center", i = window.matchMedia("(max-width: 991px)").matches;
+      this.calculateDimensions(), t !== i && (this.navContainer && this.navContainer.parentNode && this.navContainer.parentNode.removeChild(this.navContainer), this.createNavigation()), this.updateNavigationState(), this.updateProgress();
     }
     goToNext() {
       if (this.isAnimating || this.currentIndex === this.totalQuotes - 1 && this.isAtScrollEnd())
@@ -243,8 +243,8 @@ function $() {
       if (!(this.isAnimating || this.currentIndex <= 0)) {
         if (this.isAnimating = !0, this.isAdaptiveAligning = !1, this.currentIndex === this.totalQuotes - 1)
           if (this.isAtScrollEnd()) {
-            const e = Math.max(0, this.currentIndex - 2);
-            this.currentIndex = e, this.scrollToQuote(this.currentIndex);
+            const i = Math.max(0, this.currentIndex - 2);
+            this.currentIndex = i, this.scrollToQuote(this.currentIndex);
           } else
             this.currentIndex--, this.scrollToQuote(this.currentIndex);
         else
@@ -255,10 +255,10 @@ function $() {
       }
     }
     shouldUseAdaptiveAlignment(t) {
-      let e = 0;
+      let i = 0;
       for (let l = t; l < this.totalQuotes; l++)
-        e += this.quoteData[l].width, l < this.totalQuotes - 1 && (e += this.gap);
-      return e <= this.containerWidth + 40;
+        i += this.quoteData[l].width, l < this.totalQuotes - 1 && (i += this.gap);
+      return i <= this.containerWidth + 40;
     }
     scrollToQuote(t) {
       if (t < 0 || t >= this.totalQuotes) return;
@@ -288,19 +288,19 @@ function $() {
       return -1;
     }
     findLastVisibleQuoteIndex(t) {
-      for (let e = this.totalQuotes - 1; e >= 0; e--)
-        if (this.quoteData[e].offsetLeft <= t + 10)
-          return e;
+      for (let i = this.totalQuotes - 1; i >= 0; i--)
+        if (this.quoteData[i].offsetLeft <= t + 10)
+          return i;
       return this.totalQuotes - 1;
     }
     updateCurrentIndexFromScroll() {
       if (this.isAdaptiveAligning)
         return;
       const t = this.container.scrollLeft;
-      for (let e = 0; e < this.totalQuotes; e++) {
-        const r = this.quoteData[e], a = r.offsetLeft, l = r.offsetLeft + r.width, p = t + this.containerWidth, h = Math.max(a, t), c = Math.min(l, p);
-        if (Math.max(0, c - h) / r.width >= 0.3 || a >= t && a < p) {
-          this.currentIndex !== e && (this.currentIndex = e, this.updateNavigationState(), this.updateProgress());
+      for (let i = 0; i < this.totalQuotes; i++) {
+        const r = this.quoteData[i], a = r.offsetLeft, l = r.offsetLeft + r.width, m = t + this.containerWidth, u = Math.max(a, t), d = Math.min(l, m);
+        if (Math.max(0, d - u) / r.width >= 0.3 || a >= t && a < m) {
+          this.currentIndex !== i && (this.currentIndex = i, this.updateNavigationState(), this.updateProgress());
           break;
         }
       }
@@ -316,12 +316,12 @@ function $() {
       this.nextBtn.disabled = t, this.updateButtonStyle(this.nextBtn);
     }
     updateButtonStyle(t) {
-      const e = t.querySelector("path");
-      t.disabled ? (t.style.background = "transparent", t.style.cursor = "not-allowed", t.style.opacity = "0.5", e && e.setAttribute("stroke", "#146AFF")) : (t.style.background = "#146AFF", t.style.cursor = "pointer", t.style.opacity = "1", e && e.setAttribute("stroke", "white"));
+      const i = t.querySelector("path");
+      t.disabled ? (t.style.background = "transparent", t.style.cursor = "not-allowed", t.style.opacity = "0.5", i && i.setAttribute("stroke", "#146AFF")) : (t.style.background = "#146AFF", t.style.cursor = "pointer", t.style.opacity = "1", i && i.setAttribute("stroke", "white"));
     }
     isAtScrollEnd() {
-      const t = this.container.scrollLeft, e = this.container.scrollWidth - this.container.clientWidth;
-      return Math.abs(t - e) < 5;
+      const t = this.container.scrollLeft, i = this.container.scrollWidth - this.container.clientWidth;
+      return Math.abs(t - i) < 5;
     }
     updateProgress() {
       if (!this.progressFill) return;
@@ -342,8 +342,8 @@ function $() {
     }
   }
   const o = document.querySelectorAll(".quotes-slider-container"), s = [];
-  return console.log(`📊 Quotes Slider: Found ${o.length} containers`), o.forEach((i) => {
-    const t = new n(i);
+  return console.log(`📊 Quotes Slider: Found ${o.length} containers`), o.forEach((e) => {
+    const t = new n(e);
     t.shouldEnable() || t.disable(), s.push(t);
   }), window.quotesSliders = s, s;
 }
@@ -357,31 +357,31 @@ function R() {
     }
     processRatingElements() {
       const s = document.querySelectorAll("[rating-value]");
-      console.log(`⭐ Star Rating: Found ${s.length} elements`), s.forEach((i, t) => {
-        const e = i.getAttribute("rating-value"), r = this.snapToNearestTenth(parseFloat(e) || 0);
-        i.innerHTML = "";
+      console.log(`⭐ Star Rating: Found ${s.length} elements`), s.forEach((e, t) => {
+        const i = e.getAttribute("rating-value"), r = this.snapToNearestTenth(parseFloat(i) || 0);
+        e.innerHTML = "";
         const a = this.createStarContainer(r);
-        i.appendChild(a), i.setAttribute("rating-value", r.toString());
+        e.appendChild(a), e.setAttribute("rating-value", r.toString());
       });
     }
     snapToNearestTenth(s) {
-      const i = Math.max(0, Math.min(5, s));
-      return Math.round(i * 10) / 10;
+      const e = Math.max(0, Math.min(5, s));
+      return Math.round(e * 10) / 10;
     }
     createStarContainer(s) {
-      const i = document.createElement("div");
-      i.style.cssText = `
+      const e = document.createElement("div");
+      e.style.cssText = `
         display: flex;
         gap: 2px;
         align-items: center;
       `;
       for (let t = 1; t <= 5; t++) {
-        const e = this.createStar(t, s);
-        i.appendChild(e);
+        const i = this.createStar(t, s);
+        e.appendChild(i);
       }
-      return i;
+      return e;
     }
-    createStar(s, i) {
+    createStar(s, e) {
       const t = document.createElement("div");
       t.style.cssText = `
         width: 19px;
@@ -389,16 +389,16 @@ function R() {
         position: relative;
         display: inline-block;
       `;
-      const e = this.getStarFillState(s, i), r = this.createStarSvg(e);
+      const i = this.getStarFillState(s, e), r = this.createStarSvg(i);
       return t.appendChild(r), t;
     }
-    getStarFillState(s, i) {
+    getStarFillState(s, e) {
       const t = s - 1;
-      return i >= s ? "full" : i > t ? { type: "partial", percentage: ((i - t) * 100).toFixed(0) } : "empty";
+      return e >= s ? "full" : e > t ? { type: "partial", percentage: ((e - t) * 100).toFixed(0) } : "empty";
     }
     createStarSvg(s) {
-      const i = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-      i.setAttribute("xmlns", "http://www.w3.org/2000/svg"), i.setAttribute("width", "19"), i.setAttribute("height", "19"), i.setAttribute("fill", "none"), i.setAttribute("viewBox", "0 0 19 19");
+      const e = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      e.setAttribute("xmlns", "http://www.w3.org/2000/svg"), e.setAttribute("width", "19"), e.setAttribute("height", "19"), e.setAttribute("fill", "none"), e.setAttribute("viewBox", "0 0 19 19");
       const t = document.createElementNS(
         "http://www.w3.org/2000/svg",
         "path"
@@ -411,14 +411,14 @@ function R() {
       else if (s === "empty")
         t.setAttribute("fill", "currentColor"), t.setAttribute("opacity", "0.15");
       else if (s.type === "partial") {
-        const e = `partial-fill-${s.percentage}`;
-        t.setAttribute("fill", `url(#${e})`), this.ensurePartialFillGradient(i, s.percentage, e);
+        const i = `partial-fill-${s.percentage}`;
+        t.setAttribute("fill", `url(#${i})`), this.ensurePartialFillGradient(e, s.percentage, i);
       }
-      return i.appendChild(t), i;
+      return e.appendChild(t), e;
     }
-    ensurePartialFillGradient(s, i, t) {
+    ensurePartialFillGradient(s, e, t) {
       if (!document.getElementById(t)) {
-        const e = document.createElementNS(
+        const i = document.createElementNS(
           "http://www.w3.org/2000/svg",
           "defs"
         ), r = document.createElementNS(
@@ -430,12 +430,12 @@ function R() {
           "http://www.w3.org/2000/svg",
           "stop"
         );
-        a.setAttribute("offset", `${i}%`), a.setAttribute("stop-color", "currentColor");
+        a.setAttribute("offset", `${e}%`), a.setAttribute("stop-color", "currentColor");
         const l = document.createElementNS(
           "http://www.w3.org/2000/svg",
           "stop"
         );
-        l.setAttribute("offset", `${i}%`), l.setAttribute("stop-color", "currentColor"), l.setAttribute("stop-opacity", "0.15"), r.appendChild(a), r.appendChild(l), e.appendChild(r), s.appendChild(e);
+        l.setAttribute("offset", `${e}%`), l.setAttribute("stop-color", "currentColor"), l.setAttribute("stop-opacity", "0.15"), r.appendChild(a), r.appendChild(l), i.appendChild(r), s.appendChild(i);
       }
     }
   }
@@ -451,48 +451,48 @@ function D() {
     }
     bindEvents() {
       document.addEventListener("click", (s) => {
-        const i = s.target.closest("[data-cmp-table-trigger]");
-        if (!i) return;
-        const t = i.getAttribute("data-cmp-table-trigger"), e = i.closest(".comparison-table-container");
-        e && (t === "first-column" ? this.activateFirstColumn(e) : t === "last-column" && this.activateLastColumn(e));
+        const e = s.target.closest("[data-cmp-table-trigger]");
+        if (!e) return;
+        const t = e.getAttribute("data-cmp-table-trigger"), i = e.closest(".comparison-table-container");
+        i && (t === "first-column" ? this.activateFirstColumn(i) : t === "last-column" && this.activateLastColumn(i));
       });
     }
     activateFirstColumn(s) {
-      const i = s.querySelector(
+      const e = s.querySelector(
         '[data-cmp-table-trigger="first-column"]'
       ), t = s.querySelector(
         '[data-cmp-table-trigger="last-column"]'
       );
-      i && i.classList.add("comparison-table-link-active"), t && t.classList.remove("comparison-table-link-active"), this.showFirstColumn(s);
+      e && e.classList.add("comparison-table-link-active"), t && t.classList.remove("comparison-table-link-active"), this.showFirstColumn(s);
     }
     activateLastColumn(s) {
-      const i = s.querySelector(
+      const e = s.querySelector(
         '[data-cmp-table-trigger="first-column"]'
       ), t = s.querySelector(
         '[data-cmp-table-trigger="last-column"]'
       );
-      i && i.classList.remove("comparison-table-link-active"), t && t.classList.add("comparison-table-link-active"), this.showLastColumn(s);
+      e && e.classList.remove("comparison-table-link-active"), t && t.classList.add("comparison-table-link-active"), this.showLastColumn(s);
     }
     showFirstColumn(s) {
       s.querySelectorAll(
         ".cmp-table-row.cmp-table-row-first"
-      ).forEach((e) => {
-        e.style.display = "flex";
+      ).forEach((i) => {
+        i.style.display = "flex";
       }), s.querySelectorAll(
         ".cmp-table-row.cmp-table-column-last"
-      ).forEach((e) => {
-        e.style.display = "none";
+      ).forEach((i) => {
+        i.style.display = "none";
       });
     }
     showLastColumn(s) {
       s.querySelectorAll(
         ".cmp-table-row.cmp-table-column-last"
-      ).forEach((e) => {
-        e.style.display = "flex";
+      ).forEach((i) => {
+        i.style.display = "flex";
       }), s.querySelectorAll(
         ".cmp-table-row.cmp-table-row-first"
-      ).forEach((e) => {
-        e.style.display = "none";
+      ).forEach((i) => {
+        i.style.display = "none";
       });
     }
   }
@@ -504,16 +504,16 @@ function O() {
     const s = o.querySelectorAll(".tab-link");
     if (s.length === 0 || o.querySelector(".tabs-select"))
       return;
-    const i = document.createElement("select");
-    i.className = "tabs-select";
+    const e = document.createElement("select");
+    e.className = "tabs-select";
     const t = document.createElement("option");
-    t.value = "", t.textContent = "Select a tab...", t.disabled = !0, i.appendChild(t), s.forEach((e, r) => {
+    t.value = "", t.textContent = "Select a tab...", t.disabled = !0, e.appendChild(t), s.forEach((i, r) => {
       const a = document.createElement("option");
-      a.value = r, a.textContent = e.textContent.trim() || `Tab ${r + 1}`, e.classList.contains("w--current") && (a.selected = !0, t.disabled = !1, t.selected = !1), i.appendChild(a);
-    }), i.addEventListener("change", function() {
-      const e = parseInt(this.value);
-      !isNaN(e) && s[e] && s[e].click();
-    }), o.insertBefore(i, o.firstChild);
+      a.value = r, a.textContent = i.textContent.trim() || `Tab ${r + 1}`, i.classList.contains("w--current") && (a.selected = !0, t.disabled = !1, t.selected = !1), e.appendChild(a);
+    }), e.addEventListener("change", function() {
+      const i = parseInt(this.value);
+      !isNaN(i) && s[i] && s[i].click();
+    }), o.insertBefore(e, o.firstChild);
   }), _());
 }
 function _() {
@@ -578,41 +578,41 @@ function k() {
 }
 function Q(n) {
   const o = n.querySelector(".tabbed-cards-image"), s = n.querySelectorAll(".tabbed-card.w-dropdown");
-  !o || s.length === 0 || (W(s), U(s, o), s.forEach((i, t) => {
-    z(i, t, n, o);
+  !o || s.length === 0 || (W(s), U(s, o), s.forEach((e, t) => {
+    z(e, t, n, o);
   }), H(s, o), V());
 }
 function W(n) {
   n.forEach((o, s) => {
     const t = o.querySelector(".tabbed-card-image-wrapper")?.querySelector("img");
     if (!t) return;
-    const e = document.createElement("div");
-    e.className = "tabbed-card-mobile-image", e.dataset.cardIndex = s;
+    const i = document.createElement("div");
+    i.className = "tabbed-card-mobile-image", i.dataset.cardIndex = s;
     const r = t.cloneNode(!0);
-    e.appendChild(r), o.parentNode.insertBefore(e, o.nextSibling);
+    i.appendChild(r), o.parentNode.insertBefore(i, o.nextSibling);
   });
 }
 function U(n, o) {
   o.innerHTML = "";
   const s = document.createElement("img");
-  s.style.width = "100%", s.style.height = "auto", s.style.display = "block", s.style.transition = "opacity 0.2s ease", s.className = "tabbed-card-main-image", o.appendChild(s), n.forEach((i) => {
-    const t = i.querySelector(".tabbed-card-image-wrapper img");
+  s.style.width = "100%", s.style.height = "auto", s.style.display = "block", s.style.transition = "opacity 0.2s ease", s.className = "tabbed-card-main-image", o.appendChild(s), n.forEach((e) => {
+    const t = e.querySelector(".tabbed-card-image-wrapper img");
     if (t?.src) {
-      const e = new Image();
-      e.src = t.src;
+      const i = new Image();
+      i.src = t.src;
     }
   });
 }
-function z(n, o, s, i) {
+function z(n, o, s, e) {
   const t = n.querySelector(".tabbed-card-toggler");
   if (!t) return;
   t.addEventListener("click", () => {
     t.getAttribute("aria-expanded") === "true" || (j(n, s), setTimeout(() => {
-      C(o, i), E(o, s);
+      C(o, e), E(o, s);
     }, 100));
   }), new MutationObserver((r) => {
     r.forEach((a) => {
-      a.attributeName === "aria-expanded" && t.getAttribute("aria-expanded") === "true" && (C(o, i), E(o, s));
+      a.attributeName === "aria-expanded" && t.getAttribute("aria-expanded") === "true" && (C(o, e), E(o, s));
     });
   }).observe(t, {
     attributes: !0,
@@ -620,14 +620,14 @@ function z(n, o, s, i) {
   });
 }
 function j(n, o) {
-  o.querySelectorAll(".tabbed-card.w-dropdown").forEach((i) => {
-    if (i !== n) {
-      const t = i.querySelector(".tabbed-card-toggler");
+  o.querySelectorAll(".tabbed-card.w-dropdown").forEach((e) => {
+    if (e !== n) {
+      const t = e.querySelector(".tabbed-card-toggler");
       t && t.getAttribute("aria-expanded") === "true" && (t.click(), setTimeout(() => {
         if (t.getAttribute("aria-expanded") === "true") {
           t.setAttribute("aria-expanded", "false");
-          const e = i.querySelector(".w-dropdown"), r = i.querySelector(".w-dropdown-list"), a = i.querySelector(".w-dropdown-toggle");
-          e?.classList.remove("w--open"), r?.classList.remove("w--open"), a?.classList.remove("w--open");
+          const i = e.querySelector(".w-dropdown"), r = e.querySelector(".w-dropdown-list"), a = e.querySelector(".w-dropdown-toggle");
+          i?.classList.remove("w--open"), r?.classList.remove("w--open"), a?.classList.remove("w--open");
         }
       }, 50));
     }
@@ -638,8 +638,8 @@ function C(n, o) {
   if (!s) return;
   const t = o.closest(".tabbed-cards").querySelectorAll(".tabbed-card.w-dropdown")[n];
   if (!t) return;
-  const e = t.querySelector(".tabbed-card-image-wrapper img");
-  e && s.src !== e.src && (s.style.opacity = "0.5", s.src = e.src, s.alt = e.alt || "", s.onload = () => {
+  const i = t.querySelector(".tabbed-card-image-wrapper img");
+  i && s.src !== i.src && (s.style.opacity = "0.5", s.src = i.src, s.alt = i.alt || "", s.onload = () => {
     s.style.opacity = "1";
   });
 }
@@ -649,10 +649,10 @@ function E(n, o) {
   ).forEach((t) => {
     t.style.display = "none";
   });
-  const i = o.querySelector(
+  const e = o.querySelector(
     `[data-card-index="${n}"]`
   );
-  i && (i.style.display = "block");
+  e && (e.style.display = "block");
 }
 function V() {
   if (document.getElementById("tabbed-cards-mobile-styles")) return;
@@ -688,18 +688,18 @@ function V() {
 }
 function H(n, o) {
   if (n.length === 0) return;
-  const s = n[0], i = s.querySelector(".tabbed-card-toggler");
-  i && (n.forEach((t, e) => {
-    if (e !== 0) {
+  const s = n[0], e = s.querySelector(".tabbed-card-toggler");
+  e && (n.forEach((t, i) => {
+    if (i !== 0) {
       const r = t.querySelector(".tabbed-card-toggler");
       r?.getAttribute("aria-expanded") === "true" && r.click();
     }
   }), setTimeout(() => {
-    i.getAttribute("aria-expanded") === "true" || (i.click(), setTimeout(() => {
-      if (i.getAttribute("aria-expanded") !== "true") {
-        i.setAttribute("aria-expanded", "true");
-        const e = s.querySelector(".w-dropdown"), r = s.querySelector(".w-dropdown-list"), a = s.querySelector(".w-dropdown-toggle");
-        e?.classList.add("w--open"), r?.classList.add("w--open"), a?.classList.add("w--open");
+    e.getAttribute("aria-expanded") === "true" || (e.click(), setTimeout(() => {
+      if (e.getAttribute("aria-expanded") !== "true") {
+        e.setAttribute("aria-expanded", "true");
+        const i = s.querySelector(".w-dropdown"), r = s.querySelector(".w-dropdown-list"), a = s.querySelector(".w-dropdown-toggle");
+        i?.classList.add("w--open"), r?.classList.add("w--open"), a?.classList.add("w--open");
       }
     }, 100)), C(0, o), E(0, s.closest(".tabbed-cards"));
   }, 200));
@@ -710,19 +710,19 @@ const A = {
   cssUrl: "https://app-sj22.marketo.com/js/forms2/css/forms2.css",
   jsUrl: "https://pages.crunchbase.com/js/forms2/js/forms2.min.js"
 };
-let v = {
+let x = {
   css: !1,
   js: !1
 };
 function G() {
   return new Promise((n) => {
-    if (v.css || document.querySelector(`link[href="${A.cssUrl}"]`)) {
-      v.css = !0, n();
+    if (x.css || document.querySelector(`link[href="${A.cssUrl}"]`)) {
+      x.css = !0, n();
       return;
     }
     const o = document.createElement("link");
     o.rel = "stylesheet", o.href = A.cssUrl, o.onload = () => {
-      v.css = !0, n();
+      x.css = !0, n();
     }, o.onerror = () => {
       console.error("❌ Failed to load Marketo CSS"), n();
     }, document.head.appendChild(o);
@@ -730,13 +730,13 @@ function G() {
 }
 function X() {
   return new Promise((n) => {
-    if (v.js || window.MktoForms2) {
-      v.js = !0, n();
+    if (x.js || window.MktoForms2) {
+      x.js = !0, n();
       return;
     }
     const o = document.createElement("script");
     o.src = A.jsUrl, o.onload = () => {
-      v.js = !0, n();
+      x.js = !0, n();
     }, o.onerror = () => {
       console.error("❌ Failed to load Marketo JS"), n();
     }, document.head.appendChild(o);
@@ -746,8 +746,8 @@ function J(n) {
   try {
     const o = n.getFormElem()[0], s = Array.from(
       o.querySelectorAll(".mktoFormRow")
-    ).filter((i) => !i.querySelector('input[type="hidden"]'));
-    o.querySelectorAll(".is-odd-last").forEach((i) => i.classList.remove("is-odd-last")), s.length % 2 === 1 && s[s.length - 1].classList.add("is-odd-last");
+    ).filter((e) => !e.querySelector('input[type="hidden"]'));
+    o.querySelectorAll(".is-odd-last").forEach((e) => e.classList.remove("is-odd-last")), s.length % 2 === 1 && s[s.length - 1].classList.add("is-odd-last");
   } catch (o) {
     console.error("❌ Error applying layout:", o);
   }
@@ -760,14 +760,14 @@ function T(n, o) {
     L++;
     const s = `mktoForm_${o}_${L}`;
     n.innerHTML = "";
-    const i = document.createElement("form");
-    i.id = s, n.appendChild(i), n.setAttribute("data-marketo-initialized", "true"), n.setAttribute("data-marketo-unique-id", s), window.MktoForms2.loadForm(
+    const e = document.createElement("form");
+    e.id = s, n.appendChild(e), n.setAttribute("data-marketo-initialized", "true"), n.setAttribute("data-marketo-unique-id", s), window.MktoForms2.loadForm(
       A.baseUrl,
       A.munchkinId,
       parseInt(o),
       function(t) {
-        const e = t.getFormElem()[0];
-        e && (i.parentNode.replaceChild(e, i), e.id = s), setTimeout(() => J(t), 100);
+        const i = t.getFormElem()[0];
+        i && (e.parentNode.replaceChild(i, e), i.id = s), setTimeout(() => J(t), 100);
         const r = new CustomEvent("marketoFormLoaded", {
           detail: { form: t, formId: o, container: n, uniqueId: s }
         });
@@ -781,15 +781,15 @@ function T(n, o) {
 function Y() {
   const n = document.querySelectorAll("[data-marketo-id]");
   n.length !== 0 && (console.log(`🎯 Found ${n.length} Marketo form container(s)`), n.forEach((o, s) => {
-    const i = o.getAttribute("data-marketo-id");
-    if (!i) {
+    const e = o.getAttribute("data-marketo-id");
+    if (!e) {
       console.warn(
         `⚠️ Container ${s + 1} has data-marketo-id but no value`
       );
       return;
     }
     setTimeout(() => {
-      T(o, i);
+      T(o, e);
     }, s * 100);
   }));
 }
@@ -798,16 +798,16 @@ function K() {
     setTimeout(() => {
       window.MktoForms2 ? (Y(), new MutationObserver((o) => {
         o.forEach((s) => {
-          s.addedNodes.forEach((i) => {
-            if (i.nodeType === 1) {
-              if (i.hasAttribute && i.hasAttribute("data-marketo-id")) {
-                const e = i.getAttribute("data-marketo-id");
-                setTimeout(() => T(i, e), 100);
+          s.addedNodes.forEach((e) => {
+            if (e.nodeType === 1) {
+              if (e.hasAttribute && e.hasAttribute("data-marketo-id")) {
+                const i = e.getAttribute("data-marketo-id");
+                setTimeout(() => T(e, i), 100);
               }
-              (i.querySelectorAll ? i.querySelectorAll("[data-marketo-id]") : []).forEach((e, r) => {
-                const a = e.getAttribute("data-marketo-id");
+              (e.querySelectorAll ? e.querySelectorAll("[data-marketo-id]") : []).forEach((i, r) => {
+                const a = i.getAttribute("data-marketo-id");
                 a && setTimeout(
-                  () => T(e, a),
+                  () => T(i, a),
                   (r + 1) * 100
                 );
               });
@@ -836,8 +836,8 @@ function Z() {
         "ease-out"
       ), this.forceEnable = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1", this.init();
     }
-    getCSSVariable(t, e) {
-      return getComputedStyle(document.documentElement).getPropertyValue(t).trim() || e;
+    getCSSVariable(t, i) {
+      return getComputedStyle(document.documentElement).getPropertyValue(t).trim() || i;
     }
     init() {
       if (!this.wrapper || !this.itemsContainer || this.totalItems === 0) {
@@ -867,8 +867,8 @@ function Z() {
     }
     applyItemStyles() {
       const t = this.containerWidth;
-      this.items.forEach((e) => {
-        e.style.cssText = `
+      this.items.forEach((i) => {
+        i.style.cssText = `
           flex-shrink: 0;
           width: ${t}px !important;
           min-width: ${t}px !important;
@@ -927,8 +927,8 @@ function Z() {
     }
     navigateTo(t) {
       this.isAnimating = !0, this.currentIndex = Math.max(0, Math.min(t, this.maxIndex));
-      const e = -(this.currentIndex * (this.containerWidth + this.gap));
-      this.itemsContainer.style.transform = `translateX(${e}px)`, this.updateNavigationState(), setTimeout(() => {
+      const i = -(this.currentIndex * (this.containerWidth + this.gap));
+      this.itemsContainer.style.transform = `translateX(${i}px)`, this.updateNavigationState(), setTimeout(() => {
         this.isAnimating = !1;
       }, parseInt(this.animationDuration));
     }
@@ -948,11 +948,11 @@ function Z() {
   ), s = [];
   return console.log(
     `📰 Related Articles Slider: Found ${o.length} containers`
-  ), o.forEach((i) => {
-    const t = i, e = i.querySelector(
+  ), o.forEach((e) => {
+    const t = e, i = e.querySelector(
       ".related-item-collection-list"
-    ), r = i.querySelectorAll(".collection-item");
-    if (t && e && r.length > 0) {
+    ), r = e.querySelectorAll(".collection-item");
+    if (t && i && r.length > 0) {
       const a = new n(t);
       s.push(a);
     }
@@ -964,10 +964,10 @@ function tt() {
     if (!o)
       return;
     console.log("📖 Reading Time Estimate: Found rich text element");
-    const i = (o.textContent || o.innerText).trim().split(/\s+/).length, e = Math.ceil(i / 200), r = document.querySelector(".read-time-estimate");
-    r && (r.textContent = `${e} min read`), o.querySelectorAll("iframe").forEach((l) => {
-      const p = l.getAttribute("src") || "";
-      (p.includes("youtube.com") || p.includes("youtu.be")) && l.classList.add("youtube-iframe");
+    const e = (o.textContent || o.innerText).trim().split(/\s+/).length, i = Math.ceil(e / 200), r = document.querySelector(".read-time-estimate");
+    r && (r.textContent = `${i} min read`), o.querySelectorAll("iframe").forEach((l) => {
+      const m = l.getAttribute("src") || "";
+      (m.includes("youtube.com") || m.includes("youtu.be")) && l.classList.add("youtube-iframe");
     });
   };
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", n) : n();
@@ -978,67 +978,68 @@ function et() {
     o.length !== 0 && (console.log(
       `📚 Table of Contents: Found ${o.length} content element(s)`
     ), o.forEach((s) => {
-      const i = s.getAttribute("data-toc-content"), t = document.querySelector(
-        `[data-toc-target="${i}"]`
+      const e = s.getAttribute("data-toc-content"), t = document.querySelector(
+        `[data-toc-target="${e}"]`
       );
       if (!t) {
-        console.warn(`📚 Table of Contents: No target found for "${i}"`);
+        console.warn(`📚 Table of Contents: No target found for "${e}"`);
         return;
       }
-      const e = s.querySelectorAll("h2");
-      if (e.length === 0)
+      const i = e === "guide" ? ".highlight-heading" : "h2", r = s.querySelectorAll(i);
+      if (r.length === 0)
         return;
-      let r = null, a = !1;
-      function l() {
-        const m = document.createElement("ul");
-        e.forEach((g, f) => {
-          const d = document.createElement("li"), u = document.createElement("a"), w = g.textContent.trim(), y = g.getAttribute("id");
-          y && (u.href = `#${y}`, u.textContent = w, u.classList.add("toc-link"), u.dataset.tocId = i, f === 0 && (u.classList.add("active"), r = u), d.appendChild(u), m.appendChild(d));
-        }), t.innerHTML = "", t.appendChild(m);
+      let a = null, l = !1;
+      function m() {
+        const p = document.createElement("ul");
+        r.forEach((f, c) => {
+          const h = document.createElement("li"), g = document.createElement("a"), v = f.textContent.trim();
+          let w = f.getAttribute("id");
+          w || (w = v.toLowerCase().replace(/[^\w\s-]/g, "").replace(/\s+/g, "-").replace(/-+/g, "-").trim(), f.setAttribute("id", w)), g.href = `#${w}`, g.textContent = v, g.classList.add("toc-link"), g.dataset.tocId = e, c === 0 && (g.classList.add("active"), a = g), h.appendChild(g), p.appendChild(h);
+        }), t.innerHTML = "", t.appendChild(p);
       }
-      l();
-      const p = t.querySelectorAll(".toc-link");
-      function h(m) {
-        a || r === m || (a = !0, requestAnimationFrame(() => {
-          r && r.classList.remove("active"), m && m.classList.add("active"), r = m, a = !1;
+      m();
+      const u = t.querySelectorAll(".toc-link");
+      function d(p) {
+        l || a === p || (l = !0, requestAnimationFrame(() => {
+          a && a.classList.remove("active"), p && p.classList.add("active"), a = p, l = !1;
         }));
       }
-      p.forEach((m) => {
-        m.addEventListener("click", function(g) {
-          g.preventDefault();
-          const f = this.getAttribute("href").substring(1), d = document.getElementById(f);
-          d && d.scrollIntoView({
+      u.forEach((p) => {
+        p.addEventListener("click", function(f) {
+          f.preventDefault();
+          const c = this.getAttribute("href").substring(1), h = document.getElementById(c);
+          h && h.scrollIntoView({
             behavior: "smooth",
             block: "start"
           });
         });
       });
-      let c = !1;
-      function b() {
-        c || (c = !0, requestAnimationFrame(() => {
-          const m = window.scrollY;
-          let g = null;
-          for (let f = e.length - 1; f >= 0; f--) {
-            const d = e[f], u = d.offsetTop;
-            if (m >= u - 100) {
-              g = d;
+      let b = !1;
+      function y() {
+        b || (b = !0, requestAnimationFrame(() => {
+          const p = window.scrollY;
+          let f = null;
+          for (let c = r.length - 1; c >= 0; c--) {
+            const h = r[c], g = h.offsetTop;
+            if (p >= g - 100) {
+              f = h;
               break;
             }
           }
-          if (!g && e.length > 0) {
-            const f = e[0];
-            m < f.offsetTop - 100 && (g = f);
+          if (!f && r.length > 0) {
+            const c = r[0];
+            p < c.offsetTop - 100 && (f = c);
           }
-          if (g) {
-            const f = t.querySelector(
-              `.toc-link[href="#${g.getAttribute("id")}"]`
+          if (f) {
+            const c = t.querySelector(
+              `.toc-link[href="#${f.getAttribute("id")}"]`
             );
-            h(f);
+            d(c);
           }
-          c = !1;
+          b = !1;
         }));
       }
-      window.addEventListener("scroll", b, { passive: !0 });
+      window.addEventListener("scroll", y, { passive: !0 });
     }));
   };
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", n) : n();
@@ -1047,74 +1048,74 @@ function it() {
   const n = document.querySelectorAll("[data-tab-for]");
   if (n.length === 0) return;
   const o = /* @__PURE__ */ new Map();
-  n.forEach((i) => {
-    let t = i.closest('[role="tablist"]') || i.closest(".hero-tabs") || i.closest(".pricing-card-toggle") || i.parentElement;
-    o.has(t) || o.set(t, []), o.get(t).push(i);
+  n.forEach((e) => {
+    let t = e.closest('[role="tablist"]') || e.closest(".hero-tabs") || e.closest(".pricing-card-toggle") || e.parentElement;
+    o.has(t) || o.set(t, []), o.get(t).push(e);
   }), st();
   let s = 0;
-  o.forEach((i, t) => {
-    nt(t, i, s++);
+  o.forEach((e, t) => {
+    nt(t, e, s++);
   });
 }
 function st() {
   const n = document.querySelectorAll("[data-tab-for]"), o = [], s = /* @__PURE__ */ new Set();
-  n.forEach((i) => {
-    const t = i.getAttribute("data-tab-for");
+  n.forEach((e) => {
+    const t = e.getAttribute("data-tab-for");
     t && !s.has(t) && (o.push(t), s.add(t));
-  }), o.forEach((i, t) => {
-    const e = document.querySelectorAll(
-      `[data-tab-container="${i}"]`
+  }), o.forEach((e, t) => {
+    const i = document.querySelectorAll(
+      `[data-tab-container="${e}"]`
     ), r = t === 0;
-    e.forEach((a) => {
+    i.forEach((a) => {
       a.style.display = r ? "block" : "none", a.setAttribute("aria-hidden", r ? "false" : "true");
     });
   });
 }
 function nt(n, o, s) {
   if (o.length === 0) return;
-  const i = `hero-tabs-${s}`, t = `${i}-tablist`;
-  n.getAttribute("role") || n.setAttribute("role", "tablist"), n.getAttribute("id") || n.setAttribute("id", t), n.getAttribute("aria-label") || n.setAttribute("aria-label", "Tab navigation"), o.forEach((e, r) => {
-    const a = e.getAttribute("data-tab-for"), l = document.querySelector(
+  const e = `hero-tabs-${s}`, t = `${e}-tablist`;
+  n.getAttribute("role") || n.setAttribute("role", "tablist"), n.getAttribute("id") || n.setAttribute("id", t), n.getAttribute("aria-label") || n.setAttribute("aria-label", "Tab navigation"), o.forEach((i, r) => {
+    const a = i.getAttribute("data-tab-for"), l = document.querySelector(
       `[data-tab-container="${a}"]`
     );
     if (!l) return;
-    const p = `${i}-tab-${r}`, h = `${i}-panel-${r}`;
-    e.getAttribute("role") || e.setAttribute("role", "tab"), e.getAttribute("id") || e.setAttribute("id", p), e.setAttribute("aria-controls", h);
-    const c = l.style.display !== "none";
-    e.setAttribute("tabindex", c ? "0" : "-1"), e.setAttribute("aria-selected", c ? "true" : "false"), e.classList.toggle("hero-tabs-item-active", c), l.setAttribute("role", "tabpanel"), l.setAttribute("id", h), l.setAttribute(
+    const m = `${e}-tab-${r}`, u = `${e}-panel-${r}`;
+    i.getAttribute("role") || i.setAttribute("role", "tab"), i.getAttribute("id") || i.setAttribute("id", m), i.setAttribute("aria-controls", u);
+    const d = l.style.display !== "none";
+    i.setAttribute("tabindex", d ? "0" : "-1"), i.setAttribute("aria-selected", d ? "true" : "false"), i.classList.toggle("hero-tabs-item-active", d), l.setAttribute("role", "tabpanel"), l.setAttribute("id", u), l.setAttribute(
       "aria-labelledby",
-      e.getAttribute("id") || p
-    ), l.setAttribute("tabindex", "0"), e.addEventListener("click", (b) => {
-      b.preventDefault(), I(e.getAttribute("data-tab-for"), n);
-    }), e.addEventListener(
+      i.getAttribute("id") || m
+    ), l.setAttribute("tabindex", "0"), i.addEventListener("click", (b) => {
+      b.preventDefault(), I(i.getAttribute("data-tab-for"), n);
+    }), i.addEventListener(
       "keydown",
       (b) => ot(b, n, o, r)
-    ), e.addEventListener("focus", () => {
-      e.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    ), i.addEventListener("focus", () => {
+      i.scrollIntoView({ behavior: "smooth", block: "nearest" });
     });
   });
 }
 function I(n, o = null) {
-  const s = document.querySelectorAll("[data-tab-for]"), i = document.querySelectorAll("[data-tab-container]");
-  let t = null, e = null;
-  i.forEach((r) => {
+  const s = document.querySelectorAll("[data-tab-for]"), e = document.querySelectorAll("[data-tab-container]");
+  let t = null, i = null;
+  e.forEach((r) => {
     const l = r.getAttribute("data-tab-container") === n;
     r.style.display = l ? "block" : "none", r.setAttribute("aria-hidden", l ? "false" : "true");
   }), s.forEach((r) => {
     const l = r.getAttribute("data-tab-for") === n;
-    r.classList.toggle("hero-tabs-item-active", l), r.setAttribute("aria-selected", l ? "true" : "false"), r.setAttribute("tabindex", l ? "0" : "-1"), l && (t = r, o && (r.closest('[role="tablist"]') === o || r.closest(".hero-tabs") === o || r.closest(".pricing-card-toggle") === o || r.parentElement === o) && (e = r));
-  }), t && rt(t), e && e.focus();
+    r.classList.toggle("hero-tabs-item-active", l), r.setAttribute("aria-selected", l ? "true" : "false"), r.setAttribute("tabindex", l ? "0" : "-1"), l && (t = r, o && (r.closest('[role="tablist"]') === o || r.closest(".hero-tabs") === o || r.closest(".pricing-card-toggle") === o || r.parentElement === o) && (i = r));
+  }), t && rt(t), i && i.focus();
 }
-function ot(n, o, s, i) {
-  let t = i;
+function ot(n, o, s, e) {
+  let t = e;
   switch (n.key) {
     case "ArrowLeft":
     case "ArrowUp":
-      n.preventDefault(), t = i > 0 ? i - 1 : s.length - 1;
+      n.preventDefault(), t = e > 0 ? e - 1 : s.length - 1;
       break;
     case "ArrowRight":
     case "ArrowDown":
-      n.preventDefault(), t = i < s.length - 1 ? i + 1 : 0;
+      n.preventDefault(), t = e < s.length - 1 ? e + 1 : 0;
       break;
     case "Home":
       n.preventDefault(), t = 0;
@@ -1125,7 +1126,7 @@ function ot(n, o, s, i) {
     case "Enter":
     case " ":
       n.preventDefault(), I(
-        s[i].getAttribute("data-tab-for"),
+        s[e].getAttribute("data-tab-for"),
         o
       );
       return;
@@ -1192,26 +1193,26 @@ function F() {
 document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", F) : F();
 function at() {
   console.log("🔍 Case Study Filter: Starting...");
-  const n = ".case-study-cards-grid", o = ".case-study-card", s = "data-filter-control", i = 3e3, t = document.querySelector(n);
+  const n = ".case-study-cards-grid", o = ".case-study-card", s = "data-filter-control", e = 3e3, t = document.querySelector(n);
   if (!t) {
     console.warn(
       `⚠️ Case Study Filter: Container "${n}" not found`
     );
     return;
   }
-  const e = Array.from(t.querySelectorAll(o)).map(
-    (h) => {
-      const c = h.closest(".w-dyn-item");
-      return { card: h, parent: c };
+  const i = Array.from(t.querySelectorAll(o)).map(
+    (u) => {
+      const d = u.closest(".w-dyn-item");
+      return { card: u, parent: d };
     }
   );
-  if (e.length === 0) {
+  if (i.length === 0) {
     console.warn(
       `⚠️ Case Study Filter: No cards found with selector "${o}"`
     );
     return;
   }
-  console.log(`📊 Case Study Filter: Found ${e.length} cards`);
+  console.log(`📊 Case Study Filter: Found ${i.length} cards`);
   const r = Array.from(
     document.querySelectorAll(`[${s}]`)
   );
@@ -1225,92 +1226,92 @@ function at() {
     `🎛️ Case Study Filter: Found ${r.length} filter control(s)`
   );
   const a = {};
-  r.forEach((h) => {
-    const c = h.getAttribute(s);
-    c && (c === "use-case" ? (console.log(
-      `⏳ Use Case filter: Waiting ${i}ms for dynamic content to load...`
+  r.forEach((u) => {
+    const d = u.getAttribute(s);
+    d && (d === "use-case" ? (console.log(
+      `⏳ Use Case filter: Waiting ${e}ms for dynamic content to load...`
     ), setTimeout(() => {
       console.log(
         "✨ Use Case filter: Dynamic content loaded, initializing..."
-      ), l(h, c);
-    }, i)) : l(h, c));
+      ), l(u, d);
+    }, e)) : l(u, d));
   });
-  function l(h, c) {
-    const b = `data-filter-${c}`;
-    console.log(`🔧 Setting up filter: ${c} (${b})`);
-    const m = /* @__PURE__ */ new Set();
-    e.forEach(({ card: d }) => {
-      if (c === "use-case") {
-        const u = d.querySelector('[fs-list-nest="use-cases"]');
-        u && u.querySelectorAll(
+  function l(u, d) {
+    const b = `data-filter-${d}`;
+    console.log(`🔧 Setting up filter: ${d} (${b})`);
+    const y = /* @__PURE__ */ new Set();
+    i.forEach(({ card: c }) => {
+      if (d === "use-case") {
+        const h = c.querySelector('[fs-list-nest="use-cases"]');
+        h && h.querySelectorAll(
           '[role="listitem"].w-dyn-item'
-        ).forEach((y) => {
-          const x = y.textContent.trim();
-          x && m.add(x);
+        ).forEach((v) => {
+          const w = v.textContent.trim();
+          w && y.add(w);
         });
       } else {
-        const u = d.getAttribute(b);
-        u && u.trim() && m.add(u.trim());
+        const h = c.getAttribute(b);
+        h && h.trim() && y.add(h.trim());
       }
     });
-    const g = Array.from(m).sort(
-      (d, u) => d.localeCompare(u)
+    const p = Array.from(y).sort(
+      (c, h) => c.localeCompare(h)
     );
-    console.log(`   Found ${g.length} unique values:`, g);
-    const f = Array.from(h.options);
-    for (let d = f.length - 1; d >= 0; d--)
-      d === 0 && (!f[d].value || f[d].value === "") || h.remove(d);
-    g.forEach((d) => {
-      const u = document.createElement("option");
-      u.value = d, u.textContent = d, h.appendChild(u);
-    }), a[c] = "", h.addEventListener("change", function() {
-      a[c] = this.value, console.log(`🔄 Filter changed: ${c} = "${this.value}"`), this.value ? this.style.color = "var(--_colors---primary--dark-blue)" : this.style.color = "", p();
+    console.log(`   Found ${p.length} unique values:`, p);
+    const f = Array.from(u.options);
+    for (let c = f.length - 1; c >= 0; c--)
+      c === 0 && (!f[c].value || f[c].value === "") || u.remove(c);
+    p.forEach((c) => {
+      const h = document.createElement("option");
+      h.value = c, h.textContent = c, u.appendChild(h);
+    }), a[d] = "", u.addEventListener("change", function() {
+      a[d] = this.value, console.log(`🔄 Filter changed: ${d} = "${this.value}"`), this.value ? this.style.color = "var(--_colors---primary--dark-blue)" : this.style.color = "", m();
     });
   }
-  function p() {
+  function m() {
     console.log("🎯 Applying filters:", a);
-    let h = 0, c = 0;
-    e.forEach(({ card: m, parent: g }) => {
+    let u = 0, d = 0;
+    i.forEach(({ card: y, parent: p }) => {
       let f = !0;
-      for (const [d, u] of Object.entries(a)) {
-        if (!u) continue;
-        let w = !1;
-        if (d === "use-case") {
-          const y = m.querySelector('[fs-list-nest="use-cases"]');
-          if (y) {
-            const x = y.querySelectorAll(
+      for (const [c, h] of Object.entries(a)) {
+        if (!h) continue;
+        let g = !1;
+        if (c === "use-case") {
+          const v = y.querySelector('[fs-list-nest="use-cases"]');
+          if (v) {
+            const w = v.querySelectorAll(
               '[role="listitem"].w-dyn-item'
             );
-            for (const B of x)
-              if (B.textContent.trim() === u) {
-                w = !0;
+            for (const B of w)
+              if (B.textContent.trim() === h) {
+                g = !0;
                 break;
               }
           }
         } else {
-          const y = `data-filter-${d}`;
-          w = m.getAttribute(y) === u;
+          const v = `data-filter-${c}`;
+          g = y.getAttribute(v) === h;
         }
-        if (!w) {
+        if (!g) {
           f = !1;
           break;
         }
       }
-      g ? f ? (g.style.display = "", h++) : (g.style.display = "none", c++) : f ? (m.style.display = "", h++) : (m.style.display = "none", c++);
+      p ? f ? (p.style.display = "", u++) : (p.style.display = "none", d++) : f ? (y.style.display = "", u++) : (y.style.display = "none", d++);
     }), console.log(
-      `✅ Filter applied: ${h} visible, ${c} hidden`
+      `✅ Filter applied: ${u} visible, ${d} hidden`
     );
     const b = new CustomEvent("caseStudyFiltersApplied", {
       detail: {
         activeFilters: a,
-        visibleCount: h,
-        hiddenCount: c,
-        totalCount: e.length
+        visibleCount: u,
+        hiddenCount: d,
+        totalCount: i.length
       }
     });
     document.dispatchEvent(b);
   }
-  p(), console.log("✅ Case Study Filter: Complete");
+  m(), console.log("✅ Case Study Filter: Complete");
 }
 const q = {
   demo: N,

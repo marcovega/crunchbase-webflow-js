@@ -37,7 +37,9 @@ export function initTableOfContents() {
         return;
       }
 
-      const headings = contentElement.querySelectorAll("h2");
+      // Use different selectors based on the instance type
+      const headingSelector = tocId === "guide" ? ".highlight-heading" : "h2";
+      const headings = contentElement.querySelectorAll(headingSelector);
 
       if (headings.length === 0) {
         return;
@@ -55,22 +57,31 @@ export function initTableOfContents() {
           const a = document.createElement("a");
 
           const headingText = heading.textContent.trim();
-          const headingId = heading.getAttribute("id");
+          let headingId = heading.getAttribute("id");
 
-          if (headingId) {
-            a.href = `#${headingId}`;
-            a.textContent = headingText;
-            a.classList.add("toc-link");
-            a.dataset.tocId = tocId;
-
-            if (index === 0) {
-              a.classList.add("active");
-              currentActiveElement = a;
-            }
-
-            li.appendChild(a);
-            ul.appendChild(li);
+          // Auto-generate ID if heading doesn't have one
+          if (!headingId) {
+            headingId = headingText
+              .toLowerCase()
+              .replace(/[^\w\s-]/g, "")
+              .replace(/\s+/g, "-")
+              .replace(/-+/g, "-")
+              .trim();
+            heading.setAttribute("id", headingId);
           }
+
+          a.href = `#${headingId}`;
+          a.textContent = headingText;
+          a.classList.add("toc-link");
+          a.dataset.tocId = tocId;
+
+          if (index === 0) {
+            a.classList.add("active");
+            currentActiveElement = a;
+          }
+
+          li.appendChild(a);
+          ul.appendChild(li);
         });
 
         tocContainer.innerHTML = "";
