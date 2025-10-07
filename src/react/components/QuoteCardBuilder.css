@@ -1,0 +1,150 @@
+.quote-builder {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+    Cantarell, sans-serif;
+}
+
+.quote-builder-form {
+  background: #fff;
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 32px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.quote-builder-title {
+  margin: 0 0 8px 0;
+  font-size: 28px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.quote-builder-description {
+  margin: 0 0 24px 0;
+  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
+}
+
+.quote-field {
+  margin-bottom: 20px;
+}
+
+.quote-field-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.quote-field-input,
+.quote-field-textarea {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-family: inherit;
+  transition: border-color 0.2s ease;
+}
+
+.quote-field-input:focus,
+.quote-field-textarea:focus {
+  outline: none;
+  border-color: #146aff;
+}
+
+.quote-field-textarea {
+  resize: vertical;
+  min-height: 100px;
+  line-height: 1.6;
+}
+
+.quote-builder-output {
+  background: #fff;
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.quote-output-title {
+  margin: 0 0 16px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.quote-preview {
+  margin-bottom: 32px;
+  padding: 24px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  border: 1px solid #e5e5e5;
+}
+
+.quote-html-output {
+  background: #1e1e1e;
+  color: #d4d4d4;
+  padding: 20px;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: 13px;
+  line-height: 1.6;
+  font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+  margin-bottom: 16px;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.quote-copy-button {
+  width: 100%;
+  padding: 14px 24px;
+  background: #146aff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.quote-copy-button:hover {
+  background: #0d56d9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(20, 106, 255, 0.3);
+}
+
+.quote-copy-button:active {
+  transform: translateY(0);
+}
+
+.quote-copy-button.copied {
+  background: #22c55e;
+}
+
+.quote-copy-button.copied:hover {
+  background: #16a34a;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .quote-builder {
+    padding: 16px;
+  }
+
+  .quote-builder-form,
+  .quote-builder-output {
+    padding: 24px;
+  }
+
+  .quote-builder-title {
+    font-size: 24px;
+  }
+}

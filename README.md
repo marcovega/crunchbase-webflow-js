@@ -28,6 +28,12 @@ A Vite-powered development environment for building and live-testing both vanill
      type="module"
      src="http://localhost:5173/src/react/roi-calculator-entry.js"
    ></script>
+
+   💬 Quote Card Builder (React):
+   <script
+     type="module"
+     src="http://localhost:5173/src/react/quote-card-builder-entry.js"
+   ></script>
    ```
 
 4. **Paste in Webflow:**
@@ -133,12 +139,13 @@ initFeatures([]); // Empty array = no features
 npm run build
 ```
 
-This creates **two separate files** in the `dist` folder:
+This creates **three separate files** in the `dist` folder:
 
 - `crunchbase-webflow.js` - Vanilla JS features bundle
 - `roi-calculator.js` - React ROI calculator bundle
+- `quote-card-builder.js` - React quote card builder bundle
 
-Both files can be uploaded to Webflow as hosted files and used independently or together.
+All files can be uploaded to Webflow as hosted files and used independently or together.
 
 ## Development Workflow
 
@@ -182,6 +189,30 @@ The setup includes React support for building interactive components that can be
    ```
 
 The included ROI Calculator is a simple placeholder ready for your implementation.
+
+### Quote Card Builder
+
+A specialized tool for creating quote cards that can be embedded in Webflow Rich Text elements:
+
+1. **Add container** to Webflow:
+
+   ```html
+   <div id="quote-card-builder"></div>
+   ```
+
+2. **Inject the script**:
+
+   ```html
+   <script src="https://your-site.com/quote-card-builder.js"></script>
+   ```
+
+3. **Use the builder**:
+   - Fill in the form with logo URL, quote text, name, and position
+   - Preview the quote card in real-time
+   - Copy the generated HTML
+   - Paste directly into Webflow Rich Text components
+
+This solves the limitation of not being able to add custom components inside Webflow Rich Text elements by generating embeddable HTML markup.
 
 ---
 

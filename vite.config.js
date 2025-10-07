@@ -1,7 +1,7 @@
 import { WebSocketServer } from "ws";
 import react from "@vitejs/plugin-react";
-import fs from 'fs';
-import path from 'path';
+import fs from "fs";
+import path from "path";
 
 export default {
   resolve: {
@@ -24,15 +24,18 @@ export default {
       entry: {
         main: "src/main.js",
         "roi-calculator": "src/react/roi-calculator-entry.js",
+        "quote-card-builder": "src/react/quote-card-builder-entry.js",
       },
       formats: ["es"],
       name: {
         main: "CrunchbaseWebflow",
         "roi-calculator": "ROICalculator",
+        "quote-card-builder": "QuoteCardBuilder",
       },
       fileName: (format, entryName) => {
         if (entryName === "main") return "crunchbase-webflow.js";
         if (entryName === "roi-calculator") return "roi-calculator.js";
+        if (entryName === "quote-card-builder") return "quote-card-builder.js";
         return `${entryName}.js`;
       },
     },
@@ -49,34 +52,40 @@ export default {
       name: "production-wrapper",
       generateBundle(options, bundle) {
         // Only apply to main entry point
-        const mainBundle = bundle['crunchbase-webflow.js'];
+        const mainBundle = bundle["crunchbase-webflow.js"];
         if (!mainBundle) return;
 
         // Read the wrapper and config files
-        const wrapperPath = path.resolve(__dirname, 'src/prod-wrapper.js');
-        const configPath = path.resolve(__dirname, 'src/config.js');
-        
-        let wrapperCode = '';
-        let configCode = '';
-        
+        const wrapperPath = path.resolve(__dirname, "src/prod-wrapper.js");
+        const configPath = path.resolve(__dirname, "src/config.js");
+
+        let wrapperCode = "";
+        let configCode = "";
+
         try {
           // Read and inline the config
-          const configContent = fs.readFileSync(configPath, 'utf-8');
-          configCode = configContent.replace('export const config =', 'const config =');
-          
+          const configContent = fs.readFileSync(configPath, "utf-8");
+          configCode = configContent.replace(
+            "export const config =",
+            "const config ="
+          );
+
           // Read the wrapper and remove the import
-          const wrapperContent = fs.readFileSync(wrapperPath, 'utf-8');
-          wrapperCode = wrapperContent.replace("import { config } from './config.js';", '');
-          
+          const wrapperContent = fs.readFileSync(wrapperPath, "utf-8");
+          wrapperCode = wrapperContent.replace(
+            "import { config } from './config.js';",
+            ""
+          );
+
           // Combine: config + wrapper + original code
           const originalCode = mainBundle.code;
           mainBundle.code = `${configCode}\n\n${wrapperCode}\n\n// Original production code below:\n${originalCode}`;
-          
-          console.log('✅ Production wrapper added to bundle');
+
+          console.log("✅ Production wrapper added to bundle");
         } catch (error) {
-          console.warn('⚠️ Failed to add production wrapper:', error);
+          console.warn("⚠️ Failed to add production wrapper:", error);
         }
-      }
+      },
     },
     {
       name: "webflow-snippet",
@@ -109,6 +118,7 @@ export default {
           const port = server.config.server.port;
           const mainScript = `<script type="module" src="http://${address}:${port}/src/main.js"></script>`;
           const roiScript = `<script type="module" src="http://${address}:${port}/src/react/roi-calculator-entry.js"></script>`;
+          const quoteBuilderScript = `<script type="module" src="http://${address}:${port}/src/react/quote-card-builder-entry.js"></script>`;
           const cssLink = `<link rel="stylesheet" href="http://${address}:${port}/src/styles/main.css">`;
           console.log(
             "\n👾 Webflow embed scripts:\n\n🎨 Styles:\n" +
@@ -117,6 +127,8 @@ export default {
               mainScript +
               "\n\n⚛️  ROI Calculator (React):\n" +
               roiScript +
+              "\n\n💬 Quote Card Builder (React):\n" +
+              quoteBuilderScript +
               "\n"
           );
           console.log("🔄 Live reload enabled on ws://127.0.0.1:5174\n");
