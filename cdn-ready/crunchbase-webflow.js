@@ -985,7 +985,7 @@ function et() {
         console.warn(`📚 Table of Contents: No target found for "${e}"`);
         return;
       }
-      const i = e === "guide" ? ".highlight-heading" : "h2", r = s.querySelectorAll(i);
+      const r = s.querySelectorAll("h2");
       if (r.length === 0)
         return;
       let a = null, l = !1;
