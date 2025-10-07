@@ -5,6 +5,7 @@
  * - Populates dropdown options from card data attributes
  * - Supports multiple filter controls working together (AND logic)
  * - Shows/hides cards based on selected filters
+ * - Implements custom pagination
  */
 
 export function initCaseStudyFilter() {
@@ -14,7 +15,8 @@ export function initCaseStudyFilter() {
   const CARDS_CONTAINER_SELECTOR = ".case-study-cards-grid";
   const CARD_SELECTOR = ".case-study-card";
   const FILTER_CONTROL_ATTRIBUTE = "data-filter-control";
-  const DYNAMIC_CONTENT_LOAD_DELAY = 3000; // Wait 3 seconds for dynamic content
+  const ITEMS_ATTRIBUTE = "case-study-items";
+  const PAGINATION_CLASS = "case-studies-pagination";
 
   // Find the container
   const container = document.querySelector(CARDS_CONTAINER_SELECTOR);
@@ -41,6 +43,45 @@ export function initCaseStudyFilter() {
 
   console.log(`📊 Case Study Filter: Found ${cards.length} cards`);
 
+  // Find the scroll container (element with case-study-items attribute)
+  const scrollContainer = document.querySelector(`[${ITEMS_ATTRIBUTE}]`);
+
+  if (!scrollContainer) {
+    console.warn(
+      `⚠️ Case Study Filter: Scroll container with attribute "${ITEMS_ATTRIBUTE}" not found. Using default.`
+    );
+  }
+
+  // Get items per page from attribute
+  const itemsPerPageAttr = scrollContainer
+    ? scrollContainer.getAttribute(ITEMS_ATTRIBUTE)
+    : null;
+
+  const itemsPerPage = itemsPerPageAttr ? parseInt(itemsPerPageAttr, 10) : 12; // Default to 12 if not specified
+  console.log(`📄 Case Study Filter: Items per page: ${itemsPerPage}`);
+
+  // Pagination state
+  let currentPage = 1;
+
+  // Find or create pagination container
+  let paginationContainer = container.parentElement?.querySelector(
+    `.${PAGINATION_CLASS}`
+  );
+  if (!paginationContainer) {
+    paginationContainer = document.createElement("div");
+    paginationContainer.className = `w-pagination-wrapper ${PAGINATION_CLASS}`;
+    paginationContainer.setAttribute("role", "navigation");
+    paginationContainer.setAttribute("aria-label", "List");
+    container.parentElement?.insertBefore(
+      paginationContainer,
+      container.nextSibling
+    );
+    console.log("📄 Case Study Filter: Created pagination container");
+  }
+
+  // Store current filter state (initialize early)
+  const activeFilters = {};
+
   // Find all filter controls
   const filterControls = Array.from(
     document.querySelectorAll(`[${FILTER_CONTROL_ATTRIBUTE}]`)
@@ -50,6 +91,9 @@ export function initCaseStudyFilter() {
     console.warn(
       `⚠️ Case Study Filter: No filter controls found with attribute "${FILTER_CONTROL_ATTRIBUTE}"`
     );
+    // Still apply pagination even without filters
+    applyFilters();
+    console.log("✅ Case Study Filter: Complete (pagination only, no filters)");
     return;
   }
 
@@ -57,30 +101,69 @@ export function initCaseStudyFilter() {
     `🎛️ Case Study Filter: Found ${filterControls.length} filter control(s)`
   );
 
-  // Store current filter state
-  const activeFilters = {};
+  // Pre-initialize all filter types to empty strings
+  filterControls.forEach((select) => {
+    const filterType = select.getAttribute(FILTER_CONTROL_ATTRIBUTE);
+    if (filterType) {
+      activeFilters[filterType] = "";
+    }
+  });
 
   // Initialize each filter control
   filterControls.forEach((select) => {
     const filterType = select.getAttribute(FILTER_CONTROL_ATTRIBUTE);
     if (!filterType) return;
 
-    // Special handling: delay use-case initialization for dynamic content
-    if (filterType === "use-case") {
-      console.log(
-        `⏳ Use Case filter: Waiting ${DYNAMIC_CONTENT_LOAD_DELAY}ms for dynamic content to load...`
-      );
-      setTimeout(() => {
-        console.log(
-          "✨ Use Case filter: Dynamic content loaded, initializing..."
-        );
-        initializeFilter(select, filterType);
-      }, DYNAMIC_CONTENT_LOAD_DELAY);
-    } else {
-      // Initialize other filters immediately (server-side rendered)
-      initializeFilter(select, filterType);
-    }
+    initializeFilter(select, filterType);
   });
+
+  // Inject CSS to hide items beyond first page initially (prevents flicker)
+  const initialHideStyleId = "case-study-initial-hide";
+  const styleTag = document.createElement("style");
+  styleTag.id = initialHideStyleId;
+  styleTag.textContent = `
+    .case-study-cards-grid .w-dyn-item:nth-child(n+${itemsPerPage + 1}) {
+      display: none !important;
+    }
+  `;
+  document.head.appendChild(styleTag);
+  console.log(`🎨 Applied initial CSS hide for items beyond ${itemsPerPage}`);
+
+  // Function to remove the initial CSS hide rule
+  function removeInitialHide() {
+    const existingStyle = document.getElementById(initialHideStyleId);
+    if (existingStyle) {
+      existingStyle.remove();
+      console.log(
+        "🗑️ Removed initial CSS hide rule, JS pagination taking over"
+      );
+    }
+  }
+
+  // Function to reapply the initial CSS hide rule
+  function reapplyInitialHide() {
+    // First remove it if it exists
+    removeInitialHide();
+
+    // Then add it back
+    const styleTag = document.createElement("style");
+    styleTag.id = initialHideStyleId;
+    styleTag.textContent = `
+      .case-study-cards-grid .w-dyn-item:nth-child(n+${itemsPerPage + 1}) {
+        display: none !important;
+      }
+    `;
+    document.head.appendChild(styleTag);
+    console.log("🎨 Reapplied initial CSS hide rule");
+  }
+
+  // Function to check if all filters are at their initial state (all empty)
+  function areAllFiltersEmpty() {
+    return Object.values(activeFilters).every((value) => value === "");
+  }
+
+  // Show pagination controls initially
+  updatePagination(Math.ceil(cards.length / itemsPerPage));
 
   function initializeFilter(select, filterType) {
     const dataAttribute = `data-filter-${filterType}`;
@@ -139,8 +222,7 @@ export function initCaseStudyFilter() {
       select.appendChild(option);
     });
 
-    // Initialize filter state
-    activeFilters[filterType] = "";
+    // Filter state already initialized in pre-init loop
 
     // Add change event listener
     select.addEventListener("change", function () {
@@ -154,18 +236,36 @@ export function initCaseStudyFilter() {
         this.style.color = "";
       }
 
-      applyFilters();
+      // Reset to page 1 when filter changes
+      currentPage = 1;
+
+      // Check if all filters are now empty (back to initial state)
+      if (areAllFiltersEmpty()) {
+        console.log("🔄 All filters reset, reapplying CSS pagination");
+        reapplyInitialHide();
+        // Show all items initially (remove inline styles)
+        cards.forEach(({ card, parent }) => {
+          const element = parent || card;
+          element.style.display = "";
+        });
+        // Update pagination UI
+        updatePagination(Math.ceil(cards.length / itemsPerPage));
+      } else {
+        // Remove initial CSS hide rule (JS takes over)
+        removeInitialHide();
+        applyFilters();
+      }
     });
   }
 
   /**
-   * Apply all active filters to cards
+   * Apply all active filters to cards and handle pagination
    */
   function applyFilters() {
     console.log("🎯 Applying filters:", activeFilters);
 
-    let visibleCount = 0;
-    let hiddenCount = 0;
+    // First pass: determine which cards match filters
+    const filteredCards = [];
 
     cards.forEach(({ card, parent }) => {
       let shouldShow = true;
@@ -206,30 +306,60 @@ export function initCaseStudyFilter() {
         }
       }
 
+      if (shouldShow) {
+        filteredCards.push({ card, parent });
+      }
+    });
+
+    // Calculate pagination
+    const totalFilteredItems = filteredCards.length;
+    const totalPages = Math.ceil(totalFilteredItems / itemsPerPage);
+
+    // Ensure current page is within bounds
+    if (currentPage > totalPages && totalPages > 0) {
+      currentPage = totalPages;
+    }
+    if (currentPage < 1) {
+      currentPage = 1;
+    }
+
+    // Calculate which items to show on current page
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+
+    console.log(
+      `📄 Pagination: Page ${currentPage}/${totalPages}, showing items ${startIndex + 1}-${Math.min(endIndex, totalFilteredItems)} of ${totalFilteredItems}`
+    );
+
+    // Second pass: show/hide all cards based on filter + pagination
+    let visibleCount = 0;
+    let hiddenCount = 0;
+
+    cards.forEach(({ card, parent }) => {
+      const filteredIndex = filteredCards.findIndex((fc) => fc.card === card);
+      const shouldShow =
+        filteredIndex >= 0 &&
+        filteredIndex >= startIndex &&
+        filteredIndex < endIndex;
+
       // Show or hide the parent w-dyn-item
-      if (parent) {
-        if (shouldShow) {
-          parent.style.display = "";
-          visibleCount++;
-        } else {
-          parent.style.display = "none";
-          hiddenCount++;
-        }
+      const element = parent || card;
+
+      if (shouldShow) {
+        element.style.display = "";
+        visibleCount++;
       } else {
-        // Fallback to card if parent not found
-        if (shouldShow) {
-          card.style.display = "";
-          visibleCount++;
-        } else {
-          card.style.display = "none";
-          hiddenCount++;
-        }
+        element.style.display = "none";
+        hiddenCount++;
       }
     });
 
     console.log(
       `✅ Filter applied: ${visibleCount} visible, ${hiddenCount} hidden`
     );
+
+    // Update pagination UI
+    updatePagination(totalPages);
 
     // Optional: Dispatch custom event for other scripts to listen to
     const event = new CustomEvent("caseStudyFiltersApplied", {
@@ -238,13 +368,181 @@ export function initCaseStudyFilter() {
         visibleCount,
         hiddenCount,
         totalCount: cards.length,
+        currentPage,
+        totalPages,
+        totalFilteredItems,
       },
     });
     document.dispatchEvent(event);
   }
 
-  // Initial state - show all cards
-  applyFilters();
+  /**
+   * Update pagination UI
+   */
+  function updatePagination(totalPages) {
+    // Hide pagination if only 1 page or no pages
+    if (totalPages <= 1) {
+      paginationContainer.style.display = "none";
+      return;
+    }
+
+    paginationContainer.style.display = "";
+
+    // Build pagination HTML
+    const prevDisabled = currentPage === 1;
+    const nextDisabled = currentPage === totalPages;
+
+    let paginationHTML = `
+      <a 
+        aria-label="Pagination Left arrow" 
+        href="#" 
+        class="w-pagination-previous pagination-item pagination-left ${prevDisabled ? "is-list-pagination-disabled" : ""}" 
+        aria-disabled="${prevDisabled}" 
+        tabindex="${prevDisabled ? "-1" : "0"}"
+        data-pagination-prev
+      >
+        <svg class="w-pagination-previous-icon pagination-icon" height="12px" width="12px"
+          xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" transform="translate(0, 1)">
+          <path fill="none" stroke="currentColor" fill-rule="evenodd" d="M8 10L4 6l4-4"></path>
+        </svg>
+      </a>
+      <div class="pagination-pages-list">
+    `;
+
+    // Add page number buttons
+    for (let page = 1; page <= totalPages; page++) {
+      const isCurrent = page === currentPage;
+      paginationHTML += `
+        <a 
+          href="#" 
+          class="pagination-item pagination-page ${isCurrent ? "w--current" : ""}" 
+          ${isCurrent ? 'aria-current="page"' : ""}
+          data-pagination-page="${page}"
+        >${page}</a>
+      `;
+    }
+
+    paginationHTML += `
+      </div>
+      <a 
+        aria-label="Pagination Right arrow" 
+        href="#" 
+        class="w-pagination-next pagination-item pagination-right ${nextDisabled ? "is-list-pagination-disabled" : ""}" 
+        aria-disabled="${nextDisabled}" 
+        tabindex="${nextDisabled ? "-1" : "0"}"
+        data-pagination-next
+      >
+        <svg class="w-pagination-next-icon pagination-icon" height="12px" width="12px"
+          xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" transform="translate(0, 1)">
+          <path fill="none" stroke="currentColor" fill-rule="evenodd" d="M4 2l4 4-4 4"></path>
+        </svg>
+      </a>
+    `;
+
+    paginationContainer.innerHTML = paginationHTML;
+
+    // Attach event listeners to pagination controls
+    attachPaginationListeners();
+  }
+
+  /**
+   * Attach event listeners to pagination controls
+   */
+  function attachPaginationListeners() {
+    // Previous button
+    const prevButton = paginationContainer.querySelector(
+      "[data-pagination-prev]"
+    );
+    if (prevButton) {
+      prevButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        // Remove initial CSS hide rule (JS takes over)
+        removeInitialHide();
+        if (currentPage > 1) {
+          currentPage--;
+          applyFilters();
+          scrollToTop();
+        }
+      });
+    }
+
+    // Next button
+    const nextButton = paginationContainer.querySelector(
+      "[data-pagination-next]"
+    );
+    if (nextButton) {
+      nextButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        // Remove initial CSS hide rule (JS takes over)
+        removeInitialHide();
+        const totalFilteredItems = cards.filter(({ card }) => {
+          // Check if card matches current filters
+          for (const [filterType, filterValue] of Object.entries(
+            activeFilters
+          )) {
+            if (!filterValue) continue;
+            let isMatch = false;
+            if (filterType === "use-case") {
+              const nestTarget = card.querySelector(
+                '[fs-list-nest="use-cases"]'
+              );
+              if (nestTarget) {
+                const useCaseItems = nestTarget.querySelectorAll(
+                  '[role="listitem"].w-dyn-item'
+                );
+                for (const item of useCaseItems) {
+                  if (item.textContent.trim() === filterValue) {
+                    isMatch = true;
+                    break;
+                  }
+                }
+              }
+            } else {
+              const dataAttribute = `data-filter-${filterType}`;
+              const cardValue = card.getAttribute(dataAttribute);
+              isMatch = cardValue === filterValue;
+            }
+            if (!isMatch) return false;
+          }
+          return true;
+        }).length;
+        const totalPages = Math.ceil(totalFilteredItems / itemsPerPage);
+
+        if (currentPage < totalPages) {
+          currentPage++;
+          applyFilters();
+          scrollToTop();
+        }
+      });
+    }
+
+    // Page number buttons
+    const pageButtons = paginationContainer.querySelectorAll(
+      "[data-pagination-page]"
+    );
+    pageButtons.forEach((button) => {
+      button.addEventListener("click", (e) => {
+        e.preventDefault();
+        // Remove initial CSS hide rule (JS takes over)
+        removeInitialHide();
+        const page = parseInt(button.getAttribute("data-pagination-page"), 10);
+        if (page !== currentPage) {
+          currentPage = page;
+          applyFilters();
+          scrollToTop();
+        }
+      });
+    });
+  }
+
+  /**
+   * Scroll to the top of the case study items container
+   */
+  function scrollToTop() {
+    if (scrollContainer) {
+      scrollContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
 
   console.log("✅ Case Study Filter: Complete");
 }
