@@ -1015,7 +1015,7 @@ function vt() {
         });
       });
       let y = !1;
-      function q() {
+      function F() {
         y || (y = !0, requestAnimationFrame(() => {
           const w = window.scrollY;
           let x = null;
@@ -1039,7 +1039,7 @@ function vt() {
           y = !1;
         }));
       }
-      window.addEventListener("scroll", q, { passive: !0 });
+      window.addEventListener("scroll", F, { passive: !0 });
     }));
   };
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", s) : s();
@@ -1054,7 +1054,7 @@ function xt() {
   }), St();
   let n = 0;
   o.forEach((e, t) => {
-    At(t, e, n++);
+    Ct(t, e, n++);
   });
 }
 function St() {
@@ -1071,7 +1071,7 @@ function St() {
     });
   });
 }
-function At(s, o, n) {
+function Ct(s, o, n) {
   if (o.length === 0) return;
   const e = `hero-tabs-${n}`, t = `${e}-tablist`;
   s.getAttribute("role") || s.setAttribute("role", "tablist"), s.getAttribute("id") || s.setAttribute("id", t), s.getAttribute("aria-label") || s.setAttribute("aria-label", "Tab navigation"), o.forEach((i, r) => {
@@ -1089,7 +1089,7 @@ function At(s, o, n) {
       y.preventDefault(), J(i.getAttribute("data-tab-for"), s);
     }), i.addEventListener(
       "keydown",
-      (y) => Ct(y, s, o, r)
+      (y) => At(y, s, o, r)
     ), i.addEventListener("focus", () => {
       i.scrollIntoView({ behavior: "smooth", block: "nearest" });
     });
@@ -1106,7 +1106,7 @@ function J(s, o = null) {
     r.classList.toggle("hero-tabs-item-active", l), r.setAttribute("aria-selected", l ? "true" : "false"), r.setAttribute("tabindex", l ? "0" : "-1"), l && (t = r, o && (r.closest('[role="tablist"]') === o || r.closest(".hero-tabs") === o || r.closest(".pricing-card-toggle") === o || r.parentElement === o) && (i = r));
   }), t && Et(t), i && i.focus();
 }
-function Ct(s, o, n, e) {
+function At(s, o, n, e) {
   let t = e;
   switch (s.key) {
     case "ArrowLeft":
@@ -1226,21 +1226,21 @@ function Tt() {
     m,
     i.nextSibling
   ), console.log("📄 Case Study Filter: Created pagination container"));
-  const y = {}, q = Array.from(
+  const y = {}, F = Array.from(
     document.querySelectorAll(`[${n}]`)
   );
-  if (q.length === 0) {
+  if (F.length === 0) {
     console.warn(
       `⚠️ Case Study Filter: No filter controls found with attribute "${n}"`
     ), I(), console.log("✅ Case Study Filter: Complete (pagination only, no filters)");
     return;
   }
   console.log(
-    `🎛️ Case Study Filter: Found ${q.length} filter control(s)`
-  ), q.forEach((c) => {
+    `🎛️ Case Study Filter: Found ${F.length} filter control(s)`
+  ), F.forEach((c) => {
     const h = c.getAttribute(n);
     h && (y[h] = "");
-  }), q.forEach((c) => {
+  }), F.forEach((c) => {
     const h = c.getAttribute(n);
     h && R(c, h);
   });
@@ -1268,10 +1268,10 @@ function Tt() {
   function T() {
     return Object.values(y).every((c) => c === "");
   }
-  P(Math.ceil(r.length / d));
+  D(Math.ceil(r.length / d));
   function R(c, h) {
-    const A = `data-filter-${h}`;
-    console.log(`🔧 Setting up filter: ${h} (${A})`);
+    const C = `data-filter-${h}`;
+    console.log(`🔧 Setting up filter: ${h} (${C})`);
     const b = /* @__PURE__ */ new Set();
     r.forEach(({ card: p }) => {
       if (h === "use-case") {
@@ -1279,11 +1279,11 @@ function Tt() {
         f && f.querySelectorAll(
           '[role="listitem"].w-dyn-item'
         ).forEach((L) => {
-          const C = L.textContent.trim();
-          C && b.add(C);
+          const A = L.textContent.trim();
+          A && b.add(A);
         });
       } else {
-        const f = p.getAttribute(A);
+        const f = p.getAttribute(C);
         f && f.trim() && b.add(f.trim());
       }
     });
@@ -1301,53 +1301,53 @@ function Tt() {
       y[h] = this.value, console.log(`🔄 Filter changed: ${h} = "${this.value}"`), this.value ? this.style.color = "var(--_colors---primary--dark-blue)" : this.style.color = "", u = 1, T() ? (console.log("🔄 All filters reset, reapplying CSS pagination"), k(), r.forEach(({ card: p, parent: f }) => {
         const E = f || p;
         E.style.display = "";
-      }), P(Math.ceil(r.length / d))) : (g(), I());
+      }), D(Math.ceil(r.length / d))) : (g(), I());
     });
   }
   function I() {
     console.log("🎯 Applying filters:", y);
     const c = [];
     r.forEach(({ card: E, parent: L }) => {
-      let C = !0;
-      for (const [B, F] of Object.entries(y)) {
-        if (!F) continue;
+      let A = !0;
+      for (const [B, q] of Object.entries(y)) {
+        if (!q) continue;
         let M = !1;
         if (B === "use-case") {
-          const D = E.querySelector('[fs-list-nest="use-cases"]');
-          if (D) {
-            const j = D.querySelectorAll(
+          const P = E.querySelector('[fs-list-nest="use-cases"]');
+          if (P) {
+            const j = P.querySelectorAll(
               '[role="listitem"].w-dyn-item'
             );
             for (const K of j)
-              if (K.textContent.trim() === F) {
+              if (K.textContent.trim() === q) {
                 M = !0;
                 break;
               }
           }
         } else {
-          const D = `data-filter-${B}`;
-          M = E.getAttribute(D) === F;
+          const P = `data-filter-${B}`;
+          M = E.getAttribute(P) === q;
         }
         if (!M) {
-          C = !1;
+          A = !1;
           break;
         }
       }
-      C && c.push({ card: E, parent: L });
+      A && c.push({ card: E, parent: L });
     });
-    const h = c.length, A = Math.ceil(h / d);
-    u > A && A > 0 && (u = A), u < 1 && (u = 1);
+    const h = c.length, C = Math.ceil(h / d);
+    u > C && C > 0 && (u = C), u < 1 && (u = 1);
     const b = (u - 1) * d, v = b + d;
     console.log(
-      `📄 Pagination: Page ${u}/${A}, showing items ${b + 1}-${Math.min(v, h)} of ${h}`
+      `📄 Pagination: Page ${u}/${C}, showing items ${b + 1}-${Math.min(v, h)} of ${h}`
     );
     let S = 0, p = 0;
     r.forEach(({ card: E, parent: L }) => {
-      const C = c.findIndex((M) => M.card === E), B = C >= 0 && C >= b && C < v, F = L || E;
-      B ? (F.style.display = "", S++) : (F.style.display = "none", p++);
+      const A = c.findIndex((M) => M.card === E), B = A >= 0 && A >= b && A < v, q = L || E;
+      B ? (q.style.display = "", S++) : (q.style.display = "none", p++);
     }), console.log(
       `✅ Filter applied: ${S} visible, ${p} hidden`
-    ), P(A);
+    ), D(C);
     const f = new CustomEvent("caseStudyFiltersApplied", {
       detail: {
         activeFilters: y,
@@ -1355,19 +1355,19 @@ function Tt() {
         hiddenCount: p,
         totalCount: r.length,
         currentPage: u,
-        totalPages: A,
+        totalPages: C,
         totalFilteredItems: h
       }
     });
     document.dispatchEvent(f);
   }
-  function P(c) {
+  function D(c) {
     if (c <= 1) {
       m.style.display = "none";
       return;
     }
     m.style.display = "";
-    const h = u === 1, A = u === c;
+    const h = u === 1, C = u === c;
     let b = `
       <a 
         aria-label="Pagination Left arrow" 
@@ -1400,9 +1400,9 @@ function Tt() {
       <a 
         aria-label="Pagination Right arrow" 
         href="#" 
-        class="w-pagination-next pagination-item pagination-right ${A ? "is-list-pagination-disabled" : ""}" 
-        aria-disabled="${A}" 
-        tabindex="${A ? "-1" : "0"}"
+        class="w-pagination-next pagination-item pagination-right ${C ? "is-list-pagination-disabled" : ""}" 
+        aria-disabled="${C}" 
+        tabindex="${C ? "-1" : "0"}"
         data-pagination-next
       >
         <svg class="w-pagination-next-icon pagination-icon" height="12px" width="12px"
@@ -1431,22 +1431,22 @@ function Tt() {
           if (!E) continue;
           let L = !1;
           if (f === "use-case") {
-            const C = p.querySelector(
+            const A = p.querySelector(
               '[fs-list-nest="use-cases"]'
             );
-            if (C) {
-              const B = C.querySelectorAll(
+            if (A) {
+              const B = A.querySelectorAll(
                 '[role="listitem"].w-dyn-item'
               );
-              for (const F of B)
-                if (F.textContent.trim() === E) {
+              for (const q of B)
+                if (q.textContent.trim() === E) {
                   L = !0;
                   break;
                 }
             }
           } else {
-            const C = `data-filter-${f}`;
-            L = p.getAttribute(C) === E;
+            const A = `data-filter-${f}`;
+            L = p.getAttribute(A) === E;
           }
           if (!L) return !1;
         }
@@ -1468,6 +1468,26 @@ function Tt() {
   }
   console.log("✅ Case Study Filter: Complete");
 }
+function kt() {
+  console.log("🎴 Post Card Attribution: Starting...");
+  const s = document.querySelectorAll(
+    ".post-card-attribution"
+  );
+  if (s.length === 0) {
+    console.log("ℹ️ Post Card Attribution: No attribution containers found");
+    return;
+  }
+  console.log(
+    `📝 Post Card Attribution: Found ${s.length} container(s)`
+  ), s.forEach((o, n) => {
+    const e = o.querySelector("[post-card-author-pos]"), t = o.querySelector(
+      "[post-card-author-company]"
+    ), i = o.querySelector("[post-card-author-sep]"), r = o.querySelector("[post-card-author-of]"), a = e && e.textContent.trim() !== "", l = t && t.textContent.trim() !== "";
+    a || (i && (i.style.display = "none"), e && (e.style.display = "none")), l || (r && (r.style.display = "none"), t && (t.style.display = "none")), console.log(
+      `  ${n + 1}. Position: ${a ? "✓" : "✗"}, Company: ${l ? "✓" : "✗"}`
+    );
+  }), console.log("✅ Post Card Attribution: Complete");
+}
 const G = {
   demo: Y,
   logoSlider: Z,
@@ -1481,11 +1501,12 @@ const G = {
   readingTimeEstimate: wt,
   tableOfContents: vt,
   heroTabs: xt,
-  caseStudyFilter: Tt
+  caseStudyFilter: Tt,
+  postCardAttribution: kt
   // Add more features here as you create them
   // myFeature: initMyFeature,
 };
-function kt(s = ["demo"]) {
+function It(s = ["demo"]) {
   s.forEach((o) => {
     if (G[o])
       try {
@@ -1509,7 +1530,7 @@ if (typeof window < "u" && !window.__CRUNCHBASE_SHOULD_RUN_PROD__) {
 } else
   _();
 function _() {
-  console.log("🚀 Crunchbase Webflow script loaded"), kt([
+  console.log("🚀 Crunchbase Webflow script loaded"), It([
     "logoSlider",
     "quotesSlider",
     "starRating",
@@ -1528,7 +1549,9 @@ function _() {
     // Table of contents for blog posts
     "heroTabs",
     // Hero tabs with accessibility features
-    "caseStudyFilter"
+    "caseStudyFilter",
     // Case study filtering system
+    "postCardAttribution"
+    // Post card author metadata visibility
   ]);
 }

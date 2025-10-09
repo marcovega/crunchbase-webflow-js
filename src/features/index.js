@@ -18,6 +18,7 @@ import initReadingTimeEstimate from "./reading-time-estimate.js";
 import initTableOfContents from "./table-of-contents.js";
 import initHeroTabs from "./hero-tabs.js";
 import initCaseStudyFilter from "./case-study-filter.js";
+import initPostCardAttribution from "./post-card-attribution.js";
 
 // Export all features
 export {
@@ -34,6 +35,7 @@ export {
   initTableOfContents,
   initHeroTabs,
   initCaseStudyFilter,
+  initPostCardAttribution,
 };
 
 // Feature registry for easy enable/disable
@@ -51,6 +53,7 @@ export const features = {
   tableOfContents: initTableOfContents,
   heroTabs: initHeroTabs,
   caseStudyFilter: initCaseStudyFilter,
+  postCardAttribution: initPostCardAttribution,
   // Add more features here as you create them
   // myFeature: initMyFeature,
 };

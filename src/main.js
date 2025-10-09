@@ -49,6 +49,7 @@ function runCrunchbaseCode() {
     "tableOfContents", // Table of contents for blog posts
     "heroTabs", // Hero tabs with accessibility features
     "caseStudyFilter", // Case study filtering system
+    "postCardAttribution", // Post card author metadata visibility
   ]); // Can add "demo" to enable demo feature.
 
   // Development indicator and live reload
