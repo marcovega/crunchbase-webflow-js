@@ -1193,7 +1193,7 @@ function H() {
 document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", H) : H();
 function Tt() {
   console.log("🔍 Case Study Filter: Starting...");
-  const s = ".case-study-cards-grid", o = ".case-study-card", n = "data-filter-control", e = "case-study-items", t = "case-studies-pagination", i = document.querySelector(s);
+  const s = ".case-study-cards-grid", o = ".case-study-card", n = "data-filter-control", e = "case-study-items", t = "posts-pagination", i = document.querySelector(s);
   if (!i) {
     console.warn(
       `⚠️ Case Study Filter: Container "${s}" not found`

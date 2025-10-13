@@ -16,7 +16,7 @@ export function initCaseStudyFilter() {
   const CARD_SELECTOR = ".case-study-card";
   const FILTER_CONTROL_ATTRIBUTE = "data-filter-control";
   const ITEMS_ATTRIBUTE = "case-study-items";
-  const PAGINATION_CLASS = "case-studies-pagination";
+  const PAGINATION_CLASS = "posts-pagination";
 
   // Find the container
   const container = document.querySelector(CARDS_CONTAINER_SELECTOR);
