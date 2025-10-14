@@ -175,7 +175,7 @@ function tt() {
         gap: 10px;
         margin-top: 30px;
         justify-content: ${t ? "center" : "flex-start"};
-      `, this.prevBtn = document.createElement("button"), this.prevBtn.className = "quotes-slider-prev", this.prevBtn.innerHTML = `
+      `, this.prevBtn = document.createElement("button"), this.prevBtn.className = "arrow-button quotes-slider-prev", this.prevBtn.innerHTML = `
         <svg xmlns="http://www.w3.org/2000/svg" width="7" height="13" viewBox="0 0 7 13" fill="none">
           <path d="M6 0.999999L1 6L6 11.3333" stroke="#146AFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -191,7 +191,7 @@ function tt() {
         justify-content: center;
         transition: all 0.2s ease;
         padding: 0;
-      `, this.nextBtn = document.createElement("button"), this.nextBtn.className = "quotes-slider-next", this.nextBtn.innerHTML = `
+      `, this.nextBtn = document.createElement("button"), this.nextBtn.className = "arrow-button quotes-slider-next", this.nextBtn.innerHTML = `
         <svg xmlns="http://www.w3.org/2000/svg" width="7" height="13" viewBox="0 0 7 13" fill="none" style="transform: rotate(180deg);">
           <path d="M6 0.999999L1 6L6 11.3333" stroke="#146AFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
