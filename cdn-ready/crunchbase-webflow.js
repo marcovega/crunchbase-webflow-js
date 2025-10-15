@@ -154,18 +154,28 @@ function tt() {
       const t = getComputedStyle(this.container);
       this.gap = parseInt(t.gap) || 0;
       const i = window.matchMedia("(max-width: 991px)").matches;
-      let r = 0;
-      this.quoteData = this.quotes.map((a, l) => {
+      let a = 0;
+      this.quoteData = this.quotes.map((r, l) => {
         let d;
-        i ? (d = this.containerWidth, a.style.width = `${this.containerWidth}px`) : a.classList.contains("quote-card-featured") ? (d = 862, a.style.width = "862px") : a.classList.contains("quote-card") ? (d = 410, a.style.width = "410px") : d = a.getBoundingClientRect().width;
+        i ? (d = this.containerWidth, r.style.width = `${this.containerWidth}px`) : r.classList.contains("quote-card-featured") ? (d = 862, r.style.width = "862px") : r.classList.contains("quote-card") ? (d = 410, r.style.width = "410px") : d = r.getBoundingClientRect().width;
         const u = {
-          element: a,
+          element: r,
           width: d,
-          offsetLeft: r,
+          offsetLeft: a,
           index: l
         };
-        return r += d + (l < this.totalQuotes - 1 ? this.gap : 0), u;
-      });
+        return a += d + (l < this.totalQuotes - 1 ? this.gap : 0), u;
+      }), this.lastNavigableIndex = this.calculateLastNavigableIndex();
+    }
+    calculateLastNavigableIndex() {
+      const t = this.quoteData[this.totalQuotes - 1], a = t.offsetLeft + t.width - this.containerWidth;
+      if (a <= 0)
+        return 0;
+      const r = 50;
+      for (let l = this.totalQuotes - 1; l >= 0; l--)
+        if (this.quoteData[l].offsetLeft <= a + r)
+          return l;
+      return 0;
     }
     createNavigation() {
       const t = window.matchMedia("(max-width: 991px)").matches;
@@ -255,26 +265,28 @@ function tt() {
       }
     }
     shouldUseAdaptiveAlignment(t) {
+      if (t < this.totalQuotes - 2)
+        return !1;
       let i = 0;
-      for (let l = t; l < this.totalQuotes; l++)
-        i += this.quoteData[l].width, l < this.totalQuotes - 1 && (i += this.gap);
-      return i <= this.containerWidth + 40;
+      for (let r = t; r < this.totalQuotes; r++)
+        i += this.quoteData[r].width, r < this.totalQuotes - 1 && (i += this.gap);
+      return i < this.containerWidth;
     }
     scrollToQuote(t) {
       if (t < 0 || t >= this.totalQuotes) return;
       this.currentIndex = t;
-      const r = this.quoteData[t].offsetLeft;
+      const a = this.quoteData[t].offsetLeft;
       this.container.scrollTo({
-        left: r,
+        left: a,
         behavior: "smooth"
       }), this.updateNavigationState(), setTimeout(() => {
         this.updateProgress();
       }, 50);
     }
     scrollToRightAlignment() {
-      const t = this.quoteData[this.totalQuotes - 1], r = t.offsetLeft + t.width - this.containerWidth;
+      const t = this.quoteData[this.totalQuotes - 1], a = t.offsetLeft + t.width - this.containerWidth;
       this.currentIndex = this.totalQuotes - 1, this.isAdaptiveAligning = !0, this.container.scrollTo({
-        left: Math.max(0, r),
+        left: Math.max(0, a),
         behavior: "smooth"
       }), this.updateNavigationState(), setTimeout(() => {
         this.updateProgress(), setTimeout(() => {
@@ -298,8 +310,8 @@ function tt() {
         return;
       const t = this.container.scrollLeft;
       for (let i = 0; i < this.totalQuotes; i++) {
-        const r = this.quoteData[i], a = r.offsetLeft, l = r.offsetLeft + r.width, d = t + this.containerWidth, u = Math.max(a, t), m = Math.min(l, d);
-        if (Math.max(0, m - u) / r.width >= 0.3 || a >= t && a < d) {
+        const a = this.quoteData[i], r = a.offsetLeft, l = a.offsetLeft + a.width, d = t + this.containerWidth, u = Math.max(r, t), m = Math.min(l, d);
+        if (Math.max(0, m - u) / a.width >= 0.3 || r >= t && r < d) {
           this.currentIndex !== i && (this.currentIndex = i, this.updateNavigationState(), this.updateProgress());
           break;
         }
@@ -312,7 +324,7 @@ function tt() {
     }
     updateNavigationState() {
       this.prevBtn.disabled = this.currentIndex <= 0, this.updateButtonStyle(this.prevBtn);
-      const t = this.currentIndex >= this.totalQuotes - 1 || this.isAtScrollEnd();
+      const t = this.currentIndex >= this.lastNavigableIndex || this.isAtScrollEnd();
       this.nextBtn.disabled = t, this.updateButtonStyle(this.nextBtn);
     }
     updateButtonStyle(t) {
@@ -325,7 +337,7 @@ function tt() {
     }
     updateProgress() {
       if (!this.progressFill) return;
-      const t = this.totalQuotes > 1 ? this.currentIndex / (this.totalQuotes - 1) * 100 : 0;
+      const t = this.lastNavigableIndex > 0 ? this.currentIndex / this.lastNavigableIndex * 100 : 0;
       this.progressFill.style.width = `${Math.min(100, Math.max(0, t))}%`;
     }
     // Public method to check if slider should be enabled
@@ -358,10 +370,10 @@ function et() {
     processRatingElements() {
       const n = document.querySelectorAll("[rating-value]");
       console.log(`⭐ Star Rating: Found ${n.length} elements`), n.forEach((e, t) => {
-        const i = e.getAttribute("rating-value"), r = this.snapToNearestTenth(parseFloat(i) || 0);
+        const i = e.getAttribute("rating-value"), a = this.snapToNearestTenth(parseFloat(i) || 0);
         e.innerHTML = "";
-        const a = this.createStarContainer(r);
-        e.appendChild(a), e.setAttribute("rating-value", r.toString());
+        const r = this.createStarContainer(a);
+        e.appendChild(r), e.setAttribute("rating-value", a.toString());
       });
     }
     snapToNearestTenth(n) {
@@ -389,8 +401,8 @@ function et() {
         position: relative;
         display: inline-block;
       `;
-      const i = this.getStarFillState(n, e), r = this.createStarSvg(i);
-      return t.appendChild(r), t;
+      const i = this.getStarFillState(n, e), a = this.createStarSvg(i);
+      return t.appendChild(a), t;
     }
     getStarFillState(n, e) {
       const t = n - 1;
@@ -421,21 +433,21 @@ function et() {
         const i = document.createElementNS(
           "http://www.w3.org/2000/svg",
           "defs"
-        ), r = document.createElementNS(
+        ), a = document.createElementNS(
           "http://www.w3.org/2000/svg",
           "linearGradient"
         );
-        r.setAttribute("id", t), r.setAttribute("gradientUnits", "objectBoundingBox"), r.setAttribute("x1", "0%"), r.setAttribute("y1", "0%"), r.setAttribute("x2", "100%"), r.setAttribute("y2", "0%");
-        const a = document.createElementNS(
+        a.setAttribute("id", t), a.setAttribute("gradientUnits", "objectBoundingBox"), a.setAttribute("x1", "0%"), a.setAttribute("y1", "0%"), a.setAttribute("x2", "100%"), a.setAttribute("y2", "0%");
+        const r = document.createElementNS(
           "http://www.w3.org/2000/svg",
           "stop"
         );
-        a.setAttribute("offset", `${e}%`), a.setAttribute("stop-color", "currentColor");
+        r.setAttribute("offset", `${e}%`), r.setAttribute("stop-color", "currentColor");
         const l = document.createElementNS(
           "http://www.w3.org/2000/svg",
           "stop"
         );
-        l.setAttribute("offset", `${e}%`), l.setAttribute("stop-color", "currentColor"), l.setAttribute("stop-opacity", "0.15"), r.appendChild(a), r.appendChild(l), i.appendChild(r), n.appendChild(i);
+        l.setAttribute("offset", `${e}%`), l.setAttribute("stop-color", "currentColor"), l.setAttribute("stop-opacity", "0.15"), a.appendChild(r), a.appendChild(l), i.appendChild(a), n.appendChild(i);
       }
     }
   }
@@ -507,9 +519,9 @@ function nt() {
     const e = document.createElement("select");
     e.className = "tabs-select";
     const t = document.createElement("option");
-    t.value = "", t.textContent = "Select a tab...", t.disabled = !0, e.appendChild(t), n.forEach((i, r) => {
-      const a = document.createElement("option");
-      a.value = r, a.textContent = i.textContent.trim() || `Tab ${r + 1}`, i.classList.contains("w--current") && (a.selected = !0, t.disabled = !1, t.selected = !1), e.appendChild(a);
+    t.value = "", t.textContent = "Select a tab...", t.disabled = !0, e.appendChild(t), n.forEach((i, a) => {
+      const r = document.createElement("option");
+      r.value = a, r.textContent = i.textContent.trim() || `Tab ${a + 1}`, i.classList.contains("w--current") && (r.selected = !0, t.disabled = !1, t.selected = !1), e.appendChild(r);
     }), e.addEventListener("change", function() {
       const i = parseInt(this.value);
       !isNaN(i) && n[i] && n[i].click();
@@ -573,23 +585,23 @@ function V() {
   s.length !== 0 && (console.log(
     `🎴 Tabbed Cards: Found ${s.length} containers`
   ), s.forEach((o) => {
-    rt(o);
+    at(o);
   }));
 }
-function rt(s) {
+function at(s) {
   const o = s.querySelector(".tabbed-cards-image"), n = s.querySelectorAll(".tabbed-card.w-dropdown");
-  !o || n.length === 0 || (at(n), lt(n, o), n.forEach((e, t) => {
+  !o || n.length === 0 || (rt(n), lt(n, o), n.forEach((e, t) => {
     ct(e, t, s, o);
   }), ht(n, o), ut());
 }
-function at(s) {
+function rt(s) {
   s.forEach((o, n) => {
     const t = o.querySelector(".tabbed-card-image-wrapper")?.querySelector("img");
     if (!t) return;
     const i = document.createElement("div");
     i.className = "tabbed-card-mobile-image", i.dataset.cardIndex = n;
-    const r = t.cloneNode(!0);
-    i.appendChild(r), o.parentNode.insertBefore(i, o.nextSibling);
+    const a = t.cloneNode(!0);
+    i.appendChild(a), o.parentNode.insertBefore(i, o.nextSibling);
   });
 }
 function lt(s, o) {
@@ -608,11 +620,11 @@ function ct(s, o, n, e) {
   if (!t) return;
   t.addEventListener("click", () => {
     t.getAttribute("aria-expanded") === "true" || (dt(s, n), setTimeout(() => {
-      Q(o, e), U(o, n);
+      W(o, e), Q(o, n);
     }, 100));
-  }), new MutationObserver((r) => {
-    r.forEach((a) => {
-      a.attributeName === "aria-expanded" && t.getAttribute("aria-expanded") === "true" && (Q(o, e), U(o, n));
+  }), new MutationObserver((a) => {
+    a.forEach((r) => {
+      r.attributeName === "aria-expanded" && t.getAttribute("aria-expanded") === "true" && (W(o, e), Q(o, n));
     });
   }).observe(t, {
     attributes: !0,
@@ -626,14 +638,14 @@ function dt(s, o) {
       t && t.getAttribute("aria-expanded") === "true" && (t.click(), setTimeout(() => {
         if (t.getAttribute("aria-expanded") === "true") {
           t.setAttribute("aria-expanded", "false");
-          const i = e.querySelector(".w-dropdown"), r = e.querySelector(".w-dropdown-list"), a = e.querySelector(".w-dropdown-toggle");
-          i?.classList.remove("w--open"), r?.classList.remove("w--open"), a?.classList.remove("w--open");
+          const i = e.querySelector(".w-dropdown"), a = e.querySelector(".w-dropdown-list"), r = e.querySelector(".w-dropdown-toggle");
+          i?.classList.remove("w--open"), a?.classList.remove("w--open"), r?.classList.remove("w--open");
         }
       }, 50));
     }
   });
 }
-function Q(s, o) {
+function W(s, o) {
   const n = o.querySelector(".tabbed-card-main-image");
   if (!n) return;
   const t = o.closest(".tabbed-cards").querySelectorAll(".tabbed-card.w-dropdown")[s];
@@ -643,7 +655,7 @@ function Q(s, o) {
     n.style.opacity = "1";
   });
 }
-function U(s, o) {
+function Q(s, o) {
   o.querySelectorAll(
     ".tabbed-card-mobile-image"
   ).forEach((t) => {
@@ -691,20 +703,20 @@ function ht(s, o) {
   const n = s[0], e = n.querySelector(".tabbed-card-toggler");
   e && (s.forEach((t, i) => {
     if (i !== 0) {
-      const r = t.querySelector(".tabbed-card-toggler");
-      r?.getAttribute("aria-expanded") === "true" && r.click();
+      const a = t.querySelector(".tabbed-card-toggler");
+      a?.getAttribute("aria-expanded") === "true" && a.click();
     }
   }), setTimeout(() => {
     e.getAttribute("aria-expanded") === "true" || (e.click(), setTimeout(() => {
       if (e.getAttribute("aria-expanded") !== "true") {
         e.setAttribute("aria-expanded", "true");
-        const i = n.querySelector(".w-dropdown"), r = n.querySelector(".w-dropdown-list"), a = n.querySelector(".w-dropdown-toggle");
-        i?.classList.add("w--open"), r?.classList.add("w--open"), a?.classList.add("w--open");
+        const i = n.querySelector(".w-dropdown"), a = n.querySelector(".w-dropdown-list"), r = n.querySelector(".w-dropdown-toggle");
+        i?.classList.add("w--open"), a?.classList.add("w--open"), r?.classList.add("w--open");
       }
-    }, 100)), Q(0, o), U(0, n.closest(".tabbed-cards"));
+    }, 100)), W(0, o), Q(0, n.closest(".tabbed-cards"));
   }, 200));
 }
-const N = {
+const M = {
   baseUrl: "https://pages.crunchbase.com",
   munchkinId: "976-JJA-800",
   cssUrl: "https://app-sj22.marketo.com/js/forms2/css/forms2.css",
@@ -716,12 +728,12 @@ let $ = {
 };
 function pt() {
   return new Promise((s) => {
-    if ($.css || document.querySelector(`link[href="${N.cssUrl}"]`)) {
+    if ($.css || document.querySelector(`link[href="${M.cssUrl}"]`)) {
       $.css = !0, s();
       return;
     }
     const o = document.createElement("link");
-    o.rel = "stylesheet", o.href = N.cssUrl, o.onload = () => {
+    o.rel = "stylesheet", o.href = M.cssUrl, o.onload = () => {
       $.css = !0, s();
     }, o.onerror = () => {
       console.error("❌ Failed to load Marketo CSS"), s();
@@ -735,7 +747,7 @@ function mt() {
       return;
     }
     const o = document.createElement("script");
-    o.src = N.jsUrl, o.onload = () => {
+    o.src = M.jsUrl, o.onload = () => {
       $.js = !0, s();
     }, o.onerror = () => {
       console.error("❌ Failed to load Marketo JS"), s();
@@ -753,7 +765,7 @@ function ft(s) {
   }
 }
 let z = 0;
-function W(s, o) {
+function U(s, o) {
   try {
     if (s.hasAttribute("data-marketo-initialized"))
       return;
@@ -762,16 +774,16 @@ function W(s, o) {
     s.innerHTML = "";
     const e = document.createElement("form");
     e.id = n, s.appendChild(e), s.setAttribute("data-marketo-initialized", "true"), s.setAttribute("data-marketo-unique-id", n), window.MktoForms2.loadForm(
-      N.baseUrl,
-      N.munchkinId,
+      M.baseUrl,
+      M.munchkinId,
       parseInt(o),
       function(t) {
         const i = t.getFormElem()[0];
         i && (e.parentNode.replaceChild(i, e), i.id = n), setTimeout(() => ft(t), 100);
-        const r = new CustomEvent("marketoFormLoaded", {
+        const a = new CustomEvent("marketoFormLoaded", {
           detail: { form: t, formId: o, container: s, uniqueId: n }
         });
-        s.dispatchEvent(r);
+        s.dispatchEvent(a);
       }
     );
   } catch (n) {
@@ -789,7 +801,7 @@ function gt() {
       return;
     }
     setTimeout(() => {
-      W(o, e);
+      U(o, e);
     }, n * 100);
   }));
 }
@@ -802,13 +814,13 @@ function bt() {
             if (e.nodeType === 1) {
               if (e.hasAttribute && e.hasAttribute("data-marketo-id")) {
                 const i = e.getAttribute("data-marketo-id");
-                setTimeout(() => W(e, i), 100);
+                setTimeout(() => U(e, i), 100);
               }
-              (e.querySelectorAll ? e.querySelectorAll("[data-marketo-id]") : []).forEach((i, r) => {
-                const a = i.getAttribute("data-marketo-id");
-                a && setTimeout(
-                  () => W(i, a),
-                  (r + 1) * 100
+              (e.querySelectorAll ? e.querySelectorAll("[data-marketo-id]") : []).forEach((i, a) => {
+                const r = i.getAttribute("data-marketo-id");
+                r && setTimeout(
+                  () => U(i, r),
+                  (a + 1) * 100
                 );
               });
             }
@@ -951,10 +963,10 @@ function yt() {
   ), o.forEach((e) => {
     const t = e, i = e.querySelector(
       ".related-item-collection-list"
-    ), r = e.querySelectorAll(".collection-item");
-    if (t && i && r.length > 0) {
-      const a = new s(t);
-      n.push(a);
+    ), a = e.querySelectorAll(".collection-item");
+    if (t && i && a.length > 0) {
+      const r = new s(t);
+      n.push(r);
     }
   }), window.relatedArticlesSliders = n, n;
 }
@@ -964,8 +976,8 @@ function wt() {
     if (!o)
       return;
     console.log("📖 Reading Time Estimate: Found rich text element");
-    const e = (o.textContent || o.innerText).trim().split(/\s+/).length, i = Math.ceil(e / 200), r = document.querySelector(".read-time-estimate");
-    r && (r.textContent = `${i} min read`), o.querySelectorAll("iframe").forEach((l) => {
+    const e = (o.textContent || o.innerText).trim().split(/\s+/).length, i = Math.ceil(e / 200), a = document.querySelector(".read-time-estimate");
+    a && (a.textContent = `${i} min read`), o.querySelectorAll("iframe").forEach((l) => {
       const d = l.getAttribute("src") || "";
       (d.includes("youtube.com") || d.includes("youtu.be")) && l.classList.add("youtube-iframe");
     });
@@ -985,23 +997,23 @@ function vt() {
         console.warn(`📚 Table of Contents: No target found for "${e}"`);
         return;
       }
-      const r = n.querySelectorAll("h2");
-      if (r.length === 0)
+      const a = n.querySelectorAll("h2");
+      if (a.length === 0)
         return;
-      let a = null, l = !1;
+      let r = null, l = !1;
       function d() {
         const w = document.createElement("ul");
-        r.forEach((x, g) => {
+        a.forEach((x, g) => {
           const k = document.createElement("li"), T = document.createElement("a"), R = x.textContent.trim();
           let I = x.getAttribute("id");
-          I || (I = R.toLowerCase().replace(/[^\w\s-]/g, "").replace(/\s+/g, "-").replace(/-+/g, "-").trim(), x.setAttribute("id", I)), T.href = `#${I}`, T.textContent = R, T.classList.add("toc-link"), T.dataset.tocId = e, g === 0 && (T.classList.add("active"), a = T), k.appendChild(T), w.appendChild(k);
+          I || (I = R.toLowerCase().replace(/[^\w\s-]/g, "").replace(/\s+/g, "-").replace(/-+/g, "-").trim(), x.setAttribute("id", I)), T.href = `#${I}`, T.textContent = R, T.classList.add("toc-link"), T.dataset.tocId = e, g === 0 && (T.classList.add("active"), r = T), k.appendChild(T), w.appendChild(k);
         }), t.innerHTML = "", t.appendChild(w);
       }
       d();
       const u = t.querySelectorAll(".toc-link");
       function m(w) {
-        l || a === w || (l = !0, requestAnimationFrame(() => {
-          a && a.classList.remove("active"), w && w.classList.add("active"), a = w, l = !1;
+        l || r === w || (l = !0, requestAnimationFrame(() => {
+          r && r.classList.remove("active"), w && w.classList.add("active"), r = w, l = !1;
         }));
       }
       u.forEach((w) => {
@@ -1019,15 +1031,15 @@ function vt() {
         y || (y = !0, requestAnimationFrame(() => {
           const w = window.scrollY;
           let x = null;
-          for (let g = r.length - 1; g >= 0; g--) {
-            const k = r[g], T = k.offsetTop;
+          for (let g = a.length - 1; g >= 0; g--) {
+            const k = a[g], T = k.offsetTop;
             if (w >= T - 100) {
               x = k;
               break;
             }
           }
-          if (!x && r.length > 0) {
-            const g = r[0];
+          if (!x && a.length > 0) {
+            const g = a[0];
             w < g.offsetTop - 100 && (x = g);
           }
           if (x) {
@@ -1065,21 +1077,21 @@ function St() {
   }), o.forEach((e, t) => {
     const i = document.querySelectorAll(
       `[data-tab-container="${e}"]`
-    ), r = t === 0;
-    i.forEach((a) => {
-      a.style.display = r ? "block" : "none", a.setAttribute("aria-hidden", r ? "false" : "true");
+    ), a = t === 0;
+    i.forEach((r) => {
+      r.style.display = a ? "block" : "none", r.setAttribute("aria-hidden", a ? "false" : "true");
     });
   });
 }
 function Ct(s, o, n) {
   if (o.length === 0) return;
   const e = `hero-tabs-${n}`, t = `${e}-tablist`;
-  s.getAttribute("role") || s.setAttribute("role", "tablist"), s.getAttribute("id") || s.setAttribute("id", t), s.getAttribute("aria-label") || s.setAttribute("aria-label", "Tab navigation"), o.forEach((i, r) => {
-    const a = i.getAttribute("data-tab-for"), l = document.querySelector(
-      `[data-tab-container="${a}"]`
+  s.getAttribute("role") || s.setAttribute("role", "tablist"), s.getAttribute("id") || s.setAttribute("id", t), s.getAttribute("aria-label") || s.setAttribute("aria-label", "Tab navigation"), o.forEach((i, a) => {
+    const r = i.getAttribute("data-tab-for"), l = document.querySelector(
+      `[data-tab-container="${r}"]`
     );
     if (!l) return;
-    const d = `${e}-tab-${r}`, u = `${e}-panel-${r}`;
+    const d = `${e}-tab-${a}`, u = `${e}-panel-${a}`;
     i.getAttribute("role") || i.setAttribute("role", "tab"), i.getAttribute("id") || i.setAttribute("id", d), i.setAttribute("aria-controls", u);
     const m = l.style.display !== "none";
     i.setAttribute("tabindex", m ? "0" : "-1"), i.setAttribute("aria-selected", m ? "true" : "false"), i.classList.toggle("hero-tabs-item-active", m), l.setAttribute("role", "tabpanel"), l.setAttribute("id", u), l.setAttribute(
@@ -1089,7 +1101,7 @@ function Ct(s, o, n) {
       y.preventDefault(), J(i.getAttribute("data-tab-for"), s);
     }), i.addEventListener(
       "keydown",
-      (y) => At(y, s, o, r)
+      (y) => At(y, s, o, a)
     ), i.addEventListener("focus", () => {
       i.scrollIntoView({ behavior: "smooth", block: "nearest" });
     });
@@ -1098,12 +1110,12 @@ function Ct(s, o, n) {
 function J(s, o = null) {
   const n = document.querySelectorAll("[data-tab-for]"), e = document.querySelectorAll("[data-tab-container]");
   let t = null, i = null;
-  e.forEach((r) => {
-    const l = r.getAttribute("data-tab-container") === s;
-    r.style.display = l ? "block" : "none", r.setAttribute("aria-hidden", l ? "false" : "true");
-  }), n.forEach((r) => {
-    const l = r.getAttribute("data-tab-for") === s;
-    r.classList.toggle("hero-tabs-item-active", l), r.setAttribute("aria-selected", l ? "true" : "false"), r.setAttribute("tabindex", l ? "0" : "-1"), l && (t = r, o && (r.closest('[role="tablist"]') === o || r.closest(".hero-tabs") === o || r.closest(".pricing-card-toggle") === o || r.parentElement === o) && (i = r));
+  e.forEach((a) => {
+    const l = a.getAttribute("data-tab-container") === s;
+    a.style.display = l ? "block" : "none", a.setAttribute("aria-hidden", l ? "false" : "true");
+  }), n.forEach((a) => {
+    const l = a.getAttribute("data-tab-for") === s;
+    a.classList.toggle("hero-tabs-item-active", l), a.setAttribute("aria-selected", l ? "true" : "false"), a.setAttribute("tabindex", l ? "0" : "-1"), l && (t = a, o && (a.closest('[role="tablist"]') === o || a.closest(".hero-tabs") === o || a.closest(".pricing-card-toggle") === o || a.parentElement === o) && (i = a));
   }), t && Et(t), i && i.focus();
 }
 function At(s, o, n, e) {
@@ -1200,24 +1212,24 @@ function Tt() {
     );
     return;
   }
-  const r = Array.from(i.querySelectorAll(o)).map(
+  const a = Array.from(i.querySelectorAll(o)).map(
     (c) => {
       const h = c.closest(".w-dyn-item");
       return { card: c, parent: h };
     }
   );
-  if (r.length === 0) {
+  if (a.length === 0) {
     console.warn(
       `⚠️ Case Study Filter: No cards found with selector "${o}"`
     );
     return;
   }
-  console.log(`📊 Case Study Filter: Found ${r.length} cards`);
-  const a = document.querySelector(`[${e}]`);
-  a || console.warn(
+  console.log(`📊 Case Study Filter: Found ${a.length} cards`);
+  const r = document.querySelector(`[${e}]`);
+  r || console.warn(
     `⚠️ Case Study Filter: Scroll container with attribute "${e}" not found. Using default.`
   );
-  const l = a ? a.getAttribute(e) : null, d = l ? parseInt(l, 10) : 12;
+  const l = r ? r.getAttribute(e) : null, d = l ? parseInt(l, 10) : 12;
   console.log(`📄 Case Study Filter: Items per page: ${d}`);
   let u = 1, m = i.parentElement?.querySelector(
     `.${t}`
@@ -1268,12 +1280,12 @@ function Tt() {
   function T() {
     return Object.values(y).every((c) => c === "");
   }
-  D(Math.ceil(r.length / d));
+  P(Math.ceil(a.length / d));
   function R(c, h) {
     const C = `data-filter-${h}`;
     console.log(`🔧 Setting up filter: ${h} (${C})`);
     const b = /* @__PURE__ */ new Set();
-    r.forEach(({ card: p }) => {
+    a.forEach(({ card: p }) => {
       if (h === "use-case") {
         const f = p.querySelector('[fs-list-nest="use-cases"]');
         f && f.querySelectorAll(
@@ -1298,37 +1310,37 @@ function Tt() {
       const f = document.createElement("option");
       f.value = p, f.textContent = p, c.appendChild(f);
     }), c.addEventListener("change", function() {
-      y[h] = this.value, console.log(`🔄 Filter changed: ${h} = "${this.value}"`), this.value ? this.style.color = "var(--_colors---primary--dark-blue)" : this.style.color = "", u = 1, T() ? (console.log("🔄 All filters reset, reapplying CSS pagination"), k(), r.forEach(({ card: p, parent: f }) => {
+      y[h] = this.value, console.log(`🔄 Filter changed: ${h} = "${this.value}"`), this.value ? this.style.color = "var(--_colors---primary--dark-blue)" : this.style.color = "", u = 1, T() ? (console.log("🔄 All filters reset, reapplying CSS pagination"), k(), a.forEach(({ card: p, parent: f }) => {
         const E = f || p;
         E.style.display = "";
-      }), D(Math.ceil(r.length / d))) : (g(), I());
+      }), P(Math.ceil(a.length / d))) : (g(), I());
     });
   }
   function I() {
     console.log("🎯 Applying filters:", y);
     const c = [];
-    r.forEach(({ card: E, parent: L }) => {
+    a.forEach(({ card: E, parent: L }) => {
       let A = !0;
       for (const [B, q] of Object.entries(y)) {
         if (!q) continue;
-        let M = !1;
+        let N = !1;
         if (B === "use-case") {
-          const P = E.querySelector('[fs-list-nest="use-cases"]');
-          if (P) {
-            const j = P.querySelectorAll(
+          const D = E.querySelector('[fs-list-nest="use-cases"]');
+          if (D) {
+            const j = D.querySelectorAll(
               '[role="listitem"].w-dyn-item'
             );
             for (const K of j)
               if (K.textContent.trim() === q) {
-                M = !0;
+                N = !0;
                 break;
               }
           }
         } else {
-          const P = `data-filter-${B}`;
-          M = E.getAttribute(P) === q;
+          const D = `data-filter-${B}`;
+          N = E.getAttribute(D) === q;
         }
-        if (!M) {
+        if (!N) {
           A = !1;
           break;
         }
@@ -1342,18 +1354,18 @@ function Tt() {
       `📄 Pagination: Page ${u}/${C}, showing items ${b + 1}-${Math.min(v, h)} of ${h}`
     );
     let S = 0, p = 0;
-    r.forEach(({ card: E, parent: L }) => {
-      const A = c.findIndex((M) => M.card === E), B = A >= 0 && A >= b && A < v, q = L || E;
+    a.forEach(({ card: E, parent: L }) => {
+      const A = c.findIndex((N) => N.card === E), B = A >= 0 && A >= b && A < v, q = L || E;
       B ? (q.style.display = "", S++) : (q.style.display = "none", p++);
     }), console.log(
       `✅ Filter applied: ${S} visible, ${p} hidden`
-    ), D(C);
+    ), P(C);
     const f = new CustomEvent("caseStudyFiltersApplied", {
       detail: {
         activeFilters: y,
         visibleCount: S,
         hiddenCount: p,
-        totalCount: r.length,
+        totalCount: a.length,
         currentPage: u,
         totalPages: C,
         totalFilteredItems: h
@@ -1361,7 +1373,7 @@ function Tt() {
     });
     document.dispatchEvent(f);
   }
-  function D(c) {
+  function P(c) {
     if (c <= 1) {
       m.style.display = "none";
       return;
@@ -1424,7 +1436,7 @@ function Tt() {
     );
     h && h.addEventListener("click", (b) => {
       b.preventDefault(), g();
-      const v = r.filter(({ card: p }) => {
+      const v = a.filter(({ card: p }) => {
         for (const [f, E] of Object.entries(
           y
         )) {
@@ -1464,7 +1476,7 @@ function Tt() {
     });
   }
   function O() {
-    a && a.scrollIntoView({ behavior: "smooth", block: "start" });
+    r && r.scrollIntoView({ behavior: "smooth", block: "start" });
   }
   console.log("✅ Case Study Filter: Complete");
 }
@@ -1482,9 +1494,9 @@ function kt() {
   ), s.forEach((o, n) => {
     const e = o.querySelector("[post-card-author-pos]"), t = o.querySelector(
       "[post-card-author-company]"
-    ), i = o.querySelector("[post-card-author-sep]"), r = o.querySelector("[post-card-author-of]"), a = e && e.textContent.trim() !== "", l = t && t.textContent.trim() !== "";
-    a || (i && (i.style.display = "none"), e && (e.style.display = "none")), l || (r && (r.style.display = "none"), t && (t.style.display = "none")), console.log(
-      `  ${n + 1}. Position: ${a ? "✓" : "✗"}, Company: ${l ? "✓" : "✗"}`
+    ), i = o.querySelector("[post-card-author-sep]"), a = o.querySelector("[post-card-author-of]"), r = e && e.textContent.trim() !== "", l = t && t.textContent.trim() !== "";
+    r || (i && (i.style.display = "none"), e && (e.style.display = "none")), l || (a && (a.style.display = "none"), t && (t.style.display = "none")), console.log(
+      `  ${n + 1}. Position: ${r ? "✓" : "✗"}, Company: ${l ? "✓" : "✗"}`
     );
   }), console.log("✅ Post Card Attribution: Complete");
 }
