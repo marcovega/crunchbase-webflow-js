@@ -456,9 +456,9 @@ export function initCaseStudyFilter() {
     if (prevButton) {
       prevButton.addEventListener("click", (e) => {
         e.preventDefault();
-        // Remove initial CSS hide rule (JS takes over)
-        removeInitialHide();
         if (currentPage > 1) {
+          // Remove initial CSS hide rule (JS takes over)
+          removeInitialHide();
           currentPage--;
           applyFilters();
           scrollToTop();

@@ -1429,7 +1429,7 @@ function Tt() {
       "[data-pagination-prev]"
     );
     c && c.addEventListener("click", (b) => {
-      b.preventDefault(), g(), u > 1 && (u--, I(), O());
+      b.preventDefault(), u > 1 && (g(), u--, I(), O());
     });
     const h = m.querySelector(
       "[data-pagination-next]"
