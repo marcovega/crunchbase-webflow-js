@@ -526,9 +526,9 @@ function nt() {
       const i = parseInt(this.value);
       !isNaN(i) && n[i] && n[i].click();
     }), o.insertBefore(e, o.firstChild);
-  }), st());
+  }), ot());
 }
-function st() {
+function ot() {
   if (document.getElementById("tabs-select-styles")) return;
   const s = document.createElement("style");
   s.id = "tabs-select-styles", s.textContent = `
@@ -577,7 +577,7 @@ function st() {
     }
   `, document.head.appendChild(s);
 }
-function ot() {
+function st() {
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", V) : V();
 }
 function V() {
@@ -1005,8 +1005,8 @@ function vt() {
         const w = document.createElement("ul");
         a.forEach((x, g) => {
           const k = document.createElement("li"), T = document.createElement("a"), R = x.textContent.trim();
-          let I = x.getAttribute("id");
-          I || (I = R.toLowerCase().replace(/[^\w\s-]/g, "").replace(/\s+/g, "-").replace(/-+/g, "-").trim(), x.setAttribute("id", I)), T.href = `#${I}`, T.textContent = R, T.classList.add("toc-link"), T.dataset.tocId = e, g === 0 && (T.classList.add("active"), r = T), k.appendChild(T), w.appendChild(k);
+          let L = x.getAttribute("id");
+          L || (L = R.toLowerCase().replace(/[^\w\s-]/g, "").replace(/\s+/g, "-").replace(/-+/g, "-").trim(), x.setAttribute("id", L)), T.href = `#${L}`, T.textContent = R, T.classList.add("toc-link"), T.dataset.tocId = e, g === 0 && (T.classList.add("active"), r = T), k.appendChild(T), w.appendChild(k);
         }), t.innerHTML = "", t.appendChild(w);
       }
       d();
@@ -1244,7 +1244,7 @@ function Tt() {
   if (F.length === 0) {
     console.warn(
       `⚠️ Case Study Filter: No filter controls found with attribute "${n}"`
-    ), I(), console.log("✅ Case Study Filter: Complete (pagination only, no filters)");
+    ), L(), console.log("✅ Case Study Filter: Complete (pagination only, no filters)");
     return;
   }
   console.log(
@@ -1280,7 +1280,7 @@ function Tt() {
   function T() {
     return Object.values(y).every((c) => c === "");
   }
-  P(Math.ceil(a.length / d));
+  D(Math.ceil(a.length / d));
   function R(c, h) {
     const C = `data-filter-${h}`;
     console.log(`🔧 Setting up filter: ${h} (${C})`);
@@ -1290,8 +1290,8 @@ function Tt() {
         const f = p.querySelector('[fs-list-nest="use-cases"]');
         f && f.querySelectorAll(
           '[role="listitem"].w-dyn-item'
-        ).forEach((L) => {
-          const A = L.textContent.trim();
+        ).forEach((I) => {
+          const A = I.textContent.trim();
           A && b.add(A);
         });
       } else {
@@ -1313,39 +1313,39 @@ function Tt() {
       y[h] = this.value, console.log(`🔄 Filter changed: ${h} = "${this.value}"`), this.value ? this.style.color = "var(--_colors---primary--dark-blue)" : this.style.color = "", u = 1, T() ? (console.log("🔄 All filters reset, reapplying CSS pagination"), k(), a.forEach(({ card: p, parent: f }) => {
         const E = f || p;
         E.style.display = "";
-      }), P(Math.ceil(a.length / d))) : (g(), I());
+      }), D(Math.ceil(a.length / d))) : (g(), L());
     });
   }
-  function I() {
+  function L() {
     console.log("🎯 Applying filters:", y);
     const c = [];
-    a.forEach(({ card: E, parent: L }) => {
+    a.forEach(({ card: E, parent: I }) => {
       let A = !0;
-      for (const [B, q] of Object.entries(y)) {
+      for (const [N, q] of Object.entries(y)) {
         if (!q) continue;
-        let N = !1;
-        if (B === "use-case") {
-          const D = E.querySelector('[fs-list-nest="use-cases"]');
-          if (D) {
-            const j = D.querySelectorAll(
+        let B = !1;
+        if (N === "use-case") {
+          const P = E.querySelector('[fs-list-nest="use-cases"]');
+          if (P) {
+            const j = P.querySelectorAll(
               '[role="listitem"].w-dyn-item'
             );
             for (const K of j)
               if (K.textContent.trim() === q) {
-                N = !0;
+                B = !0;
                 break;
               }
           }
         } else {
-          const D = `data-filter-${B}`;
-          N = E.getAttribute(D) === q;
+          const P = `data-filter-${N}`;
+          B = E.getAttribute(P) === q;
         }
-        if (!N) {
+        if (!B) {
           A = !1;
           break;
         }
       }
-      A && c.push({ card: E, parent: L });
+      A && c.push({ card: E, parent: I });
     });
     const h = c.length, C = Math.ceil(h / d);
     u > C && C > 0 && (u = C), u < 1 && (u = 1);
@@ -1354,12 +1354,12 @@ function Tt() {
       `📄 Pagination: Page ${u}/${C}, showing items ${b + 1}-${Math.min(v, h)} of ${h}`
     );
     let S = 0, p = 0;
-    a.forEach(({ card: E, parent: L }) => {
-      const A = c.findIndex((N) => N.card === E), B = A >= 0 && A >= b && A < v, q = L || E;
-      B ? (q.style.display = "", S++) : (q.style.display = "none", p++);
+    a.forEach(({ card: E, parent: I }) => {
+      const A = c.findIndex((B) => B.card === E), N = A >= 0 && A >= b && A < v, q = I || E;
+      N ? (q.style.display = "", S++) : (q.style.display = "none", p++);
     }), console.log(
       `✅ Filter applied: ${S} visible, ${p} hidden`
-    ), P(C);
+    ), D(C);
     const f = new CustomEvent("caseStudyFiltersApplied", {
       detail: {
         activeFilters: y,
@@ -1373,7 +1373,7 @@ function Tt() {
     });
     document.dispatchEvent(f);
   }
-  function P(c) {
+  function D(c) {
     if (c <= 1) {
       m.style.display = "none";
       return;
@@ -1429,7 +1429,7 @@ function Tt() {
       "[data-pagination-prev]"
     );
     c && c.addEventListener("click", (b) => {
-      b.preventDefault(), u > 1 && (g(), u--, I(), O());
+      b.preventDefault(), u > 1 && (g(), u--, L(), O());
     });
     const h = m.querySelector(
       "[data-pagination-next]"
@@ -1441,37 +1441,37 @@ function Tt() {
           y
         )) {
           if (!E) continue;
-          let L = !1;
+          let I = !1;
           if (f === "use-case") {
             const A = p.querySelector(
               '[fs-list-nest="use-cases"]'
             );
             if (A) {
-              const B = A.querySelectorAll(
+              const N = A.querySelectorAll(
                 '[role="listitem"].w-dyn-item'
               );
-              for (const q of B)
+              for (const q of N)
                 if (q.textContent.trim() === E) {
-                  L = !0;
+                  I = !0;
                   break;
                 }
             }
           } else {
             const A = `data-filter-${f}`;
-            L = p.getAttribute(A) === E;
+            I = p.getAttribute(A) === E;
           }
-          if (!L) return !1;
+          if (!I) return !1;
         }
         return !0;
       }).length, S = Math.ceil(v / d);
-      u < S && (u++, I(), O());
+      u < S && (u++, L(), O());
     }), m.querySelectorAll(
       "[data-pagination-page]"
     ).forEach((b) => {
       b.addEventListener("click", (v) => {
         v.preventDefault(), g();
         const S = parseInt(b.getAttribute("data-pagination-page"), 10);
-        S !== u && (u = S, I(), O());
+        S !== u && (u = S, L(), O());
       });
     });
   }
@@ -1500,6 +1500,38 @@ function kt() {
     );
   }), console.log("✅ Post Card Attribution: Complete");
 }
+function Lt() {
+  console.log("🚀 Topics Navigation: Starting...");
+  const s = document.querySelectorAll(".topics-bar-select");
+  if (s.length === 0) {
+    console.log("ℹ️ Topics Navigation: No .topics-bar-select elements found");
+    return;
+  }
+  s.forEach((o) => {
+    try {
+      const n = o.closest("*")?.parentElement?.querySelector(".w-dyn-list") || document.querySelector(".w-dyn-list");
+      if (!n) {
+        console.warn("⚠️ Topics Navigation: No .w-dyn-list found near select");
+        return;
+      }
+      const e = n.querySelectorAll(".w-dyn-item a[href]");
+      if (e.length === 0) {
+        console.warn("⚠️ Topics Navigation: No topic links found in collection list");
+        return;
+      }
+      const t = document.createElement("option");
+      t.value = "", t.textContent = "Select a topic...", t.disabled = !0, t.selected = !0, o.appendChild(t), e.forEach((i) => {
+        const a = document.createElement("option");
+        a.value = i.getAttribute("href"), a.textContent = i.textContent.trim(), o.appendChild(a);
+      }), console.log(`✅ Topics Navigation: Populated select with ${e.length} topics`), o.addEventListener("change", (i) => {
+        const a = i.target.value;
+        a && (console.log(`🔗 Topics Navigation: Navigating to ${a}`), window.location.href = a);
+      }), n.remove(), console.log("🗑️ Topics Navigation: Removed source collection list");
+    } catch (n) {
+      console.error("❌ Topics Navigation: Error processing select", n);
+    }
+  }), console.log("✅ Topics Navigation: Complete");
+}
 const G = {
   demo: Y,
   logoSlider: Z,
@@ -1507,14 +1539,15 @@ const G = {
   starRating: et,
   comparisonTableToggler: it,
   tabsSelect: nt,
-  tabbedCards: ot,
+  tabbedCards: st,
   marketoForms: bt,
   relatedArticlesSlider: yt,
   readingTimeEstimate: wt,
   tableOfContents: vt,
   heroTabs: xt,
   caseStudyFilter: Tt,
-  postCardAttribution: kt
+  postCardAttribution: kt,
+  topicsNavigation: Lt
   // Add more features here as you create them
   // myFeature: initMyFeature,
 };
@@ -1563,7 +1596,9 @@ function _() {
     // Hero tabs with accessibility features
     "caseStudyFilter",
     // Case study filtering system
-    "postCardAttribution"
+    "postCardAttribution",
     // Post card author metadata visibility
+    "topicsNavigation"
+    // Topics navigation dropdown from collection lists
   ]);
 }
