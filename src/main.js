@@ -50,6 +50,7 @@ function runCrunchbaseCode() {
     "heroTabs", // Hero tabs with accessibility features
     "caseStudyFilter", // Case study filtering system
     "postCardAttribution", // Post card author metadata visibility
+    "topicsNavigation", // Topics navigation dropdown from collection lists
   ]); // Can add "demo" to enable demo feature.
 
   // Development indicator and live reload

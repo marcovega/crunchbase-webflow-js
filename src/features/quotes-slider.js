@@ -121,6 +121,40 @@ export function initQuotesSlider() {
 
         return data;
       });
+
+      // Calculate the last navigable index
+      // This is the last position where we can scroll without hitting the end
+      this.lastNavigableIndex = this.calculateLastNavigableIndex();
+    }
+
+    calculateLastNavigableIndex() {
+      // Calculate the total content width
+      const lastCard = this.quoteData[this.totalQuotes - 1];
+      const totalContentWidth = lastCard.offsetLeft + lastCard.width;
+      
+      // The maximum scroll position is where the right edge of content aligns with right edge of viewport
+      const maxScrollLeft = totalContentWidth - this.containerWidth;
+      
+      // If everything fits in the viewport, there's no scrolling needed
+      if (maxScrollLeft <= 0) {
+        return 0;
+      }
+      
+      // Find the last card that, when scrolled to, doesn't exceed the max scroll position
+      // Add a tolerance buffer to handle edge cases with gaps and rounding
+      const tolerance = 50; // Allow some flexibility for the last card
+      
+      for (let i = this.totalQuotes - 1; i >= 0; i--) {
+        const cardOffsetLeft = this.quoteData[i].offsetLeft;
+        
+        // If this card's position is at or before the max scroll position (with tolerance),
+        // it's a valid navigation target
+        if (cardOffsetLeft <= maxScrollLeft + tolerance) {
+          return i;
+        }
+      }
+      
+      return 0;
     }
 
     createNavigation() {
@@ -336,6 +370,12 @@ export function initQuotesSlider() {
     }
 
     shouldUseAdaptiveAlignment(targetIndex) {
+      // Only consider adaptive alignment if we're close to the end
+      // Ensure at least 2 navigation steps before the last card
+      if (targetIndex < this.totalQuotes - 2) {
+        return false;
+      }
+
       // Calculate total width from target quote to the end
       let totalRemainingWidth = 0;
 
@@ -346,10 +386,9 @@ export function initQuotesSlider() {
         }
       }
 
-      // If remaining content is less than container width + buffer, use right alignment
-      // Buffer of 40px ensures we don't leave tiny gaps at the end
-      const buffer = 40;
-      const shouldAdapt = totalRemainingWidth <= this.containerWidth + buffer;
+      // If remaining content is less than container width (meaning it would leave whitespace)
+      // use right alignment. No buffer needed - we check for actual remaining cards above.
+      const shouldAdapt = totalRemainingWidth < this.containerWidth;
 
       return shouldAdapt;
     }
@@ -476,9 +515,9 @@ export function initQuotesSlider() {
       this.prevBtn.disabled = this.currentIndex <= 0;
       this.updateButtonStyle(this.prevBtn);
 
-      // For next button, check if we're at the end (either by index or scroll position)
+      // For next button, check if we're at the last navigable position or scroll end
       const isAtEnd =
-        this.currentIndex >= this.totalQuotes - 1 || this.isAtScrollEnd();
+        this.currentIndex >= this.lastNavigableIndex || this.isAtScrollEnd();
       this.nextBtn.disabled = isAtEnd;
       this.updateButtonStyle(this.nextBtn);
     }
@@ -511,11 +550,11 @@ export function initQuotesSlider() {
       // Only update progress if progress bar exists (desktop only)
       if (!this.progressFill) return;
 
-      // Calculate progress based on current quote index vs total quotes
-      // This gives more predictable and smooth progress indication
+      // Calculate progress based on current index vs last navigable index
+      // This ensures progress reaches 100% at the actual end position
       const progress =
-        this.totalQuotes > 1
-          ? (this.currentIndex / (this.totalQuotes - 1)) * 100
+        this.lastNavigableIndex > 0
+          ? (this.currentIndex / this.lastNavigableIndex) * 100
           : 0;
 
       this.progressFill.style.width = `${Math.min(100, Math.max(0, progress))}%`;

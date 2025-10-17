@@ -19,6 +19,7 @@ import initTableOfContents from "./table-of-contents.js";
 import initHeroTabs from "./hero-tabs.js";
 import initCaseStudyFilter from "./case-study-filter.js";
 import initPostCardAttribution from "./post-card-attribution.js";
+import initTopicsNavigation from "./topics-navigation.js";
 
 // Export all features
 export {
@@ -36,6 +37,7 @@ export {
   initHeroTabs,
   initCaseStudyFilter,
   initPostCardAttribution,
+  initTopicsNavigation,
 };
 
 // Feature registry for easy enable/disable
@@ -54,6 +56,7 @@ export const features = {
   heroTabs: initHeroTabs,
   caseStudyFilter: initCaseStudyFilter,
   postCardAttribution: initPostCardAttribution,
+  topicsNavigation: initTopicsNavigation,
   // Add more features here as you create them
   // myFeature: initMyFeature,
 };
