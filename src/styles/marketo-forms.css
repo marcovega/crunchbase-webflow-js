@@ -168,3 +168,12 @@
   );
   color: var(--_colors---components--button--primary--color-hover);
 }
+
+@media only screen and (max-width: 480px) {
+  .mktoForm input[type=url], .mktoForm input[type=text],
+  .mktoForm input[type=date], .mktoForm input[type=tel],
+  .mktoForm input[type=email], .mktoForm input[type=number],
+  .mktoForm textarea.mktoField, .mktoForm select.mktoField {
+      height: auto !important;
+  }
+}
