@@ -51,6 +51,7 @@ function runCrunchbaseCode() {
     "caseStudyFilter", // Case study filtering system
     "postCardAttribution", // Post card author metadata visibility
     "topicsNavigation", // Topics navigation dropdown from collection lists
+    "searchPopup", // Full-screen search popup modal
   ]); // Can add "demo" to enable demo feature.
 
   // Development indicator and live reload

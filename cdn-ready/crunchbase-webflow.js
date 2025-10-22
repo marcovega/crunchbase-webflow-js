@@ -156,15 +156,15 @@ function tt() {
       const i = window.matchMedia("(max-width: 991px)").matches;
       let a = 0;
       this.quoteData = this.quotes.map((r, l) => {
-        let d;
-        i ? (d = this.containerWidth, r.style.width = `${this.containerWidth}px`) : r.classList.contains("quote-card-featured") ? (d = 862, r.style.width = "862px") : r.classList.contains("quote-card") ? (d = 410, r.style.width = "410px") : d = r.getBoundingClientRect().width;
+        let c;
+        i ? (c = this.containerWidth, r.style.width = `${this.containerWidth}px`) : r.classList.contains("quote-card-featured") ? (c = 862, r.style.width = "862px") : r.classList.contains("quote-card") ? (c = 410, r.style.width = "410px") : c = r.getBoundingClientRect().width;
         const u = {
           element: r,
-          width: d,
+          width: c,
           offsetLeft: a,
           index: l
         };
-        return a += d + (l < this.totalQuotes - 1 ? this.gap : 0), u;
+        return a += c + (l < this.totalQuotes - 1 ? this.gap : 0), u;
       }), this.lastNavigableIndex = this.calculateLastNavigableIndex();
     }
     calculateLastNavigableIndex() {
@@ -310,8 +310,8 @@ function tt() {
         return;
       const t = this.container.scrollLeft;
       for (let i = 0; i < this.totalQuotes; i++) {
-        const a = this.quoteData[i], r = a.offsetLeft, l = a.offsetLeft + a.width, d = t + this.containerWidth, u = Math.max(r, t), m = Math.min(l, d);
-        if (Math.max(0, m - u) / a.width >= 0.3 || r >= t && r < d) {
+        const a = this.quoteData[i], r = a.offsetLeft, l = a.offsetLeft + a.width, c = t + this.containerWidth, u = Math.max(r, t), p = Math.min(l, c);
+        if (Math.max(0, p - u) / a.width >= 0.3 || r >= t && r < c) {
           this.currentIndex !== i && (this.currentIndex = i, this.updateNavigationState(), this.updateProgress());
           break;
         }
@@ -578,9 +578,9 @@ function ot() {
   `, document.head.appendChild(s);
 }
 function st() {
-  document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", V) : V();
+  document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", z) : z();
 }
-function V() {
+function z() {
   const s = document.querySelectorAll(".tabbed-cards");
   s.length !== 0 && (console.log(
     `🎴 Tabbed Cards: Found ${s.length} containers`
@@ -620,11 +620,11 @@ function ct(s, o, n, e) {
   if (!t) return;
   t.addEventListener("click", () => {
     t.getAttribute("aria-expanded") === "true" || (dt(s, n), setTimeout(() => {
-      W(o, e), Q(o, n);
+      W(o, e), U(o, n);
     }, 100));
   }), new MutationObserver((a) => {
     a.forEach((r) => {
-      r.attributeName === "aria-expanded" && t.getAttribute("aria-expanded") === "true" && (W(o, e), Q(o, n));
+      r.attributeName === "aria-expanded" && t.getAttribute("aria-expanded") === "true" && (W(o, e), U(o, n));
     });
   }).observe(t, {
     attributes: !0,
@@ -655,7 +655,7 @@ function W(s, o) {
     n.style.opacity = "1";
   });
 }
-function Q(s, o) {
+function U(s, o) {
   o.querySelectorAll(
     ".tabbed-card-mobile-image"
   ).forEach((t) => {
@@ -713,7 +713,7 @@ function ht(s, o) {
         const i = n.querySelector(".w-dropdown"), a = n.querySelector(".w-dropdown-list"), r = n.querySelector(".w-dropdown-toggle");
         i?.classList.add("w--open"), a?.classList.add("w--open"), r?.classList.add("w--open");
       }
-    }, 100)), W(0, o), Q(0, n.closest(".tabbed-cards"));
+    }, 100)), W(0, o), U(0, n.closest(".tabbed-cards"));
   }, 200));
 }
 const M = {
@@ -764,13 +764,13 @@ function ft(s) {
     console.error("❌ Error applying layout:", o);
   }
 }
-let z = 0;
-function U(s, o) {
+let H = 0;
+function Q(s, o) {
   try {
     if (s.hasAttribute("data-marketo-initialized"))
       return;
-    z++;
-    const n = `mktoForm_${o}_${z}`;
+    H++;
+    const n = `mktoForm_${o}_${H}`;
     s.innerHTML = "";
     const e = document.createElement("form");
     e.id = n, s.appendChild(e), s.setAttribute("data-marketo-initialized", "true"), s.setAttribute("data-marketo-unique-id", n), window.MktoForms2.loadForm(
@@ -801,7 +801,7 @@ function gt() {
       return;
     }
     setTimeout(() => {
-      U(o, e);
+      Q(o, e);
     }, n * 100);
   }));
 }
@@ -814,12 +814,12 @@ function bt() {
             if (e.nodeType === 1) {
               if (e.hasAttribute && e.hasAttribute("data-marketo-id")) {
                 const i = e.getAttribute("data-marketo-id");
-                setTimeout(() => U(e, i), 100);
+                setTimeout(() => Q(e, i), 100);
               }
               (e.querySelectorAll ? e.querySelectorAll("[data-marketo-id]") : []).forEach((i, a) => {
                 const r = i.getAttribute("data-marketo-id");
                 r && setTimeout(
-                  () => U(i, r),
+                  () => Q(i, r),
                   (a + 1) * 100
                 );
               });
@@ -978,8 +978,8 @@ function wt() {
     console.log("📖 Reading Time Estimate: Found rich text element");
     const e = (o.textContent || o.innerText).trim().split(/\s+/).length, i = Math.ceil(e / 200), a = document.querySelector(".read-time-estimate");
     a && (a.textContent = `${i} min read`), o.querySelectorAll("iframe").forEach((l) => {
-      const d = l.getAttribute("src") || "";
-      (d.includes("youtube.com") || d.includes("youtu.be")) && l.classList.add("youtube-iframe");
+      const c = l.getAttribute("src") || "";
+      (c.includes("youtube.com") || c.includes("youtu.be")) && l.classList.add("youtube-iframe");
     });
   };
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", s) : s();
@@ -1001,17 +1001,17 @@ function vt() {
       if (a.length === 0)
         return;
       let r = null, l = !1;
-      function d() {
+      function c() {
         const w = document.createElement("ul");
-        a.forEach((x, g) => {
-          const k = document.createElement("li"), T = document.createElement("a"), R = x.textContent.trim();
+        a.forEach((x, b) => {
+          const k = document.createElement("li"), T = document.createElement("a"), P = x.textContent.trim();
           let L = x.getAttribute("id");
-          L || (L = R.toLowerCase().replace(/[^\w\s-]/g, "").replace(/\s+/g, "-").replace(/-+/g, "-").trim(), x.setAttribute("id", L)), T.href = `#${L}`, T.textContent = R, T.classList.add("toc-link"), T.dataset.tocId = e, g === 0 && (T.classList.add("active"), r = T), k.appendChild(T), w.appendChild(k);
+          L || (L = P.toLowerCase().replace(/[^\w\s-]/g, "").replace(/\s+/g, "-").replace(/-+/g, "-").trim(), x.setAttribute("id", L)), T.href = `#${L}`, T.textContent = P, T.classList.add("toc-link"), T.dataset.tocId = e, b === 0 && (T.classList.add("active"), r = T), k.appendChild(T), w.appendChild(k);
         }), t.innerHTML = "", t.appendChild(w);
       }
-      d();
+      c();
       const u = t.querySelectorAll(".toc-link");
-      function m(w) {
+      function p(w) {
         l || r === w || (l = !0, requestAnimationFrame(() => {
           r && r.classList.remove("active"), w && w.classList.add("active"), r = w, l = !1;
         }));
@@ -1019,36 +1019,36 @@ function vt() {
       u.forEach((w) => {
         w.addEventListener("click", function(x) {
           x.preventDefault();
-          const g = this.getAttribute("href").substring(1), k = document.getElementById(g);
+          const b = this.getAttribute("href").substring(1), k = document.getElementById(b);
           k && k.scrollIntoView({
             behavior: "smooth",
             block: "start"
           });
         });
       });
-      let y = !1;
+      let g = !1;
       function F() {
-        y || (y = !0, requestAnimationFrame(() => {
+        g || (g = !0, requestAnimationFrame(() => {
           const w = window.scrollY;
           let x = null;
-          for (let g = a.length - 1; g >= 0; g--) {
-            const k = a[g], T = k.offsetTop;
+          for (let b = a.length - 1; b >= 0; b--) {
+            const k = a[b], T = k.offsetTop;
             if (w >= T - 100) {
               x = k;
               break;
             }
           }
           if (!x && a.length > 0) {
-            const g = a[0];
-            w < g.offsetTop - 100 && (x = g);
+            const b = a[0];
+            w < b.offsetTop - 100 && (x = b);
           }
           if (x) {
-            const g = t.querySelector(
+            const b = t.querySelector(
               `.toc-link[href="#${x.getAttribute("id")}"]`
             );
-            m(g);
+            p(b);
           }
-          y = !1;
+          g = !1;
         }));
       }
       window.addEventListener("scroll", F, { passive: !0 });
@@ -1091,17 +1091,17 @@ function Ct(s, o, n) {
       `[data-tab-container="${r}"]`
     );
     if (!l) return;
-    const d = `${e}-tab-${a}`, u = `${e}-panel-${a}`;
-    i.getAttribute("role") || i.setAttribute("role", "tab"), i.getAttribute("id") || i.setAttribute("id", d), i.setAttribute("aria-controls", u);
-    const m = l.style.display !== "none";
-    i.setAttribute("tabindex", m ? "0" : "-1"), i.setAttribute("aria-selected", m ? "true" : "false"), i.classList.toggle("hero-tabs-item-active", m), l.setAttribute("role", "tabpanel"), l.setAttribute("id", u), l.setAttribute(
+    const c = `${e}-tab-${a}`, u = `${e}-panel-${a}`;
+    i.getAttribute("role") || i.setAttribute("role", "tab"), i.getAttribute("id") || i.setAttribute("id", c), i.setAttribute("aria-controls", u);
+    const p = l.style.display !== "none";
+    i.setAttribute("tabindex", p ? "0" : "-1"), i.setAttribute("aria-selected", p ? "true" : "false"), i.classList.toggle("hero-tabs-item-active", p), l.setAttribute("role", "tabpanel"), l.setAttribute("id", u), l.setAttribute(
       "aria-labelledby",
-      i.getAttribute("id") || d
-    ), l.setAttribute("tabindex", "0"), i.addEventListener("click", (y) => {
-      y.preventDefault(), J(i.getAttribute("data-tab-for"), s);
+      i.getAttribute("id") || c
+    ), l.setAttribute("tabindex", "0"), i.addEventListener("click", (g) => {
+      g.preventDefault(), J(i.getAttribute("data-tab-for"), s);
     }), i.addEventListener(
       "keydown",
-      (y) => At(y, s, o, a)
+      (g) => At(g, s, o, a)
     ), i.addEventListener("focus", () => {
       i.scrollIntoView({ behavior: "smooth", block: "nearest" });
     });
@@ -1163,7 +1163,7 @@ function Et(s) {
     o.parentNode && o.parentNode.removeChild(o);
   }, 1e3);
 }
-function H() {
+function V() {
   if (document.getElementById("hero-tabs-styles")) return;
   const s = document.createElement("style");
   s.id = "hero-tabs-styles", s.textContent = `
@@ -1202,7 +1202,7 @@ function H() {
     }
   `, document.head.appendChild(s);
 }
-document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", H) : H();
+document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", V) : V();
 function Tt() {
   console.log("🔍 Case Study Filter: Starting...");
   const s = ".case-study-cards-grid", o = ".case-study-card", n = "data-filter-control", e = "case-study-items", t = "posts-pagination", i = document.querySelector(s);
@@ -1213,9 +1213,9 @@ function Tt() {
     return;
   }
   const a = Array.from(i.querySelectorAll(o)).map(
-    (c) => {
-      const h = c.closest(".w-dyn-item");
-      return { card: c, parent: h };
+    (d) => {
+      const h = d.closest(".w-dyn-item");
+      return { card: d, parent: h };
     }
   );
   if (a.length === 0) {
@@ -1229,16 +1229,16 @@ function Tt() {
   r || console.warn(
     `⚠️ Case Study Filter: Scroll container with attribute "${e}" not found. Using default.`
   );
-  const l = r ? r.getAttribute(e) : null, d = l ? parseInt(l, 10) : 12;
-  console.log(`📄 Case Study Filter: Items per page: ${d}`);
-  let u = 1, m = i.parentElement?.querySelector(
+  const l = r ? r.getAttribute(e) : null, c = l ? parseInt(l, 10) : 12;
+  console.log(`📄 Case Study Filter: Items per page: ${c}`);
+  let u = 1, p = i.parentElement?.querySelector(
     `.${t}`
   );
-  m || (m = document.createElement("div"), m.className = `w-pagination-wrapper ${t}`, m.setAttribute("role", "navigation"), m.setAttribute("aria-label", "List"), i.parentElement?.insertBefore(
-    m,
+  p || (p = document.createElement("div"), p.className = `w-pagination-wrapper ${t}`, p.setAttribute("role", "navigation"), p.setAttribute("aria-label", "List"), i.parentElement?.insertBefore(
+    p,
     i.nextSibling
   ), console.log("📄 Case Study Filter: Created pagination container"));
-  const y = {}, F = Array.from(
+  const g = {}, F = Array.from(
     document.querySelectorAll(`[${n}]`)
   );
   if (F.length === 0) {
@@ -1249,122 +1249,122 @@ function Tt() {
   }
   console.log(
     `🎛️ Case Study Filter: Found ${F.length} filter control(s)`
-  ), F.forEach((c) => {
-    const h = c.getAttribute(n);
-    h && (y[h] = "");
-  }), F.forEach((c) => {
-    const h = c.getAttribute(n);
-    h && R(c, h);
+  ), F.forEach((d) => {
+    const h = d.getAttribute(n);
+    h && (g[h] = "");
+  }), F.forEach((d) => {
+    const h = d.getAttribute(n);
+    h && P(d, h);
   });
   const w = "case-study-initial-hide", x = document.createElement("style");
   x.id = w, x.textContent = `
-    .case-study-cards-grid .w-dyn-item:nth-child(n+${d + 1}) {
+    .case-study-cards-grid .w-dyn-item:nth-child(n+${c + 1}) {
       display: none !important;
     }
-  `, document.head.appendChild(x), console.log(`🎨 Applied initial CSS hide for items beyond ${d}`);
-  function g() {
-    const c = document.getElementById(w);
-    c && (c.remove(), console.log(
+  `, document.head.appendChild(x), console.log(`🎨 Applied initial CSS hide for items beyond ${c}`);
+  function b() {
+    const d = document.getElementById(w);
+    d && (d.remove(), console.log(
       "🗑️ Removed initial CSS hide rule, JS pagination taking over"
     ));
   }
   function k() {
-    g();
-    const c = document.createElement("style");
-    c.id = w, c.textContent = `
-      .case-study-cards-grid .w-dyn-item:nth-child(n+${d + 1}) {
+    b();
+    const d = document.createElement("style");
+    d.id = w, d.textContent = `
+      .case-study-cards-grid .w-dyn-item:nth-child(n+${c + 1}) {
         display: none !important;
       }
-    `, document.head.appendChild(c), console.log("🎨 Reapplied initial CSS hide rule");
+    `, document.head.appendChild(d), console.log("🎨 Reapplied initial CSS hide rule");
   }
   function T() {
-    return Object.values(y).every((c) => c === "");
+    return Object.values(g).every((d) => d === "");
   }
-  D(Math.ceil(a.length / d));
-  function R(c, h) {
+  D(Math.ceil(a.length / c));
+  function P(d, h) {
     const C = `data-filter-${h}`;
     console.log(`🔧 Setting up filter: ${h} (${C})`);
-    const b = /* @__PURE__ */ new Set();
-    a.forEach(({ card: p }) => {
+    const y = /* @__PURE__ */ new Set();
+    a.forEach(({ card: m }) => {
       if (h === "use-case") {
-        const f = p.querySelector('[fs-list-nest="use-cases"]');
+        const f = m.querySelector('[fs-list-nest="use-cases"]');
         f && f.querySelectorAll(
           '[role="listitem"].w-dyn-item'
-        ).forEach((I) => {
-          const A = I.textContent.trim();
-          A && b.add(A);
+        ).forEach((q) => {
+          const A = q.textContent.trim();
+          A && y.add(A);
         });
       } else {
-        const f = p.getAttribute(C);
-        f && f.trim() && b.add(f.trim());
+        const f = m.getAttribute(C);
+        f && f.trim() && y.add(f.trim());
       }
     });
-    const v = Array.from(b).sort(
-      (p, f) => p.localeCompare(f)
+    const v = Array.from(y).sort(
+      (m, f) => m.localeCompare(f)
     );
     console.log(`   Found ${v.length} unique values:`, v);
-    const S = Array.from(c.options);
-    for (let p = S.length - 1; p >= 0; p--)
-      p === 0 && (!S[p].value || S[p].value === "") || c.remove(p);
-    v.forEach((p) => {
+    const S = Array.from(d.options);
+    for (let m = S.length - 1; m >= 0; m--)
+      m === 0 && (!S[m].value || S[m].value === "") || d.remove(m);
+    v.forEach((m) => {
       const f = document.createElement("option");
-      f.value = p, f.textContent = p, c.appendChild(f);
-    }), c.addEventListener("change", function() {
-      y[h] = this.value, console.log(`🔄 Filter changed: ${h} = "${this.value}"`), this.value ? this.style.color = "var(--_colors---primary--dark-blue)" : this.style.color = "", u = 1, T() ? (console.log("🔄 All filters reset, reapplying CSS pagination"), k(), a.forEach(({ card: p, parent: f }) => {
-        const E = f || p;
+      f.value = m, f.textContent = m, d.appendChild(f);
+    }), d.addEventListener("change", function() {
+      g[h] = this.value, console.log(`🔄 Filter changed: ${h} = "${this.value}"`), this.value ? this.style.color = "var(--_colors---primary--dark-blue)" : this.style.color = "", u = 1, T() ? (console.log("🔄 All filters reset, reapplying CSS pagination"), k(), a.forEach(({ card: m, parent: f }) => {
+        const E = f || m;
         E.style.display = "";
-      }), D(Math.ceil(a.length / d))) : (g(), L());
+      }), D(Math.ceil(a.length / c))) : (b(), L());
     });
   }
   function L() {
-    console.log("🎯 Applying filters:", y);
-    const c = [];
-    a.forEach(({ card: E, parent: I }) => {
+    console.log("🎯 Applying filters:", g);
+    const d = [];
+    a.forEach(({ card: E, parent: q }) => {
       let A = !0;
-      for (const [N, q] of Object.entries(y)) {
-        if (!q) continue;
+      for (const [N, I] of Object.entries(g)) {
+        if (!I) continue;
         let B = !1;
         if (N === "use-case") {
-          const P = E.querySelector('[fs-list-nest="use-cases"]');
-          if (P) {
-            const j = P.querySelectorAll(
+          const R = E.querySelector('[fs-list-nest="use-cases"]');
+          if (R) {
+            const j = R.querySelectorAll(
               '[role="listitem"].w-dyn-item'
             );
             for (const K of j)
-              if (K.textContent.trim() === q) {
+              if (K.textContent.trim() === I) {
                 B = !0;
                 break;
               }
           }
         } else {
-          const P = `data-filter-${N}`;
-          B = E.getAttribute(P) === q;
+          const R = `data-filter-${N}`;
+          B = E.getAttribute(R) === I;
         }
         if (!B) {
           A = !1;
           break;
         }
       }
-      A && c.push({ card: E, parent: I });
+      A && d.push({ card: E, parent: q });
     });
-    const h = c.length, C = Math.ceil(h / d);
+    const h = d.length, C = Math.ceil(h / c);
     u > C && C > 0 && (u = C), u < 1 && (u = 1);
-    const b = (u - 1) * d, v = b + d;
+    const y = (u - 1) * c, v = y + c;
     console.log(
-      `📄 Pagination: Page ${u}/${C}, showing items ${b + 1}-${Math.min(v, h)} of ${h}`
+      `📄 Pagination: Page ${u}/${C}, showing items ${y + 1}-${Math.min(v, h)} of ${h}`
     );
-    let S = 0, p = 0;
-    a.forEach(({ card: E, parent: I }) => {
-      const A = c.findIndex((B) => B.card === E), N = A >= 0 && A >= b && A < v, q = I || E;
-      N ? (q.style.display = "", S++) : (q.style.display = "none", p++);
+    let S = 0, m = 0;
+    a.forEach(({ card: E, parent: q }) => {
+      const A = d.findIndex((B) => B.card === E), N = A >= 0 && A >= y && A < v, I = q || E;
+      N ? (I.style.display = "", S++) : (I.style.display = "none", m++);
     }), console.log(
-      `✅ Filter applied: ${S} visible, ${p} hidden`
+      `✅ Filter applied: ${S} visible, ${m} hidden`
     ), D(C);
     const f = new CustomEvent("caseStudyFiltersApplied", {
       detail: {
-        activeFilters: y,
+        activeFilters: g,
         visibleCount: S,
-        hiddenCount: p,
+        hiddenCount: m,
         totalCount: a.length,
         currentPage: u,
         totalPages: C,
@@ -1373,14 +1373,14 @@ function Tt() {
     });
     document.dispatchEvent(f);
   }
-  function D(c) {
-    if (c <= 1) {
-      m.style.display = "none";
+  function D(d) {
+    if (d <= 1) {
+      p.style.display = "none";
       return;
     }
-    m.style.display = "";
-    const h = u === 1, C = u === c;
-    let b = `
+    p.style.display = "";
+    const h = u === 1, C = u === d;
+    let y = `
       <a 
         aria-label="Pagination Left arrow" 
         href="#" 
@@ -1396,9 +1396,9 @@ function Tt() {
       </a>
       <div class="pagination-pages-list">
     `;
-    for (let v = 1; v <= c; v++) {
+    for (let v = 1; v <= d; v++) {
       const S = v === u;
-      b += `
+      y += `
         <a 
           href="#" 
           class="pagination-item pagination-page ${S ? "w--current" : ""}" 
@@ -1407,7 +1407,7 @@ function Tt() {
         >${v}</a>
       `;
     }
-    b += `
+    y += `
       </div>
       <a 
         aria-label="Pagination Right arrow" 
@@ -1422,55 +1422,55 @@ function Tt() {
           <path fill="none" stroke="currentColor" fill-rule="evenodd" d="M4 2l4 4-4 4"></path>
         </svg>
       </a>
-    `, m.innerHTML = b, X();
+    `, p.innerHTML = y, X();
   }
   function X() {
-    const c = m.querySelector(
+    const d = p.querySelector(
       "[data-pagination-prev]"
     );
-    c && c.addEventListener("click", (b) => {
-      b.preventDefault(), u > 1 && (g(), u--, L(), O());
+    d && d.addEventListener("click", (y) => {
+      y.preventDefault(), u > 1 && (b(), u--, L(), O());
     });
-    const h = m.querySelector(
+    const h = p.querySelector(
       "[data-pagination-next]"
     );
-    h && h.addEventListener("click", (b) => {
-      b.preventDefault(), g();
-      const v = a.filter(({ card: p }) => {
+    h && h.addEventListener("click", (y) => {
+      y.preventDefault(), b();
+      const v = a.filter(({ card: m }) => {
         for (const [f, E] of Object.entries(
-          y
+          g
         )) {
           if (!E) continue;
-          let I = !1;
+          let q = !1;
           if (f === "use-case") {
-            const A = p.querySelector(
+            const A = m.querySelector(
               '[fs-list-nest="use-cases"]'
             );
             if (A) {
               const N = A.querySelectorAll(
                 '[role="listitem"].w-dyn-item'
               );
-              for (const q of N)
-                if (q.textContent.trim() === E) {
-                  I = !0;
+              for (const I of N)
+                if (I.textContent.trim() === E) {
+                  q = !0;
                   break;
                 }
             }
           } else {
             const A = `data-filter-${f}`;
-            I = p.getAttribute(A) === E;
+            q = m.getAttribute(A) === E;
           }
-          if (!I) return !1;
+          if (!q) return !1;
         }
         return !0;
-      }).length, S = Math.ceil(v / d);
+      }).length, S = Math.ceil(v / c);
       u < S && (u++, L(), O());
-    }), m.querySelectorAll(
+    }), p.querySelectorAll(
       "[data-pagination-page]"
-    ).forEach((b) => {
-      b.addEventListener("click", (v) => {
-        v.preventDefault(), g();
-        const S = parseInt(b.getAttribute("data-pagination-page"), 10);
+    ).forEach((y) => {
+      y.addEventListener("click", (v) => {
+        v.preventDefault(), b();
+        const S = parseInt(y.getAttribute("data-pagination-page"), 10);
         S !== u && (u = S, L(), O());
       });
     });
@@ -1532,6 +1532,57 @@ function Lt() {
     }
   }), console.log("✅ Topics Navigation: Complete");
 }
+function qt() {
+  console.log("🔍 Search Popup: Initializing...");
+  const s = document.querySelector("footer .search");
+  if (!s) {
+    console.warn("⚠️ Search Popup: Footer search form not found");
+    return;
+  }
+  const o = document.createElement("div");
+  o.id = "search-popup-modal", o.className = "search-popup-modal", o.setAttribute("role", "dialog"), o.setAttribute("aria-modal", "true"), o.setAttribute("aria-label", "Search");
+  const n = document.createElement("button");
+  n.className = "search-popup-close", n.innerHTML = "×", n.setAttribute("aria-label", "Close search");
+  const e = document.createElement("div");
+  e.className = "search-popup-content";
+  const t = s.parentElement, i = s.nextSibling;
+  s.addEventListener("submit", (c) => {
+    c.preventDefault();
+    const u = s.querySelector('input[type="search"]'), p = u ? u.value.trim() : "";
+    if (p) {
+      const g = `https://www.crunchbase.com/textsearch?q=${encodeURIComponent(p)}`;
+      window.location.href = g;
+    }
+  }), o.appendChild(n), e.appendChild(s), o.appendChild(e), document.body.appendChild(o);
+  function a() {
+    o.style.display = "flex", document.body.style.overflow = "hidden", setTimeout(() => {
+      const c = o.querySelector('input[type="search"]');
+      c && c.focus();
+    }, 100), console.log("🔍 Search Popup: Opened");
+  }
+  function r() {
+    o.style.display = "none", document.body.style.overflow = "", i ? t.insertBefore(s, i) : t.appendChild(s), setTimeout(() => {
+      e.appendChild(s);
+    }, 50), console.log("🔍 Search Popup: Closed");
+  }
+  n.addEventListener("click", r), o.addEventListener("click", (c) => {
+    c.target === o && r();
+  }), document.addEventListener("keydown", (c) => {
+    c.key === "Escape" && o.style.display === "flex" && r();
+  });
+  const l = document.querySelectorAll(
+    ".navigation-cta .icon-search"
+  );
+  l.length === 0 ? console.warn(
+    "⚠️ Search Popup: No search triggers found (.navigation-cta .icon-search)"
+  ) : console.log(
+    `🔍 Search Popup: Found ${l.length} search trigger(s)`
+  ), l.forEach((c) => {
+    c.style.cursor = "pointer", c.addEventListener("click", (u) => {
+      u.preventDefault(), a();
+    });
+  }), console.log("✅ Search Popup: Complete");
+}
 const G = {
   demo: Y,
   logoSlider: Z,
@@ -1547,7 +1598,8 @@ const G = {
   heroTabs: xt,
   caseStudyFilter: Tt,
   postCardAttribution: kt,
-  topicsNavigation: Lt
+  topicsNavigation: Lt,
+  searchPopup: qt
   // Add more features here as you create them
   // myFeature: initMyFeature,
 };
@@ -1598,7 +1650,9 @@ function _() {
     // Case study filtering system
     "postCardAttribution",
     // Post card author metadata visibility
-    "topicsNavigation"
+    "topicsNavigation",
     // Topics navigation dropdown from collection lists
+    "searchPopup"
+    // Full-screen search popup modal
   ]);
 }

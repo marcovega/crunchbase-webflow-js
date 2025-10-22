@@ -20,6 +20,7 @@ import initHeroTabs from "./hero-tabs.js";
 import initCaseStudyFilter from "./case-study-filter.js";
 import initPostCardAttribution from "./post-card-attribution.js";
 import initTopicsNavigation from "./topics-navigation.js";
+import initSearchPopup from "./search-popup.js";
 
 // Export all features
 export {
@@ -38,6 +39,7 @@ export {
   initCaseStudyFilter,
   initPostCardAttribution,
   initTopicsNavigation,
+  initSearchPopup,
 };
 
 // Feature registry for easy enable/disable
@@ -57,6 +59,7 @@ export const features = {
   caseStudyFilter: initCaseStudyFilter,
   postCardAttribution: initPostCardAttribution,
   topicsNavigation: initTopicsNavigation,
+  searchPopup: initSearchPopup,
   // Add more features here as you create them
   // myFeature: initMyFeature,
 };
