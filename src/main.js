@@ -36,6 +36,7 @@ function runCrunchbaseCode() {
 
   // Initialize features (you can control which ones to load)
   initFeatures([
+    "navHeight", // Navbar height CSS variable
     "logoSlider",
     "quotesSlider",
     "starRating",

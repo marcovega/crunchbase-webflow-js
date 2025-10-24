@@ -21,6 +21,7 @@ import initCaseStudyFilter from "./case-study-filter.js";
 import initPostCardAttribution from "./post-card-attribution.js";
 import initTopicsNavigation from "./topics-navigation.js";
 import initSearchPopup from "./search-popup.js";
+import initNavHeight from "./nav-height.js";
 
 // Export all features
 export {
@@ -40,6 +41,7 @@ export {
   initPostCardAttribution,
   initTopicsNavigation,
   initSearchPopup,
+  initNavHeight,
 };
 
 // Feature registry for easy enable/disable
@@ -60,6 +62,7 @@ export const features = {
   postCardAttribution: initPostCardAttribution,
   topicsNavigation: initTopicsNavigation,
   searchPopup: initSearchPopup,
+  navHeight: initNavHeight,
   // Add more features here as you create them
   // myFeature: initMyFeature,
 };

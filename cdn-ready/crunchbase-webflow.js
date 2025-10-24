@@ -620,11 +620,11 @@ function ct(s, o, n, e) {
   if (!t) return;
   t.addEventListener("click", () => {
     t.getAttribute("aria-expanded") === "true" || (dt(s, n), setTimeout(() => {
-      W(o, e), U(o, n);
+      _(o, e), W(o, n);
     }, 100));
   }), new MutationObserver((a) => {
     a.forEach((r) => {
-      r.attributeName === "aria-expanded" && t.getAttribute("aria-expanded") === "true" && (W(o, e), U(o, n));
+      r.attributeName === "aria-expanded" && t.getAttribute("aria-expanded") === "true" && (_(o, e), W(o, n));
     });
   }).observe(t, {
     attributes: !0,
@@ -645,7 +645,7 @@ function dt(s, o) {
     }
   });
 }
-function W(s, o) {
+function _(s, o) {
   const n = o.querySelector(".tabbed-card-main-image");
   if (!n) return;
   const t = o.closest(".tabbed-cards").querySelectorAll(".tabbed-card.w-dropdown")[s];
@@ -655,7 +655,7 @@ function W(s, o) {
     n.style.opacity = "1";
   });
 }
-function U(s, o) {
+function W(s, o) {
   o.querySelectorAll(
     ".tabbed-card-mobile-image"
   ).forEach((t) => {
@@ -713,7 +713,7 @@ function ht(s, o) {
         const i = n.querySelector(".w-dropdown"), a = n.querySelector(".w-dropdown-list"), r = n.querySelector(".w-dropdown-toggle");
         i?.classList.add("w--open"), a?.classList.add("w--open"), r?.classList.add("w--open");
       }
-    }, 100)), W(0, o), U(0, n.closest(".tabbed-cards"));
+    }, 100)), _(0, o), W(0, n.closest(".tabbed-cards"));
   }, 200));
 }
 const M = {
@@ -764,13 +764,13 @@ function ft(s) {
     console.error("❌ Error applying layout:", o);
   }
 }
-let H = 0;
-function Q(s, o) {
+let j = 0;
+function U(s, o) {
   try {
     if (s.hasAttribute("data-marketo-initialized"))
       return;
-    H++;
-    const n = `mktoForm_${o}_${H}`;
+    j++;
+    const n = `mktoForm_${o}_${j}`;
     s.innerHTML = "";
     const e = document.createElement("form");
     e.id = n, s.appendChild(e), s.setAttribute("data-marketo-initialized", "true"), s.setAttribute("data-marketo-unique-id", n), window.MktoForms2.loadForm(
@@ -801,7 +801,7 @@ function gt() {
       return;
     }
     setTimeout(() => {
-      Q(o, e);
+      U(o, e);
     }, n * 100);
   }));
 }
@@ -814,12 +814,12 @@ function bt() {
             if (e.nodeType === 1) {
               if (e.hasAttribute && e.hasAttribute("data-marketo-id")) {
                 const i = e.getAttribute("data-marketo-id");
-                setTimeout(() => Q(e, i), 100);
+                setTimeout(() => U(e, i), 100);
               }
               (e.querySelectorAll ? e.querySelectorAll("[data-marketo-id]") : []).forEach((i, a) => {
                 const r = i.getAttribute("data-marketo-id");
                 r && setTimeout(
-                  () => Q(i, r),
+                  () => U(i, r),
                   (a + 1) * 100
                 );
               });
@@ -970,7 +970,7 @@ function yt() {
     }
   }), window.relatedArticlesSliders = n, n;
 }
-function wt() {
+function vt() {
   const s = () => {
     const o = document.querySelector(".blog-content-richtext");
     if (!o)
@@ -984,7 +984,7 @@ function wt() {
   };
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", s) : s();
 }
-function vt() {
+function wt() {
   const s = () => {
     const o = document.querySelectorAll("[data-toc-content]");
     o.length !== 0 && (console.log(
@@ -1002,22 +1002,22 @@ function vt() {
         return;
       let r = null, l = !1;
       function c() {
-        const w = document.createElement("ul");
+        const v = document.createElement("ul");
         a.forEach((x, b) => {
           const k = document.createElement("li"), T = document.createElement("a"), P = x.textContent.trim();
           let L = x.getAttribute("id");
-          L || (L = P.toLowerCase().replace(/[^\w\s-]/g, "").replace(/\s+/g, "-").replace(/-+/g, "-").trim(), x.setAttribute("id", L)), T.href = `#${L}`, T.textContent = P, T.classList.add("toc-link"), T.dataset.tocId = e, b === 0 && (T.classList.add("active"), r = T), k.appendChild(T), w.appendChild(k);
-        }), t.innerHTML = "", t.appendChild(w);
+          L || (L = P.toLowerCase().replace(/[^\w\s-]/g, "").replace(/\s+/g, "-").replace(/-+/g, "-").trim(), x.setAttribute("id", L)), T.href = `#${L}`, T.textContent = P, T.classList.add("toc-link"), T.dataset.tocId = e, b === 0 && (T.classList.add("active"), r = T), k.appendChild(T), v.appendChild(k);
+        }), t.innerHTML = "", t.appendChild(v);
       }
       c();
       const u = t.querySelectorAll(".toc-link");
-      function p(w) {
-        l || r === w || (l = !0, requestAnimationFrame(() => {
-          r && r.classList.remove("active"), w && w.classList.add("active"), r = w, l = !1;
+      function p(v) {
+        l || r === v || (l = !0, requestAnimationFrame(() => {
+          r && r.classList.remove("active"), v && v.classList.add("active"), r = v, l = !1;
         }));
       }
-      u.forEach((w) => {
-        w.addEventListener("click", function(x) {
+      u.forEach((v) => {
+        v.addEventListener("click", function(x) {
           x.preventDefault();
           const b = this.getAttribute("href").substring(1), k = document.getElementById(b);
           k && k.scrollIntoView({
@@ -1029,18 +1029,18 @@ function vt() {
       let g = !1;
       function F() {
         g || (g = !0, requestAnimationFrame(() => {
-          const w = window.scrollY;
+          const v = window.scrollY;
           let x = null;
           for (let b = a.length - 1; b >= 0; b--) {
             const k = a[b], T = k.offsetTop;
-            if (w >= T - 100) {
+            if (v >= T - 100) {
               x = k;
               break;
             }
           }
           if (!x && a.length > 0) {
             const b = a[0];
-            w < b.offsetTop - 100 && (x = b);
+            v < b.offsetTop - 100 && (x = b);
           }
           if (x) {
             const b = t.querySelector(
@@ -1256,14 +1256,14 @@ function Tt() {
     const h = d.getAttribute(n);
     h && P(d, h);
   });
-  const w = "case-study-initial-hide", x = document.createElement("style");
-  x.id = w, x.textContent = `
+  const v = "case-study-initial-hide", x = document.createElement("style");
+  x.id = v, x.textContent = `
     .case-study-cards-grid .w-dyn-item:nth-child(n+${c + 1}) {
       display: none !important;
     }
   `, document.head.appendChild(x), console.log(`🎨 Applied initial CSS hide for items beyond ${c}`);
   function b() {
-    const d = document.getElementById(w);
+    const d = document.getElementById(v);
     d && (d.remove(), console.log(
       "🗑️ Removed initial CSS hide rule, JS pagination taking over"
     ));
@@ -1271,7 +1271,7 @@ function Tt() {
   function k() {
     b();
     const d = document.createElement("style");
-    d.id = w, d.textContent = `
+    d.id = v, d.textContent = `
       .case-study-cards-grid .w-dyn-item:nth-child(n+${c + 1}) {
         display: none !important;
       }
@@ -1299,14 +1299,14 @@ function Tt() {
         f && f.trim() && y.add(f.trim());
       }
     });
-    const v = Array.from(y).sort(
+    const w = Array.from(y).sort(
       (m, f) => m.localeCompare(f)
     );
-    console.log(`   Found ${v.length} unique values:`, v);
+    console.log(`   Found ${w.length} unique values:`, w);
     const S = Array.from(d.options);
     for (let m = S.length - 1; m >= 0; m--)
       m === 0 && (!S[m].value || S[m].value === "") || d.remove(m);
-    v.forEach((m) => {
+    w.forEach((m) => {
       const f = document.createElement("option");
       f.value = m, f.textContent = m, d.appendChild(f);
     }), d.addEventListener("change", function() {
@@ -1327,10 +1327,10 @@ function Tt() {
         if (N === "use-case") {
           const R = E.querySelector('[fs-list-nest="use-cases"]');
           if (R) {
-            const j = R.querySelectorAll(
+            const Q = R.querySelectorAll(
               '[role="listitem"].w-dyn-item'
             );
-            for (const K of j)
+            for (const K of Q)
               if (K.textContent.trim() === I) {
                 B = !0;
                 break;
@@ -1349,13 +1349,13 @@ function Tt() {
     });
     const h = d.length, C = Math.ceil(h / c);
     u > C && C > 0 && (u = C), u < 1 && (u = 1);
-    const y = (u - 1) * c, v = y + c;
+    const y = (u - 1) * c, w = y + c;
     console.log(
-      `📄 Pagination: Page ${u}/${C}, showing items ${y + 1}-${Math.min(v, h)} of ${h}`
+      `📄 Pagination: Page ${u}/${C}, showing items ${y + 1}-${Math.min(w, h)} of ${h}`
     );
     let S = 0, m = 0;
     a.forEach(({ card: E, parent: q }) => {
-      const A = d.findIndex((B) => B.card === E), N = A >= 0 && A >= y && A < v, I = q || E;
+      const A = d.findIndex((B) => B.card === E), N = A >= 0 && A >= y && A < w, I = q || E;
       N ? (I.style.display = "", S++) : (I.style.display = "none", m++);
     }), console.log(
       `✅ Filter applied: ${S} visible, ${m} hidden`
@@ -1396,15 +1396,15 @@ function Tt() {
       </a>
       <div class="pagination-pages-list">
     `;
-    for (let v = 1; v <= d; v++) {
-      const S = v === u;
+    for (let w = 1; w <= d; w++) {
+      const S = w === u;
       y += `
         <a 
           href="#" 
           class="pagination-item pagination-page ${S ? "w--current" : ""}" 
           ${S ? 'aria-current="page"' : ""}
-          data-pagination-page="${v}"
-        >${v}</a>
+          data-pagination-page="${w}"
+        >${w}</a>
       `;
     }
     y += `
@@ -1436,7 +1436,7 @@ function Tt() {
     );
     h && h.addEventListener("click", (y) => {
       y.preventDefault(), b();
-      const v = a.filter(({ card: m }) => {
+      const w = a.filter(({ card: m }) => {
         for (const [f, E] of Object.entries(
           g
         )) {
@@ -1463,13 +1463,13 @@ function Tt() {
           if (!q) return !1;
         }
         return !0;
-      }).length, S = Math.ceil(v / c);
+      }).length, S = Math.ceil(w / c);
       u < S && (u++, L(), O());
     }), p.querySelectorAll(
       "[data-pagination-page]"
     ).forEach((y) => {
-      y.addEventListener("click", (v) => {
-        v.preventDefault(), b();
+      y.addEventListener("click", (w) => {
+        w.preventDefault(), b();
         const S = parseInt(y.getAttribute("data-pagination-page"), 10);
         S !== u && (u = S, L(), O());
       });
@@ -1583,6 +1583,19 @@ function qt() {
     });
   }), console.log("✅ Search Popup: Complete");
 }
+function It() {
+  console.log("🚀 Nav Height: Starting...");
+  const s = document.querySelector(".navbar.w-nav");
+  if (!s) {
+    console.warn("⚠️ Nav Height: .navbar.w-nav not found");
+    return;
+  }
+  function o() {
+    const n = s.clientHeight;
+    document.body.style.setProperty("--nav-height", `${n}px`);
+  }
+  o(), window.addEventListener("resize", o), console.log("✅ Nav Height: Complete");
+}
 const G = {
   demo: Y,
   logoSlider: Z,
@@ -1593,17 +1606,18 @@ const G = {
   tabbedCards: st,
   marketoForms: bt,
   relatedArticlesSlider: yt,
-  readingTimeEstimate: wt,
-  tableOfContents: vt,
+  readingTimeEstimate: vt,
+  tableOfContents: wt,
   heroTabs: xt,
   caseStudyFilter: Tt,
   postCardAttribution: kt,
   topicsNavigation: Lt,
-  searchPopup: qt
+  searchPopup: qt,
+  navHeight: It
   // Add more features here as you create them
   // myFeature: initMyFeature,
 };
-function It(s = ["demo"]) {
+function Ft(s = ["demo"]) {
   s.forEach((o) => {
     if (G[o])
       try {
@@ -1617,17 +1631,19 @@ function It(s = ["demo"]) {
 }
 if (typeof window < "u" && !window.__CRUNCHBASE_SHOULD_RUN_PROD__) {
   const s = setInterval(() => {
-    window.__CRUNCHBASE_SHOULD_RUN_PROD__ && (clearInterval(s), _());
+    window.__CRUNCHBASE_SHOULD_RUN_PROD__ && (clearInterval(s), H());
   }, 50);
   setTimeout(() => {
     clearInterval(s), window.__CRUNCHBASE_SHOULD_RUN_PROD__ || (console.log(
       "⏰ Timeout waiting for wrapper, running production code anyway..."
-    ), _());
+    ), H());
   }, 5e3);
 } else
-  _();
-function _() {
-  console.log("🚀 Crunchbase Webflow script loaded"), It([
+  H();
+function H() {
+  console.log("🚀 Crunchbase Webflow script loaded"), Ft([
+    "navHeight",
+    // Navbar height CSS variable
     "logoSlider",
     "quotesSlider",
     "starRating",
